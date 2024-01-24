@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CekKesehatanController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +23,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(IndexController::class)->group(function() {
     Route::get('/', 'indexView');
+});
+
+Route::controller(CekKesehatanController::class)->group(function() {
+    Route::get('/cekKesehatan', 'indexView')->name('cekKesehatanView');
+});
+
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/login', 'loginView')->name('loginView');
+    Route::get('/register', 'registerView')->name('registerView');
 });

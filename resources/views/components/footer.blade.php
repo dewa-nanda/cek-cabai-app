@@ -1,3 +1,5 @@
-<footer class="bg-gray-500 p-2 text-center drop-shadow">
-    <p><span>&#169;</span>Copyright, Dewa Putra Hernanda 2024</p>
+<footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-center">
+      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://www.instagram.com/dewa_ndn/" target="_blank" class="hover:underline">Dewa Putra Hernanda</a>. All Rights Reserved.    
+    </div>
 </footer>

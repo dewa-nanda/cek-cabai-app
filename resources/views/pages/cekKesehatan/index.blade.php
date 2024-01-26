@@ -1,60 +1,55 @@
 @extends('components.index')
 
 @section('content')
-    <div class="container mx-auto h-screen my-10 grid grid-cols-2 content-center items-center">
-        <section>
-            <h1 class="text-6xl font-bold text-center">Cek Kesehatan Tanaman Cabai</h1>
-        </section>
-        
-        <section class="flex flex-col w-full h-full gap-4 border border-4 p-3" >
-            <div>
-                <h2 class="text-xl font-bold border-b-2">List Gejala Pada Tanaman Cabai</h2>
-                <p class="text-base">Harap checklist gejala yang nampak pada tanaman cabai anda!</p>
+    <section class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <div class="py-8 px-4 mx-auto min-h-screen max-w-screen-xl lg:py-16 grid lg:grid-cols-2 lg:content-center gap-8 lg:gap-16">
+            <div class="flex flex-row items-center gap-2">
+                <div>
+                    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">CekCabai App</h1>
+                    <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Aplikasi untuk membantu petani cabai dalam mengidentifikasi penyakit yang menyerang tanaman cabai.</p>
+                </div>
             </div>
-
             <div>
-                <form class="flex flex-col gap-3">
-                    <div class="grid grid-cols-3 grid-flow-row justify-items-center gap-3">
-                        <div>
-                            <input type="checkbox" id="gejala1" name="gejala1" value="gejala1">
-                                <label for="gejala1"> Gejala 1</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala2" name="gejala2" value="gejala2">
-                                <label for="gejala2"> Gejala 2</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala3" name="gejala3" value="gejala3">
-                                <label for="gejala3"> Gejala 3</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala4" name="gejala4" value="gejala4">
-                                <label for="gejala4"> Gejala 4</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala5" name="gejala5" value="gejala5">
-                                <label for="gejala5"> Gejala 5</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala6" name="gejala6" value="gejala6">
-                                <label for="gejala6"> Gejala 6</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala6" name="gejala6" value="gejala6">
-                                <label for="gejala6"> Gejala 6</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala6" name="gejala6" value="gejala6">
-                                <label for="gejala6"> Gejala 6</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="gejala6" name="gejala6" value="gejala6">
-                                <label for="gejala6"> Gejala 6</label>
-                        </div>
+                <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
+                    <div class="flex flex-col items-center border-b-4 pb-2">
+                        <img src="{{asset('storage/image/main/LOGO.png')}}" class="h-auto max-w-xs" alt="Flowbite Logo" />
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            Diagnosis Penyakit Cabai
+                        </h2>
                     </div>
-                    <input class="border p-1.5 rounded-full bg-slate-600 hover:bg-slate-800 text-neutral-50 h-max" type="submit" value="Submit">
-                </form>
+
+                    <form class="mt-8 space-y-6" action="#">
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="flex items-center">
+                                <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gejala A</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gejala A</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gejala A</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gejala A</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gejala A</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="checkbox-2" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gejala A</label>
+                            </div>
+                        </div>                        
+                        
+                        <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    </form>
+                </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 @endsection

@@ -6,7 +6,7 @@
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Selamat Datang di Cek Cabai App</h1>
             <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Aplikasi Cek Cabai adalah aplikasi yang dapat digunakan untuk mendeteksi penyakit tanaman cabai berdasarkan gejala-gejala yang dialami cabai tersebut. Aplikasi ini dikembangkan oleh mahasiswa Universitas Ahmad Dahlan jurusan Informatika.</p>
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-                <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                <a href="{{route("cekKesehatanView")}}" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                     Coba aplikasi
                     <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -32,7 +32,7 @@
                 </a>
                 <h1 class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">Cek Kesehatan Tanaman Cabai</h1>
                 <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">Fitur identifikasi penyakit dan hama memungkinkan petani untuk mengetahui jenis penyakit atau hama yang menyerang tanaman cabai mereka. Petani dapat memberikan gejala gejala pada tanaman cabai mereka ke situs web, dan aplikasi akan menggunakan kecerdasan buatan untuk mengidentifikasi penyakit atau hama tersebut.</p>
-                <a href="#" class="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                <a href="{{route("cekKesehatanView")}}" class="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                     Cek kesehatan
                     <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>

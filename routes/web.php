@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(IndexController::class)->group(function() {
     Route::get('/', 'indexView');
+    Route::get('/Penyakit-hama-tanaman-cabai', 'penyakitTanamanCabaiView')->name('penyakitTanamanCabaiView');
 });
 
 Route::controller(CekKesehatanController::class)->group(function() {

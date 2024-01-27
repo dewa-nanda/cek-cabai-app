@@ -11,4 +11,9 @@ class IndexController extends Controller
     {
         return view('pages.index');
     }
+
+    public function penyakitTanamanCabaiView()
+    {
+        return view('pages.detail.penyakit');
+    }
 }

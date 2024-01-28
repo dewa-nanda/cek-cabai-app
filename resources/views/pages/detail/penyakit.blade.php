@@ -16,6 +16,8 @@
             <x-card title="Penyakit A" desc="lorem ipsum sol dul amet"/>
             <x-card/>
             <x-card desc="Use justify-evenly to justify items along the container’s main axis such that there is an equal amount of space around each item, but also accounting for the doubling of space you would normally see between each item when using justify-around:"/>
+            <x-card desc="Use justify-evenly to justify items along the container’s main axis such that there is an equal amount of space around each item, but also accounting for the doubling of space you would normally see between each item when using justify-around:"/>
+            <x-card desc="Use justify-evenly to justify items along the container’s main axis such that there is an equal amount of space around each item, but also accounting for the doubling of space you would normally see between each item when using justify-around:"/>
         </div>
         
     </div>

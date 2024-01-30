@@ -14,4 +14,8 @@ class AuthController extends Controller
     public function registerView() {
         return view('pages.auth.register');
     }
+
+    public function forgotPassView() {
+        return view('pages.auth.forgotPassword');
+    }
 }

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(IndexController::class)->group(function() {
     Route::get('/', 'indexView');
     Route::get('/Penyakit-hama-tanaman-cabai', 'penyakitTanamanCabaiView')->name('penyakitTanamanCabaiView');
+    Route::get('/gejala-tanaman-cabai', 'gejalaTanamanCabaiView')->name('gejalaTanamanCabaiView');
 });
 
 Route::controller(CekKesehatanController::class)->group(function() {
@@ -33,4 +34,5 @@ Route::controller(CekKesehatanController::class)->group(function() {
 Route::controller(AuthController::class)->group(function() {
     Route::get('/login', 'loginView')->name('loginView');
     Route::get('/register', 'registerView')->name('registerView');
+    Route::get('/forgotPassword', 'forgotPassView')->name('forgotPassView');
 });

@@ -14,6 +14,11 @@ class IndexController extends Controller
 
     public function penyakitTanamanCabaiView()
     {
-        return view('pages.detail.penyakit');
+        return view('pages.list.penyakit');
+    }
+
+    public function gejalaTanamanCabaiView()
+    {
+        return view('pages.list.tanaman');
     }
 }

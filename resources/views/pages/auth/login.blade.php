@@ -4,6 +4,14 @@
 <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            @if (session('notAllowed'))
+                <div class="alert alert-success">
+                    <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                        <span class="font-medium">Danger alert!</span>{{ session('notAllowed') }}
+                    </div>
+                    
+                </div>
+            @endif
             
             @if ($errors->has('email'))
                 @error('email'){{$message}}@enderror

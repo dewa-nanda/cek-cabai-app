@@ -33,9 +33,10 @@ Route::controller(CekKesehatanController::class)->group(function() {
 });
 
 Route::controller(AuthController::class)->group(function() {
-    Route::get('/login', 'loginView')->name('login');
+    Route::get('/login', 'loginView')->name('loginView');
     Route::post('/loginAction', 'loginAction')->name('loginAction');
-    
+    Route::post('/logoutAction', 'logoutAction')->name('logoutAction');
+
     Route::get('/register', 'registerView')->name('registerView');
     Route::get('/forgotPassword', 'forgotPassView')->name('forgotPassView');
     
@@ -43,7 +44,10 @@ Route::controller(AuthController::class)->group(function() {
 });
 
 Route::middleware('auth')->group(function(){
-    Route::controller(PatientController::class)->group(function() {
-        Route::get('/history', 'historyScanView')->name('historyScanView');
+    Route::middleware('type:admin')->group(function() {
+        Route::controller(PatientController::class)->group(function() {
+            Route::get('/history', 'historyScanView')->name('historyScanView');
+        });
     });
+
 });

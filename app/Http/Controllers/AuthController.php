@@ -30,6 +30,16 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
+    public function logoutAction(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
     public function registerView() {
         return view('pages.auth.register');
     }

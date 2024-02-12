@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', Controller() {
-//     return view('welcome');
-// });
-
 Route::controller(IndexController::class)->group(function() {
     Route::get('/', 'indexView')->name('dashboard');
     Route::get('/Penyakit-hama-tanaman-cabai', 'penyakitTanamanCabaiView')->name('penyakitTanamanCabaiView');
@@ -40,14 +36,40 @@ Route::controller(AuthController::class)->group(function() {
     Route::get('/register', 'registerView')->name('registerView');
     Route::get('/forgotPassword', 'forgotPassView')->name('forgotPassView');
     
-    Route::get('/profile', 'profileView')->name('profileView')->middleware('auth.basic');
 });
 
 Route::middleware('auth')->group(function(){
-    Route::middleware('type:admin')->group(function() {
-        Route::controller(PatientController::class)->group(function() {
-            Route::get('/history', 'historyScanView')->name('historyScanView');
+    // profile user
+    Route::controller(AuthController::class)->group(function() {
+        Route::get('/profile', 'profileView')->name('profileView');
+    });
+
+    // history scan user
+    Route::controller(PatientController::class)->group(function() {
+        Route::get('/history', 'historyScanView')->name('historyScanView');
+        // Routing detail history (buat page baru)
+    });    
+    
+    // method for pasien
+    Route::middleware('type:pasien')->group(function() {
+        Route::prefix('pasien')->controller(PatientController::class)->group(function() {});
+    });
+
+    // method for pakar
+    Route::middleware('type:pakar')->group(function() {
+        Route::prefix('pakar')->controller(PatientController::class)->group(function() {
+            // Dashboard pakar
+            // CRUD Penyakit
+            // CRUD Gejala
+            // RU Kasus
         });
     });
 
+    // method for admin
+    Route::middleware('type:admin')->group(function() {
+        Route::prefix('admin')->controller(PatientController::class)->group(function() {
+            // Dashboard admin
+            // CRUD User
+        });
+    });
 });

@@ -22,9 +22,9 @@ class EnsureType
 
         if(Auth::user())
         {
-            return redirect(route('dashboard'))->with('success', "You don't have permission to access this page.");
+            return redirect(route('dashboard'))->with('notAllowed', "You don't have permission to access the page.");
         }
 
-        return redirect(route('loginView'))->with('success', "You don't have permission to access this page.");
+        return redirect(route('loginView'))->with('notAllowed', "You don't have permission to access the page.");
     }
 }

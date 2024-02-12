@@ -10,6 +10,10 @@ class AuthController extends Controller
 {
     //
     public function loginView() {
+        if(Auth::check()){
+            return redirect()->route('dashboard');
+        }
+
         return view('pages.auth.login');
     }
 
@@ -41,10 +45,18 @@ class AuthController extends Controller
     }
 
     public function registerView() {
+        if(Auth::check()){
+            return redirect()->route('dashboard');
+        }
+
         return view('pages.auth.register');
     }
 
     public function forgotPassView() {
+        if(Auth::check()){
+            return redirect()->route('dashboard');
+        }
+        
         return view('pages.auth.forgotPassword');
     }
 

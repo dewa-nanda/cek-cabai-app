@@ -16,19 +16,19 @@ class UserSeeder extends Seeder
     {
         //
         DB::table('users')->insert([
-            ['username' => Str::random(10),
+            ['username' => 'Navaya Helena',
             'email' => 'pasien@example.com',
             'password' => Hash::make('123'),
             'noHp' => '0813231231232',
             'type' => 'pasien'] ,
 
-            ['username' => Str::random(10),
+            ['username' => 'Dr. Naya',
             'email' => 'pakar@example.com',
             'password' => Hash::make('123'),
             'noHp' => '0813231231233',
             'type' => 'pakar'] ,
 
-            ['username' => Str::random(10),
+            ['username' => 'Admin Lena',
             'email' => 'admin@example.com',
             'password' => Hash::make('123'),
             'noHp' => '0813231231231',

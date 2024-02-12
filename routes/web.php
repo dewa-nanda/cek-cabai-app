@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CekKesehatanController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PakarController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,11 +58,13 @@ Route::middleware('auth')->group(function(){
 
     // method for pakar
     Route::middleware('type:pakar')->group(function() {
-        Route::prefix('pakar')->controller(PatientController::class)->group(function() {
+        Route::prefix('pakar')->controller(PakarController::class)->group(function() {
             // Dashboard pakar
+            Route::get('/', 'dashboardPakar')->name('dashboardPakar');
             // CRUD Penyakit
             // CRUD Gejala
             // RU Kasus
+            Route::get('/kasus', 'kasusView')->name('kasusView');
         });
     });
 

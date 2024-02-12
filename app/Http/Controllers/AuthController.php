@@ -8,10 +8,19 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    //
     public function loginView() {
         if(Auth::check()){
-            return redirect()->route('dashboard');
+            switch(Auth::user()->type){
+                case 'pasien':
+                    return redirect()->intended(route('dashboard'));
+                    break;
+                case 'pakar':
+                    return redirect()->intended(route('dashboardPakar'));
+                    break;
+                case 'admin':
+                    return redirect()->intended(route('dashboardAdmin'));
+                    break;
+            }
         }
 
         return view('pages.auth.login');
@@ -26,7 +35,20 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->intended(route('dashboard'));
+            $type = User::where('email', $request->email)->first()->type;
+
+
+            switch($type){
+                case 'pasien':
+                    return redirect()->intended(route('dashboard'));
+                    break;
+                case 'pakar':
+                    return redirect()->intended(route('dashboardPakar'));
+                    break;
+                case 'admin':
+                    return redirect()->intended(route('dashboardAdmin'));
+                    break;
+            }
         }
 
         return back()->withErrors([

@@ -9,7 +9,7 @@
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Kasus Tanaman Cabai</h1>
             <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Berikut merupakan list dari kasus-kasus tanaman cabai yang perlu dilakukan revisi, karena memiliki hasil persentase yang kurang dari batas yang sudah ditentukan oleh sistem</p>
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-                <a href="{{route("cekKesehatanView")}}" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                <a href="#list" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                     Lihat Kasus
                     <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -22,7 +22,7 @@
         </div>
     </section>
     
-    <div class="flex justify-center my-5">
+    <div class="flex justify-center my-5" id="list">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg basis-3/4">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -57,7 +57,7 @@
                             <td class="px-6 py-4">
                                 06/10/2016
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 flex flex-wrap gap-2">
                                 <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">Gejala A</a>
                                 <a href="#" class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-red-700 dark:text-red-400 border border-red-400 inline-flex items-center justify-center">Gejala B</a>
                             </td>
@@ -68,7 +68,7 @@
                                 45 %
                             </td>
                             <td class="px-6 py-4 text-left">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a href="{{route('detailKasusView', 1)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                         </tr>
                     </tbody>

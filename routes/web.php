@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function(){
             // CRUD Gejala
             // RU Kasus
             Route::get('/kasus', 'kasusView')->name('kasusView');
+            Route::get('/kasus/{id}', 'detailKasusView')->name('detailKasusView');
         });
     });
 

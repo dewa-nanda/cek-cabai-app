@@ -16,7 +16,14 @@ class PakarController extends Controller
     }
 
     public function detailKasusView($id) {
-        // dd($id);
         return view('pages.pakar.kasus.detail');
+    }
+
+    public function allKasusView() {
+        return view('pages.pakar.kasus.allKasus');
+    }
+
+    public function penyakitView() {
+        return view('pages.pakar.penyakit.index');
     }
 }

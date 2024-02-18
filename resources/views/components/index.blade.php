@@ -6,6 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        <link rel="icon" type="image/x-icon" href="{{asset('storage/image/main/LOGO.png')}}">
         
         <script src="https://kit.fontawesome.com/64bcad5a74.js" crossorigin="anonymous"></script>
 

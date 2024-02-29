@@ -63,7 +63,11 @@ Route::middleware('auth')->group(function(){
             Route::get('/', 'dashboardPakar')->name('dashboardPakar');
             // CRUD Penyakit
             Route::get('/penyakit', 'penyakitView')->name('penyakitView');
+            Route::get('/addPenyakit', 'addPenyakitView')->name('addPenyakitView');
+            Route::post('/addPenyakit', 'addPenyakitAction')->name('addPenyakitAction');
+
             // CRUD Gejala
+
             // RU Kasus
             Route::get('/kasus', 'kasusView')->name('kasusView');
             Route::get('/allKasus', 'allKasusView')->name('allKasusView');

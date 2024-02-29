@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Symptom;
 use Illuminate\Http\Request;
 
 class PakarController extends Controller
@@ -25,5 +26,19 @@ class PakarController extends Controller
 
     public function penyakitView() {
         return view('pages.pakar.penyakit.index');
+    }
+
+    public function addPenyakitView() { 
+        return view('pages.pakar.penyakit.addPenyakit');
+    }
+
+    public function addPenyakitAction(Request $request) {
+        $gejala = json_encode($request->gejala);
+        
+        Symptom::create([
+            'diseases' => $gejala,
+        ]);
+
+        return redirect()->route('penyakitView');
     }
 }

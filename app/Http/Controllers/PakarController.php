@@ -35,6 +35,8 @@ class PakarController extends Controller
     public function addPenyakitAction(Request $request) {
         $gejala = json_encode($request->gejala);
         
+        dd($request->all());
+
         Symptom::create([
             'diseases' => $gejala,
         ]);

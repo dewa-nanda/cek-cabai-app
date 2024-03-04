@@ -42,5 +42,6 @@
             buttonUp.classList.add('hidden')
         }
         })
+        // tambahin fungsi untuk dapat hide & muncul otomatis
     </script>
 </html>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Symptom extends Model
+class DiseaseForSymptoms extends Model
 {
     use HasFactory;
 
@@ -16,9 +16,15 @@ class Symptom extends Model
      */
     
      protected $fillable = [
-        'name',
-        'description',
+        'disease_id',
+        'symptom_id',
+        'tingkat_kepercayaan',
     ];
 
-    
+    public function GetSymptoms()
+    {
+        $data = Symptom::where('id', $this->symptom_id)->first();
+
+        return $data;
+    }
 }

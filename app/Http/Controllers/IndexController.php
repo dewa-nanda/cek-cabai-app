@@ -34,6 +34,6 @@ class IndexController extends Controller
 
     public function gejalaTanamanCabaiView()
     {
-        return view('pages.list.tanaman');
+        return view('pages.list.gejala');
     }
 }

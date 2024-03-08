@@ -67,6 +67,10 @@ Route::middleware('auth')->group(function(){
             Route::post('/addPenyakit', 'addPenyakitAction')->name('addPenyakitAction');
 
             // CRUD Gejala
+            Route::get('/gejala', 'gejalaView')->name('gejalaView');
+            Route::get('/addGejala', 'addGejalaView')->name('addGejalaView');
+            Route::post('/addGejala', 'addGejalaAction')->name('addGejalaAction');
+
 
             // RU Kasus
             Route::get('/kasus', 'kasusView')->name('kasusView');

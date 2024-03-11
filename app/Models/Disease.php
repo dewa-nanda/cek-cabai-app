@@ -19,7 +19,6 @@ class Disease extends Model
         'name',
         'description',
         'cara_penanganan',
-        'symptoms',
     ];
 
     public function GetListOfSymptoms()
@@ -27,5 +26,18 @@ class Disease extends Model
         $getAllSymptoms = DiseaseForSymptoms::where('disease_id', $this->id)->get();
 
         return $getAllSymptoms;
+    }
+
+    public function GetNK($id_symptoms)
+    {
+        $data = DiseaseForSymptoms::where('disease_id', $this->id)
+            ->where('symptom_id', $id_symptoms)
+            ->first();
+            
+        if($data == null) {
+            return 0;
+        }
+
+        return $data->tingkat_kepercayaan; ;
     }
 }

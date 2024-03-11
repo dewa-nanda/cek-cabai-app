@@ -27,6 +27,8 @@ Route::controller(IndexController::class)->group(function() {
 
 Route::controller(CekKesehatanController::class)->group(function() {
     Route::get('/cekKesehatan', 'indexView')->name('cekKesehatanView');
+    Route::post('/cekKesehatan', 'cekKesehatanAction')->name('cekKesehatanAction');
+    Route::get('/resultCekKesehatan/{id}', 'resultCekKesehatanView')->name('resultCekKesehatanView');
 });
 
 Route::controller(AuthController::class)->group(function() {

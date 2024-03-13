@@ -47,24 +47,28 @@
                         </thead>
 
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Navaya Helena
-                                </th>
-                                <td class="px-6 py-4">
-                                    06/10/2016
-                                </td>
-                                <td class="px-6 py-4 flex flex-wrap gap-2">
-                                    <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">Gejala A</a>
-                                    <a href="#" class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-red-700 dark:text-red-400 border border-red-400 inline-flex items-center justify-center">Gejala B</a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    Penyakit A
-                                </td>
-                                <td class="px-6 py-4">
-                                    45 %
-                                </td>
-                            </tr>
+                            {{-- @foreach ($nonValidCase as $item)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        @if ($item->user_id == null)
+                                            User {{$item->id}}
+                                        @endif
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        06/10/201
+                                    </td>
+                                    <td class="px-6 py-4 flex flex-wrap gap-2">
+                                        <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">Gejala A</a>
+                                        <a href="#" class="bg-red-100 hover:bg-red-200 text-red-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-red-700 dark:text-red-400 border border-red-400 inline-flex items-center justify-center">Gejala B</a>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        Penyakit A
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        45 %
+                                    </td>
+                                </tr>
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>

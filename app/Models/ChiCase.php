@@ -17,6 +17,7 @@ class ChiCase extends Model
     
      protected $fillable = [
         'disease_id',
+        'user_id',
         'tingkat_kepercayaan',
         'valid',
     ];
@@ -26,5 +27,15 @@ class ChiCase extends Model
         $data = CaseForSymptom::where('chi_case_id', $this->id)->get();
 
         return $data;
+    }
+
+    public function getDisease()
+    {
+        return Disease::find($this->disease_id);
+    }
+
+    public function getUser()
+    {
+        return User::find($this->user_id);
     }
 }

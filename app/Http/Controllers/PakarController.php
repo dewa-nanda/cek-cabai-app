@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChiCase;
 use App\Models\Disease;
 use App\Models\DiseaseForSymptoms;
 use App\Models\Symptom;
@@ -12,15 +13,39 @@ class PakarController extends Controller
 {
     //
     public function dashboardPakar() {
-        return view('pages.pakar.dashboard');
+        $allCase = ChiCase::get();
+        $nonValidCase = $allCase->where('valid', null);
+
+        $data = [
+            'allCase' => $allCase,
+            'nonValidCase' => $nonValidCase,
+        ];
+
+        return view('pages.pakar.dashboard', $data);
     }
 
     public function kasusView() {
-        return view('pages.pakar.kasus.index');
+        $allCase = ChiCase::get();
+        $nonValidCase = $allCase->where('valid', null);
+
+        // dd(ChiCase::find(1)->first()->getAllRelatedSymptom());
+
+        $data = [
+            'allCase' => $allCase,
+            'nonValidCase' => $nonValidCase,
+        ];
+
+        return view('pages.pakar.kasus.index', $data);
     }
 
     public function detailKasusView($id) {
-        return view('pages.pakar.kasus.detail');
+        $case = ChiCase::find($id)->first();
+
+        $data = [
+            'case' => $case,
+        ];
+
+        return view('pages.pakar.kasus.detail', $data);
     }
 
     public function allKasusView() {

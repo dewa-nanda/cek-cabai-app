@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Disease;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,10 +15,18 @@ return new class extends Migration
     {
         Schema::create('chi_cases', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(User::class)
+                ->nullable()    
+                ->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+                
+
             $table->foreignIdFor(Disease::class)
                 ->constrained('diseases')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
             $table->integer('tingkat_kepercayaan'); // skala 0 - 100 (0% - 100%)
             $table->boolean('valid')->nullable();
             $table->timestamps();

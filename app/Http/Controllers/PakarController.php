@@ -47,7 +47,31 @@ class PakarController extends Controller
     }
 
     public function validasiKasus(Request $request) {
+        $cf = [];
+        $cfGabungan = 0;
+
+        foreach($request->case as $key => $case) {
+            $cf[$key] = ($case["mb"] - $case["md"])/100;
+        }
+
+        $last_key = array_keys($cf);
+        $last_key = end($last_key);
+
+        foreach($cf as $key => $value) {
+            if($key != $last_key) {
+                if($key == 0){
+                    $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
+                }else{
+                    $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
+                }
+            }
+        }
+
         dd($request->all());
+        // chicase valid kalo threshold > 75%
+        // if($cfGabungan > 0.75) {
+            
+        // }
     }
 
     public function allKasusView() {

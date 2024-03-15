@@ -12,7 +12,7 @@
                     <div>
                         <div style="border-bottom: 2px solid #76ABAE" class="flex flex-col gap-2 pb-2">
                             <p class="text-xl">Gejala</p>
-                            <div class="flex flex-wrap">
+                            <div class="flex flex-wrap gap-1">
                                 @foreach($case->getAllRelatedSymptom() as $symptom)
                                     <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">{{$symptom->getSymptom()->name}}</a>
                                 @endforeach
@@ -31,7 +31,7 @@
                             </div>
     
                             <div class="basis-3/6">
-                                <p>Tingkat Kepercayaan : <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">{{$case->tingkat_kepercayaan}} %</span></p>
+                                <p class="text-end">Tingkat Kepercayaan : <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">{{$case->tingkat_kepercayaan}} %</span></p>
                             </div>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
                             <div id="input-gejala-tk-{{$symptom->getSymptom()->id}}" class="flex gap-3 hidden">
                                 <div class="flex flex-col gap-2 basis-6/12">
                                     <label for="tingkat_kepercayaan">Tingkat Keyakinan</label>
-                                    <input type="number" name="case[{{$key}}][mb]" id="tingkat_kepercayaan" style="border: 3px solid #76ABAE" class="w-full rounded-xl border-2 p-2" placeholder="Tingkat Kepercayaan">
+                                    <input type="number" name="case[{{$key}}][mb]" id="tingkat_kepercayaan" style="border: 3px solid #76ABAE; color:#31363F;" class="w-full rounded-xl border-2 p-2" placeholder="Tingkat Kepercayaan">
                                 </div>
                                 <div class="flex flex-col gap-2 basis-6/12">
                                     <label for="tingkat_kepercayaan">Tingkat Ketidakyakinan</label>
-                                    <input type="number" name="case[{{$key}}][md]" id="tingkat_kepercayaan" style="border: 3px solid #76ABAE" class="w-full rounded-xl border-2 p-2" placeholder="Tingkat Ketidakyakinan">
+                                    <input type="number" name="case[{{$key}}][md]" id="tingkat_kepercayaan" style="border: 3px solid #76ABAE; color:#31363F;" class="w-full rounded-xl border-2 p-2" placeholder="Tingkat Ketidakyakinan">
                                 </div>
                             </div>
                         @endforeach
@@ -80,6 +80,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const data_tk = [];
+        const data_option = [];
 
         document.getElementById('input-gejala-option-default').addEventListener('click', function() {
             data_tk.forEach((item,index,arr) => {
@@ -89,7 +90,14 @@
 
         @foreach($case->getAllRelatedSymptom() as $symptom) 
             data_tk.push(document.getElementById('input-gejala-tk-' + {{$symptom->getSymptom()->id}}));
+            data_option.push(document.getElementById('input-gejala-option-' + {{$symptom->getSymptom()->id}}));
         @endforeach
+
+        data_option.forEach((item,index,arr) => {
+            if(item.selected == true){
+                data_tk[index].classList.remove('hidden');
+            }
+        })
 
         @foreach($case->getAllRelatedSymptom() as $symptom) 
             document.getElementById('input-gejala-option-' + {{$symptom->getSymptom()->id}}).addEventListener('click', function() {
@@ -98,7 +106,6 @@
                         if(item.id != 'input-gejala-tk-' + {{$symptom->getSymptom()->id}})
                         {
                             item.classList.add('hidden');
-                            console.log("test");
                         }else{
                             item.classList.remove('hidden');
                         }
@@ -106,7 +113,5 @@
                 }
             });
         @endforeach
-
-
     });
 </script>

@@ -28,8 +28,6 @@ class PakarController extends Controller
         $allCase = ChiCase::get();
         $nonValidCase = $allCase->where('valid', null);
 
-        // dd(ChiCase::find(1)->first()->getAllRelatedSymptom());
-
         $data = [
             'allCase' => $allCase,
             'nonValidCase' => $nonValidCase,
@@ -46,6 +44,10 @@ class PakarController extends Controller
         ];
 
         return view('pages.pakar.kasus.detail', $data);
+    }
+
+    public function validasiKasus(Request $request) {
+        dd($request->all());
     }
 
     public function allKasusView() {

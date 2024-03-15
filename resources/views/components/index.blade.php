@@ -19,7 +19,7 @@
     <body class="min-h-screen">
         <x-navbar />
         
-        <main class="container min-h-screen min-w-full" style="background-color: #F3F8FF">
+        <main class="min-h-screen min-w-full" style="background-color: #F3F8FF">
             <a class="hidden bottom-0 right-0 h-10 w-10 border-2 z-40 rounded border-black text-center m-2" href="#" id="up"><i class="fa-solid fa-arrow-up m-2.5"></i></a>
             @yield('content')
         </main>
@@ -42,6 +42,5 @@
             buttonUp.classList.add('hidden')
         }
         })
-        // tambahin fungsi untuk dapat hide & muncul otomatis
     </script>
 </html>

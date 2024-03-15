@@ -3,7 +3,7 @@
 @section('content')
 <div class="">
 
-    <section class="container mx-auto grid content-center h-screen grid-cols-2">
+    <section class="container mx-auto grid content-center min-h-screen grid-cols-2 py-4">
 
         <div class="bg-slate-600 text-slate-50 rounded-s-lg flex flex-col justify-center px-5" style="background-color: #EEEDEB; color:#747264">
             <h1 class="text-6xl mb-2 pb-2 border-b-2 border-gray-300">Tambah Penyakit Tanaman Cabai</h1>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="mb-5">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gejala Penyakit</label>
-                    <div class="flex items-center mb-4 gap-2">
+                    <div class="grid grid-cols-1 gap-1">
                         @foreach ($listGejala as $key => $item)
                             <x-form.add-penyakit.gejala id='{{$item->id}}' name="{{$item->name}}" count={{$key}} />
                         @endforeach

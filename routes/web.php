@@ -73,12 +73,12 @@ Route::middleware('auth')->group(function(){
             Route::get('/addGejala', 'addGejalaView')->name('addGejalaView');
             Route::post('/addGejala', 'addGejalaAction')->name('addGejalaAction');
 
-
             // RU Kasus
             Route::get('/kasus', 'kasusView')->name('kasusView');
             Route::get('/allKasus', 'allKasusView')->name('allKasusView');
             Route::get('/kasus/{id}', 'detailKasusView')->name('detailKasusView');
-            Route::post('/kasus/{id}', 'validasiKasus')->name('validasiKasus');
+            Route::patch('/kasus/{id}', 'validasiKasus')->name('validasiKasus');
+            Route::get('/kasus/{id}/result', 'resultKasus')->name('resultKasus');
         });
     });
 

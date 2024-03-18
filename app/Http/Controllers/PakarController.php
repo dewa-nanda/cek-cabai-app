@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CaseForSymptom;
 use App\Models\ChiCase;
 use App\Models\Disease;
 use App\Models\DiseaseForSymptoms;
@@ -37,7 +38,7 @@ class PakarController extends Controller
     }
 
     public function detailKasusView($id) {
-        $case = ChiCase::find($id)->first();
+        $case = ChiCase::find($id);
 
         $data = [
             'case' => $case,
@@ -54,6 +55,13 @@ class PakarController extends Controller
             $cf[$key] = ($case["mb"] - $case["md"])/100;
         }
 
+        $case = ChiCase::find(request()->segment(count(request()->segments())));
+        $getAllRelatedSymptom = $case->getAllRelatedSymptom();
+
+        foreach($getAllRelatedSymptom as $key => $symptom) {
+            $case->updateRelatedSymptom($symptom, $request->case[$key]);
+        }
+
         $last_key = array_keys($cf);
         $last_key = end($last_key);
 
@@ -67,15 +75,35 @@ class PakarController extends Controller
             }
         }
 
-        dd($request->all());
-        // chicase valid kalo threshold > 75%
-        // if($cfGabungan > 0.75) {
-            
-        // }
+        // chicase valid kalo threshold > 70%
+
+        $case->updateHasValid($cfGabungan);
+
+        return redirect()->route('resultKasus', $case->id);
+    }
+
+    public function resultKasus($id) {
+        $case = ChiCase::find($id);
+        $lengthGejala = count($case->getAllRelatedSymptom());
+
+        $data = [
+            'case' => $case,
+            'lengthGejala' => $lengthGejala,
+        ];
+
+        return view('pages.pakar.kasus.result', $data);
     }
 
     public function allKasusView() {
-        return view('pages.pakar.kasus.allKasus');
+        $allCase = ChiCase::get();
+        $nonValidCase = $allCase->where('valid', '!=', null);
+
+        $data = [
+            'allCase' => $allCase,
+            'nonValidCase' => $nonValidCase,
+        ];
+
+        return view('pages.pakar.kasus.allKasus', $data);
     }
 
     public function penyakitView() {

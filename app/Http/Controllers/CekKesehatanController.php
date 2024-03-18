@@ -22,7 +22,8 @@ class CekKesehatanController extends Controller
 
     public function cekKesehatanAction(Request $request){
         $penyakit = Disease::get();
-        
+        $case = ChiCase::where('valid', 1)->get();
+
         $allResult = [];
         $finalResult = [];
         
@@ -45,6 +46,27 @@ class CekKesehatanController extends Controller
             ];
         }
 
+
+        foreach($case as $key => $value) {
+            $nilai_atas = 0;
+            $nilai_bawah = 0;
+
+            foreach($request->gejala as $item) {
+                $nilai_atas += $value->GetNK($item);
+            }
+
+            foreach($value->getAllRelatedSymptom() as $item){
+                $nilai_bawah += $item->tk;
+            }
+
+            $allResult[] = [
+                'penyakit' => $value->disease_id,
+                'gejala' => $request->gejala,
+                'nilai' => $nilai_atas/$nilai_bawah
+            ];
+        }
+
+        // cari nilai tertinggi
         foreach($allResult as $key => $item) {
             if($key == 0){
                 $finalResult = $item;
@@ -72,7 +94,6 @@ class CekKesehatanController extends Controller
 
     public function resultCekKesehatanView($id){
         $case = ChiCase::find($id);
-
 
         $data = [
             'case' => $case,

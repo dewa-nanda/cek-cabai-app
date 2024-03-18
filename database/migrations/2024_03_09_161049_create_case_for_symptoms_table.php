@@ -14,6 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('case_for_symptoms', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(ChiCase::class)
                 ->constrained('chi_cases')
                 ->onUpdate('cascade')

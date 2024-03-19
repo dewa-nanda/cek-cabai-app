@@ -20,15 +20,15 @@ return new class extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-                
-
+            
             $table->foreignIdFor(Disease::class)
                 ->constrained('diseases')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->integer('tingkat_kepercayaan'); // skala 0 - 100 (0% - 100%)
+            $table->integer('tingkat_kepercayaan')->nullable(); // skala 0 - 100 (0% - 100%)
             $table->boolean('valid')->nullable();
+            $table->boolean('pakar')->nullable();
             $table->timestamps();
         });
     }

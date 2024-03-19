@@ -58,17 +58,27 @@
         
                 <section style="background-color: #31363F; border-left: 5px solid #76ABAE" class="rounded-xl p-3 flex flex-col justify-center gap-3">
                     <div style="border-bottom: 2px solid #76ABAE" class="flex flex-col gap-1 pb-1">
-                        <h1 class="text-3xl">Hasil Tingkat Kepercayaan <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Valid</span></h1> 
+                        <h1 class="text-3xl">Hasil Tingkat Kepercayaan <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">
+                          @if ($case->valid == 0)
+                            Tidak Valid
+                          @else
+                            Valid
+                          @endif
+                          </span>
+                        </h1> 
                         <p>Berikut merupakan hasil tingkat kepercayaan yang dihitung menggunakan metode certainty factor!</p>
                     </div>
 
                     <div class="flex flex-col gap-4">
                         <div>
-                            <p>Tingkat Kepercayaan <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Berdasarkan Pengetahuan Pakar</span> : {{$case->tingkat_kepercayaan}} %</p>
+                          @if ($case->valid == 0)
+                            <p>Tingkat Kepercayaan <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Berdasarkan Pengetahuan Pakar</span> : Dibawah Threshold</p>  
+                          @else
+                            <p>Tingkat Kepercayaan <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Berdasarkan Pengetahuan Pakar</span> : {{$case->tingkat_kepercayaan}} %</p>  
+                          @endif
                         </div>
                         @if ($case->valid == 0)
                             <div>
-                                <a href="{{route('detailKasusView', $case->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Lihat Cara Perhitungan <i class="fa-regular fa-circle-question"></i></a>
                                 <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit <i class="fa-solid fa-pen-to-square"></i></button>
                             </div>
                         @else

@@ -23,21 +23,21 @@ class Disease extends Model
 
     public function GetListOfSymptoms()
     {
-        $getAllSymptoms = DiseaseForSymptoms::where('disease_id', $this->id)->get();
+        $getAllSymptoms = ChiCase::where('disease_id', $this->id)->first()->getAllRelatedSymptom();
 
         return $getAllSymptoms;
     }
 
     public function GetNK($id_symptoms)
     {
-        $data = DiseaseForSymptoms::where('disease_id', $this->id)
-            ->where('symptom_id', $id_symptoms)
-            ->first();
+        // $data = DiseaseForSymptoms::where('disease_id', $this->id)
+        //     ->where('symptom_id', $id_symptoms)
+        //     ->first();
             
-        if($data == null) {
-            return 0;
-        }
+        // if($data == null) {
+        //     return 0;
+        // }
 
-        return $data->tingkat_kepercayaan; ;
+        // return $data->tingkat_kepercayaan; ;
     }
 }

@@ -48,12 +48,15 @@ class PakarController extends Controller
     }
 
     public function validasiKasus(Request $request) {
+        dd($request->all());
         $cf = [];
         $cfGabungan = 0;
 
         foreach($request->case as $key => $case) {
             $cf[$key] = ($case["mb"] - $case["md"])/100;
         }
+        
+        dd($cf);
 
         $case = ChiCase::find(request()->segment(count(request()->segments())));
         $getAllRelatedSymptom = $case->getAllRelatedSymptom();
@@ -71,6 +74,7 @@ class PakarController extends Controller
                     $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
                 }else{
                     $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
+                    dd($cfGabungan);
                 }
             }
         }

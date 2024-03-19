@@ -58,7 +58,7 @@
 
                                 <th class="px-6 py-4 flex flex-wrap gap-2">
                                     @foreach ($item->GetListOfSymptoms() as $gejala)
-                                        <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$gejala->GetSymptoms()->name}}</a>
+                                        <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$gejala->getSymptom()->name}}</a>
                                     @endforeach
                                 </th>
 

@@ -27,7 +27,6 @@ return new class extends Migration
 
             $table->integer('mb')->nullable(); // skala 0 - 100 (0% - 100%) measure of belife
             $table->integer('md')->nullable(); // skala 0 - 100 (0% - 100%) measure of disbelife
-            $table->integer('tk')->nullable(); // skala 0 - 100 (0% - 100%) tingkat kepercayaan
             $table->timestamps();
         });
     }

@@ -20,8 +20,9 @@
     </section>
     
     <div class="container mx-auto my-5" id="list">
-        <div class="">
+        <div class="py-4">
             <a href="{{route('addPenyakitView')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Penyakit</a>
+            <a href="{{route('addKasusView')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Kasus</a>
             
             <div class="my-4 relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -31,14 +32,9 @@
                                 Nama
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Desc
+                                Gejala (Base Knowledge)
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                Gejala
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Cara penanganan
-                            </th>
+
                             <th scope="col" class="px-6 py-3">
                                 Action
                             </th>
@@ -52,23 +48,142 @@
                                     {{$item->name}}
                                 </th>
 
-                                <th class="px-6 py-4 text-left max-w-80">
-                                    <p class="line-clamp-3">{{$item->description}}</p>
-                                </th>
-
-                                <th class="px-6 py-4 flex flex-wrap gap-2">
+                                <th class="px-6 py-4 text-left flex flex-wrap gap-2">
                                     @foreach ($item->GetListOfSymptoms() as $gejala)
                                         <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$gejala->getSymptom()->name}}</a>
                                     @endforeach
                                 </th>
+                                
+                                <th class="px-6 py-4 text-left">
+                                    <div class="flex gap-2">
+                                        <button data-modal-target="large-modal-{{$item->id}}" data-modal-toggle="large-modal-{{$item->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button">
+                                            <i class="fa-regular fa-eye text-2xl"></i>
+                                        </button>
 
-                                <th class="px-6 py-4 text-left max-w-80">
-                                    <p>{{$item->cara_penanganan}}</p>
-                                </th>
+                                        <!-- Extra Large Modal -->
+                                        <div id="large-modal-{{$item->id}}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                            <div class="relative w-full max-w-7xl max-h-full">
+                                                <!-- Modal content -->
+                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                    <!-- Modal header -->
+                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                                                            Penyakit {{$item->name}}
+                                                        </h3>
+                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="large-modal-{{$item->id}}">
+                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                            </svg>
+                                                            <span class="sr-only">Close modal</span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- Modal body -->
+                                                    <div class="p-4 md:p-5 space-y-4">  
+                                                        <div id="accordion-flush-{{$item->id}}" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                                            <h2 id="accordion-flush-heading-desc-{{$item->id}}">
+                                                              <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-desc-{{$item->id}}" aria-expanded="true" aria-controls="accordion-flush-body-desc-{{$item->id}}">
+                                                                <span>Deskripsi</span>
+                                                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                                                </svg>
+                                                              </button>
+                                                            </h2>
+                                                            <div id="accordion-flush-body-desc-{{$item->id}}" class="hidden" aria-labelledby="accordion-flush-heading-desc-{{$item->id}}">
+                                                              <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                                                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+                                                                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                                              </div>
+                                                            </div>
 
-                                <th class="px-6 py-4 text-left flex gap-3 ">
-                                    <a href="{{route('detailKasusView', 1)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-regular fa-pen-to-square text-2xl"></i></a>
-                                    <a href="{{route('detailKasusView', 1)}}" class="font-medium text-red-600 dark:text-red-500 hover:underline"><i class="fa-solid fa-trash-can text-2xl"></i></a>
+                                                            <h2 id="accordion-flush-heading-cp-{{$item->id}}">
+                                                              <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-cp-{{$item->id}}" aria-expanded="true" aria-controls="accordion-flush-body-cp-{{$item->id}}">
+                                                                <span>Cara Penanganan</span>
+                                                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                                                </svg>
+                                                              </button>
+                                                            </h2>
+                                                            <div id="accordion-flush-body-cp-{{$item->id}}" class="hidden" aria-labelledby="accordion-flush-heading-cp-{{$item->id}}">
+                                                              <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                                                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+                                                                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                                              </div>
+                                                            </div>
+
+                                                            <h2 id="accordion-flush-heading-kp-{{$item->id}}">
+                                                              <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-kp-{{$item->id}}" aria-expanded="true" aria-controls="accordion-flush-body-kp-{{$item->id}}">
+                                                                <span>List kasus dari pakar</span>
+                                                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                                                </svg>
+                                                              </button>
+                                                            </h2>
+
+                                                            <div id="accordion-flush-body-kp-{{$item->id}}" class="hidden" aria-labelledby="accordion-flush-heading-kp-{{$item->id}}">
+                                                              <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                                                <div style="max-height: 50%" class="relative overflow-auto shadow-md sm:rounded-lg">
+                                                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                                            <tr>
+                                                                                <th scope="col" class="px-6 py-3">
+                                                                                    No
+                                                                                </th>
+                                                                                <th scope="col" class="px-6 py-3">
+                                                                                    Gejala
+                                                                                </th>
+                                                                                <th scope="col" class="px-6 py-3">
+                                                                                    Tingkat Kepercayaan
+                                                                                </th>
+                                                                                <th scope="col" class="px-6 py-3">
+                                                                                    Keterangan
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($item->GetListOfCase() as $key => $gejala)
+                                                                                <tr>
+                                                                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                                                        {{$key+1}}
+                                                                                    </td>
+                                                                                    <td class="px-6 py-4 flex flex-wrap gap-3">
+                                                                                        @foreach ($gejala->getAllRelatedSymptom() as $item)
+                                                                                            <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$item->getSymptom()->name}}</a>
+                                                                                        @endforeach
+                                                                                    </td>
+                                                                                    <td class="px-6 py-4">
+                                                                                        @if ($gejala->tingkat_kepercayaan != null)
+                                                                                            <p>{{$gejala->tingkat_kepercayaan}} %</p>
+                                                                                        @else
+                                                                                            <p>Undefined</p>
+                                                                                        @endif
+                                                                                    </td>
+                                                                                    <td class="px-6 py-4">
+                                                                                        @if ($key == 0)
+                                                                                            Base Knowledge
+                                                                                        @else
+                                                                                            Support Knowledge
+                                                                                        @endif
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="flex items-center p-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <a href="{{route('detailKasusView', $item->id)}}" class="font-medium text-red-600 dark:text-red-500 hover:underline"><i class="fa-solid fa-trash-can text-2xl"></i></a>
+                                    </div>
                                 </th>
                             </tr>
                         @endforeach
@@ -77,7 +192,6 @@
             </div>
         </div>
     </div>
-</div>
-
+</div> 
 
 @endsection

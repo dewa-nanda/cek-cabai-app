@@ -110,6 +110,7 @@ class PakarController extends Controller
         return view('pages.pakar.kasus.allKasus', $data);
     }
 
+    // Penyakit Page Section
     public function penyakitView() {
         $data = [
             'listPenyakit' => Disease::get()
@@ -133,15 +134,63 @@ class PakarController extends Controller
             'cara_penanganan' => $request->caraPenanganan,
         ]);
 
+
+        $case = ChiCase::create([
+            'user_id' => auth()->user()->id,
+            'disease_id' => $disease->id,
+            'valid' => 1,
+            'pakar' => 1,
+        ]);
+
         foreach($request->gejala as $gejala) {
-            DiseaseForSymptoms::create([
-                'disease_id' => $disease->id,
+            CaseForSymptom::create([
+                'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'tingkat_kepercayaan' => $gejala['tk'],
+                'mb' => $gejala['tk'],
+                'md' => 100-$gejala['tk'],
             ]);
         }
 
+        // rubah jadi mb md
+
+        $cf = [];
+        $cfGabungan = 0;
+
+        foreach($request->gejala as $key => $gejala) {
+            $mb = $gejala['tk'];
+            $md = 100-$gejala['tk'];
+
+            $cf[$key] = ($mb - $md)/100;
+        }
+
+        $last_key = array_keys($cf);
+        $last_key = end($last_key);
+
+        foreach($cf as $key => $value) {
+            if($key == 0){
+                if($last_key == $key){
+                    $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
+                }else{
+                    $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
+                }
+            }else{
+                $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
+            }            
+        }
+
+        $case->tingkat_kepercayaan = $cfGabungan*100;
+        $case->save();
+
         return redirect()->route('penyakitView');
+    }
+
+    public function addKasusView() {
+        $data = [
+            'listGejala' => Symptom::get(),
+            'listPenyakit' => Disease::get()
+        ];
+
+        return view('pages.pakar.penyakit.addCase', $data);
     }
 
     public function gejalaView() {

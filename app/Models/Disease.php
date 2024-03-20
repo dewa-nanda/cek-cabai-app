@@ -28,6 +28,14 @@ class Disease extends Model
         return $getAllSymptoms;
     }
 
+    public function GetListOfCase()
+    {
+        $getAllCase = ChiCase::where('disease_id', $this->id)->get();
+
+        // dd($getAllCase);
+        return $getAllCase;
+    }
+
     public function GetNK($id_symptoms)
     {
         // $data = DiseaseForSymptoms::where('disease_id', $this->id)

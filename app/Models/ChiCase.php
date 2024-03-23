@@ -29,17 +29,34 @@ class ChiCase extends Model
         return $data;
     }
 
+    public function checkSimilarSymptom($symptom)
+    {
+        $gejala = CaseForSymptom::where('chi_case_id', $this->id)->get();
+        $isSame = false;
+
+        foreach($gejala as $item){
+            foreach($symptom as $value){
+                if($item->symptom_id == $value['id']){
+                    $isSame = true;
+                }else{
+                    $isSame = false;
+                }
+            }
+        }
+
+        return $isSame;
+    }
+
     public function GetNK($id_symptoms)
     {
-        $data = CaseForSymptom::where('chi_case_id', $this->id)
-            ->where('symptom_id', $id_symptoms)
-            ->first();
-
+        $data = CaseForSymptom::where('chi_case_id', $this->id)->get()
+            ->where('symptom_id', $id_symptoms)->first();
+        
         if($data == null) {
             return 0;
         }
 
-        return $data->tk; ;
+        return $data->mb;
     }
 
     public function updateRelatedSymptom($symptom, $value)
@@ -47,7 +64,6 @@ class ChiCase extends Model
         $symptom->update([
             'mb' => $value['mb'],
             'md' => $value['md'],
-            'tk' => $value['mb'],
         ]);
     }
 

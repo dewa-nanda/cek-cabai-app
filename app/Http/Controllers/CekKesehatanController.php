@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CekKesehatanController extends Controller
 {
-    //
+    // page untuk memberikan list gejala pada tanaman cabai milik petani
     public function indexView(){
         $data = [
             'gejala' => Symptom::get(),
@@ -20,32 +20,29 @@ class CekKesehatanController extends Controller
         return view('pages.cekKesehatan.index', $data);
     }
 
+    // page untuk menentukan bobot kerusakan dari tiap gejala yang diinputkan oleh petani
+    public function bobotGejala(Request $request){
+        $gejala = [];
+
+        foreach($request->gejala as $item) {
+            $gejala[] = Symptom::find($item);
+        }
+
+        $data = [
+            'gejala' => $gejala,
+        ];
+
+        return view('pages.cekKesehatan.bobot', $data);
+    }
+
     public function cekKesehatanAction(Request $request){
-        $penyakit = Disease::get();
+        dd($request->all());
         $case = ChiCase::where('valid', 1)->get();
 
         $allResult = [];
         $finalResult = [];
-        
-        foreach ($penyakit as $key => $value) {
-            $nilai_atas = 0;
-            $nilai_bawah = 0;
 
-            foreach($request->gejala as $item) {
-                $nilai_atas += $value->GetNK($item);
-            }
-
-            foreach($value->GetListOfSymptoms() as $item) {
-                $nilai_bawah += $item->tingkat_kepercayaan;
-            }
-
-            $allResult[$key] = [
-                'penyakit' => $value->id,
-                'gejala' => $request->gejala,
-                'nilai' => $nilai_atas/$nilai_bawah
-            ];
-        }
-
+        dd($request->all());
 
         foreach($case as $key => $value) {
             $nilai_atas = 0;
@@ -56,7 +53,7 @@ class CekKesehatanController extends Controller
             }
 
             foreach($value->getAllRelatedSymptom() as $item){
-                $nilai_bawah += $item->tk;
+                $nilai_bawah += $item->mb;
             }
 
             $allResult[] = [
@@ -65,6 +62,9 @@ class CekKesehatanController extends Controller
                 'nilai' => $nilai_atas/$nilai_bawah
             ];
         }
+
+
+        dd($allResult);
 
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {

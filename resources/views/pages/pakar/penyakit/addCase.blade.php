@@ -11,13 +11,13 @@
             </div>
 
             <div style="background-color: #31363F; border-left: 5px solid #76ABAE" class=" rounded-xl px-5 basis-3/6">
-                <form action="{{route('addPenyakitAction')}}" method="POST" class="w-full h-full my-6 flex flex-col justify-center gap-10">
+                <form action="{{route('addKasus')}}" method="POST" class="w-full h-full my-6 flex flex-col justify-center gap-10">
                     @csrf
                     @method('POST')
 
                     <div class="w-full">
-                        <label for="penyait-input" class="block mb-2 text-sm font-medium  dark:text-white">Nama Penyakit</label>
-                        <select style="color: #222831" id="penyait-input" name="penyait-input"  class="bg-gray-200 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <label for="penyakit_target" class="block mb-2 text-sm font-medium  dark:text-white">Nama Penyakit</label>
+                        <select style="color: #222831" id="penyakit_target" name="penyakit_target"  class="bg-gray-200 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                           <option disabled selected>Tentukan Penyakit</option>
                           @foreach ($listPenyakit as $item)
                             <option value="{{$item->id}}">{{$item->name}}</option>  
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="w-full h-80 overflow-auto">
-                        <label class="block mb-2 text-sm font-medium  dark:text-white">Gejala Penyakit</label>
+                        <label class="block mb-2 text-sm font-medium ">Gejala Penyakit</label>
                         <div style="height:100%" class="grid grid-cols-1 gap-1  px-2">
                             @foreach ($listGejala as $key => $item)
                                 <x-form.add-penyakit.gejala id='{{$item->id}}' name="{{$item->name}}" count={{$key}} />

@@ -48,16 +48,16 @@ class PakarController extends Controller
     }
 
     public function validasiKasus(Request $request) {
-        dd($request->all());
         $cf = [];
         $cfGabungan = 0;
+        $index = 0;
 
         foreach($request->case as $key => $case) {
+            // $cf[$index][$key] = ($case["mb"] - $case["md"])/100;
             $cf[$key] = ($case["mb"] - $case["md"])/100;
         }
-        
-        dd($cf);
 
+        // dd($request->all());
         $case = ChiCase::find(request()->segment(count(request()->segments())));
         $getAllRelatedSymptom = $case->getAllRelatedSymptom();
 
@@ -74,7 +74,10 @@ class PakarController extends Controller
                     $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
                 }else{
                     $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
-                    dd($cfGabungan);
+                }
+            }else{
+                if($key == 0){
+                    $cfGabungan = $value['cf'];
                 }
             }
         }
@@ -191,6 +194,72 @@ class PakarController extends Controller
         ];
 
         return view('pages.pakar.penyakit.addCase', $data);
+    }
+
+    public function addKasus(Request $request) {
+        // cek apakah sudah ada kasus yang sama atau belum
+    
+        $penyakit = Disease::find($request->penyakit_target);
+
+        // dd($penyakit->getlistofcase());
+        
+        foreach($penyakit->GetListOfCase() as $key => $item)
+        {
+            if($item->checkSimilarSymptom($request->gejala) == true)
+            {
+                return redirect()->route('addKasusView')->with('error', 'Kasus yang sama sudah ada');
+            }
+        }
+
+        // hitung nilai cf untuk menentukan tingkat kepercayaan
+        $cf = [];
+        $cfGabungan = 0;
+        $index = 0;
+
+        foreach($request->gejala as $key => $item){
+            $md = 100 - $item['tk'];
+            $mb = 100 - $md;
+
+            $cf[$index]['id'] = $item['id'];
+            $cf[$index]['cf'] = ($mb - $md)/100;
+            $index++;
+        }
+
+        $last_key = array_keys($cf);
+        $last_key = end($last_key);
+
+        foreach($cf as $key => $value) {
+            if($key != $last_key) {
+                if($key == 0){
+                    $cfGabungan = $value['cf'] + $cf[$key + 1]['cf'] * (1 - $value['cf']);
+                }else{
+                    $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
+                }
+            }else{
+                if($key == 0){
+                    $cfGabungan = $value['cf'];
+                }
+            }
+        }
+
+        $case = ChiCase::create([
+            'user_id' => auth()->user()->id,
+            'disease_id' => $request->penyakit_target,
+            'valid' => 1,
+            'pakar' => 1,
+            'tingkat_kepercayaan' => $cfGabungan*100,
+        ]);
+
+        foreach($request->gejala as $gejala) {
+            CaseForSymptom::create([
+                'chi_case_id' => $case->id,
+                'symptom_id' => $gejala['id'],
+                'mb' => $gejala['tk'],
+                'md' => 100-$gejala['tk'],
+            ]);
+        }
+
+        return redirect()->route('kasusView');
     }
 
     public function gejalaView() {

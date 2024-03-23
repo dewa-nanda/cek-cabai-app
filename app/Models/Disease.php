@@ -32,7 +32,6 @@ class Disease extends Model
     {
         $getAllCase = ChiCase::where('disease_id', $this->id)->get();
 
-        // dd($getAllCase);
         return $getAllCase;
     }
 

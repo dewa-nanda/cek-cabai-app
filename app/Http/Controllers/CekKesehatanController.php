@@ -36,29 +36,34 @@ class CekKesehatanController extends Controller
     }
 
     public function cekKesehatanAction(Request $request){
-        dd($request->all());
+        $gejala = [];
+        foreach($request->tp as $key => $item) {
+            $data['id'] = $key;
+            $data['tp'] = $item/100;
+            array_push($gejala, $data);
+        }
+
+        
         $case = ChiCase::where('valid', 1)->get();
 
         $allResult = [];
         $finalResult = [];
 
-        dd($request->all());
-
         foreach($case as $key => $value) {
             $nilai_atas = 0;
             $nilai_bawah = 0;
 
-            foreach($request->gejala as $item) {
-                $nilai_atas += $value->GetNK($item);
+            foreach($gejala as $item) {
+                $nilai_atas += $value->GetNK($item['id']);
+                dd($nilai_atas);
             }
 
-            foreach($value->getAllRelatedSymptom() as $item){
-                $nilai_bawah += $item->mb;
+            foreach($gejala as $item){
+                $nilai_bawah += $item['tp'];
             }
 
             $allResult[] = [
                 'penyakit' => $value->disease_id,
-                'gejala' => $request->gejala,
                 'nilai' => $nilai_atas/$nilai_bawah
             ];
         }

@@ -28,9 +28,12 @@ class Disease extends Model
         return $getAllSymptoms;
     }
 
-    public function GetListOfCase()
+    public function GetListOfCase($pakar, $valid = 'valid')
     {
-        $getAllCase = ChiCase::where('disease_id', $this->id)->get();
+        $getAllCase = ChiCase::where('disease_id', $this->id)
+                    ->where('pakar', $pakar)
+                    ->where('valid', $valid)
+                    ->get();
 
         return $getAllCase;
     }

@@ -140,7 +140,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            @foreach ($item->GetListOfCase() as $key => $gejala)
+                                                                            @foreach ($item->GetListOfCase(1) as $key => $gejala)
                                                                                 <tr>
                                                                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                                         {{$key+1}}

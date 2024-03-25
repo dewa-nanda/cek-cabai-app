@@ -17,27 +17,27 @@ class ChiCase extends Seeder
         DB::table('chi_cases')->insert([
             [
                 'disease_id' => 1,
-                'valid' => 1,
+                'valid' => 'valid',
                 'pakar' => 1,
             ],
             [
                 'disease_id' => 2,
-                'valid' => 1,
+                'valid' => 'valid',
                 'pakar' => 1,
             ],
             [
                 'disease_id' => 3,
-                'valid' => 1,
+                'valid' => 'valid',
                 'pakar' => 1,
             ],
             [
                 'disease_id' => 4,
-                'valid' => 1,
+                'valid' => 'valid',
                 'pakar' => 1,
             ],
             [
                 'disease_id' => 5,
-                'valid' => 1,
+                'valid' => 'valid',
                 'pakar' => 1,
             ],
         ]);

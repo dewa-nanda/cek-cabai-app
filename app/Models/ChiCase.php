@@ -20,6 +20,7 @@ class ChiCase extends Model
         'user_id',
         'tingkat_kepercayaan',
         'valid',
+        'pakar',
     ];
 
     public function getAllRelatedSymptom()
@@ -61,10 +62,14 @@ class ChiCase extends Model
 
     public function updateRelatedSymptom($symptom, $value)
     {
-        $symptom->update([
-            'mb' => $value['mb'],
-            'md' => $value['md'],
-        ]);
+        if($symptom->id == $value['id'])
+        {
+            $symptom->update([
+                'mb' => $value['mb'],
+                'md' => $value['md'],
+            ]);
+        }
+
     }
 
     public function updateHasValid($tingkat_kepercayaan)
@@ -73,12 +78,12 @@ class ChiCase extends Model
 
         if($tingkat_kepercayaan > 70) {
             $this->update([
-                'valid' => 1,
+                'valid' => 'valid',
                 'tingkat_kepercayaan' => $tingkat_kepercayaan,
             ]);            
         }else{
             $this->update([
-                'valid' => 0,
+                'valid' => 'notValid',
                 'tingkat_kepercayaan' => $tingkat_kepercayaan,
             ]);
         }

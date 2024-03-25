@@ -31,7 +31,7 @@
 
                     <div class="mb-5 w-full">
                         <label class="block mb-2 text-sm font-medium  dark:text-white">Gejala Penyakit</label>
-                        <div style="height:50%" class="grid grid-cols-1 gap-1 overflow-auto px-2">
+                        <div style="height:50%" class="grid grid-cols-0 gap-1.5 overflow-auto px-2">
                             @foreach ($listGejala as $key => $item)
                                 <x-form.add-penyakit.gejala id='{{$item->id}}' name="{{$item->name}}" count={{$key}} />
                             @endforeach

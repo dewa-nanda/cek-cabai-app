@@ -59,7 +59,7 @@
                 <section style="background-color: #31363F; border-left: 5px solid #76ABAE" class="rounded-xl p-3 flex flex-col justify-center gap-3">
                     <div style="border-bottom: 2px solid #76ABAE" class="flex flex-col gap-1 pb-1">
                         <h1 class="text-3xl">Hasil Tingkat Kepercayaan <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">
-                          @if ($case->valid == 0)
+                          @if ($case->valid == 'notValid')
                             Tidak Valid
                           @else
                             Valid

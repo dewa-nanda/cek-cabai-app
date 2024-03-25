@@ -44,7 +44,7 @@ class CekKesehatanController extends Controller
         }
 
         
-        $case = ChiCase::where('valid', 1)->get();
+        $case = ChiCase::where('valid', 'valid')->get();
 
         $allResult = [];
         $finalResult = [];
@@ -55,7 +55,6 @@ class CekKesehatanController extends Controller
 
             foreach($gejala as $item) {
                 $nilai_atas += $value->GetNK($item['id']);
-                dd($nilai_atas);
             }
 
             foreach($gejala as $item){
@@ -67,9 +66,6 @@ class CekKesehatanController extends Controller
                 'nilai' => $nilai_atas/$nilai_bawah
             ];
         }
-
-
-        dd($allResult);
 
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {
@@ -84,16 +80,19 @@ class CekKesehatanController extends Controller
 
         $case = ChiCase::create([
             'disease_id' => $finalResult['penyakit'],
-            'tingkat_kepercayaan' => $finalResult['nilai']*100,
+            'tingkat_kepercayaan' => $finalResult['nilai'],
+            'pakar' => 0,
         ]);
 
-        foreach($finalResult['gejala'] as $item) {
+        foreach($gejala as $item) {
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
-                'symptom_id' => $item,
+                'symptom_id' => $item['id'],
+                'mb' => $item['tp']*100,
+                'md' => 100-($item['tp']*100),
             ]);
         }
-
+        
         return redirect()->route('resultCekKesehatanView', $case->id);
     }
 

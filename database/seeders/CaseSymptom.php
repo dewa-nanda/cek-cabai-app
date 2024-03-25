@@ -19,7 +19,7 @@ class CaseSymptom extends Seeder
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 1,
-                'mb' => 80,
+                'mb' => 70,
                 'md' => 20
             ],
             [
@@ -31,14 +31,14 @@ class CaseSymptom extends Seeder
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 4,
-                'mb' => 40,
-                'md' => 70
+                'mb' => 50,
+                'md' => 50
             ],
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 5,
-                'mb' => 10,
-                'md' => 90
+                'mb' => 30,
+                'md' => 70
             ],
             [
                 'chi_case_id' => 1,
@@ -67,13 +67,13 @@ class CaseSymptom extends Seeder
             [
                 'chi_case_id' => 2,
                 'symptom_id' => 6,
-                'mb' => 60,
-                'md' => 40
+                'mb' => 50,
+                'md' => 50
             ],
             [
                 'chi_case_id' => 3,
                 'symptom_id' => 2,
-                'mb' => 80,
+                'mb' => 70,
                 'md' => 20
             ],
             [
@@ -86,7 +86,7 @@ class CaseSymptom extends Seeder
                 'chi_case_id' => 3,
                 'symptom_id' => 4,
                 'mb' => 70,
-                'md' => 30
+                'md' => 20
             ],
             [
                 'chi_case_id' => 3,
@@ -109,25 +109,25 @@ class CaseSymptom extends Seeder
             [
                 'chi_case_id' => 4,
                 'symptom_id' => 9,
-                'mb' => 80,
+                'mb' => 70,
                 'md' => 20
             ],
             [
                 'chi_case_id' => 4,
                 'symptom_id' => 10,
-                'mb' => 80,
+                'mb' => 70,
                 'md' => 20
             ],
             [
                 'chi_case_id' => 4,
                 'symptom_id' => 12,
-                'mb' => 80,
+                'mb' => 70,
                 'md' => 20
             ],
             [
                 'chi_case_id' => 5,
                 'symptom_id' => 11,
-                'mb' => 80,
+                'mb' => 70,
                 'md' => 20
             ],
         ]);

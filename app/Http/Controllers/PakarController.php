@@ -14,11 +14,9 @@ class PakarController extends Controller
 {
     //
     public function dashboardPakar() {
-        $allCase = ChiCase::get();
-        $nonValidCase = $allCase->where('valid', null);
+        $nonValidCase = ChiCase::get()->where('valid', 'notChecked');
 
         $data = [
-            'allCase' => $allCase,
             'nonValidCase' => $nonValidCase,
         ];
 
@@ -26,11 +24,9 @@ class PakarController extends Controller
     }
 
     public function kasusView() {
-        $allCase = ChiCase::get();
-        $nonValidCase = $allCase->where('valid', null);
+        $nonValidCase = ChiCase::get()->where('valid', 'notChecked');
 
         $data = [
-            'allCase' => $allCase,
             'nonValidCase' => $nonValidCase,
         ];
 
@@ -52,17 +48,24 @@ class PakarController extends Controller
         $cfGabungan = 0;
         $index = 0;
 
-        foreach($request->case as $key => $case) {
-            // $cf[$index][$key] = ($case["mb"] - $case["md"])/100;
-            $cf[$key] = ($case["mb"] - $case["md"])/100;
+        foreach($request->tp as $key => $case) {
+            $mb = $case;
+            $md = 100 - $mb;
+
+            $cf[$index]['id'] = $key;
+            $cf[$index]['cf'] = ($mb - $md)/100;
+            $cf[$index]['mb'] = $mb;
+            $cf[$index]['md'] = $md;
+            $index++;
         }
 
-        // dd($request->all());
         $case = ChiCase::find(request()->segment(count(request()->segments())));
         $getAllRelatedSymptom = $case->getAllRelatedSymptom();
 
         foreach($getAllRelatedSymptom as $key => $symptom) {
-            $case->updateRelatedSymptom($symptom, $request->case[$key]);
+            foreach($cf as $value) {
+                $case->updateRelatedSymptom($symptom, $value);
+            }
         }
 
         $last_key = array_keys($cf);
@@ -71,9 +74,9 @@ class PakarController extends Controller
         foreach($cf as $key => $value) {
             if($key != $last_key) {
                 if($key == 0){
-                    $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
+                    $cfGabungan = $value['cf'] + $cf[$key + 1]['cf'] * (1 - $value['cf']);
                 }else{
-                    $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
+                    $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
                 }
             }else{
                 if($key == 0){
@@ -113,7 +116,7 @@ class PakarController extends Controller
         return view('pages.pakar.kasus.allKasus', $data);
     }
 
-    // Penyakit Page Section
+    // Page List of Penyakit
     public function penyakitView() {
         $data = [
             'listPenyakit' => Disease::get()
@@ -122,6 +125,7 @@ class PakarController extends Controller
         return view('pages.pakar.penyakit.index', $data);
     }
 
+    // Page tambah penyakit
     public function addPenyakitView() { 
         $data = [
             'listGejala' => Symptom::get()
@@ -130,7 +134,8 @@ class PakarController extends Controller
         return view('pages.pakar.penyakit.addPenyakit', $data);
     }
 
-    public function addPenyakitAction(Request $request) {        
+    // Fungsi menambahkan penyakit
+    public function addPenyakitAction(Request $request) {   
         $disease = Disease::create([
             'name' => $request->nama_penyakit,
             'description' => $request->desc,
@@ -141,7 +146,7 @@ class PakarController extends Controller
         $case = ChiCase::create([
             'user_id' => auth()->user()->id,
             'disease_id' => $disease->id,
-            'valid' => 1,
+            'valid' => 'valid',
             'pakar' => 1,
         ]);
 
@@ -149,8 +154,8 @@ class PakarController extends Controller
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'mb' => $gejala['tk'],
-                'md' => 100-$gejala['tk'],
+                'mb' => $request['tp'][$gejala['id']],
+                'md' => 100-$request['tp'][$gejala['id']],
             ]);
         }
 
@@ -158,13 +163,14 @@ class PakarController extends Controller
 
         $cf = [];
         $cfGabungan = 0;
-
+        $cek = [];
         foreach($request->gejala as $key => $gejala) {
-            $mb = $gejala['tk'];
-            $md = 100-$gejala['tk'];
+            $cek[] = $request['tp'][$gejala['id']];
+            $mb = $request['tp'][$gejala['id']];
+            $md = 100-$request['tp'][$gejala['id']];
 
             $cf[$key] = ($mb - $md)/100;
-        }
+        } 
 
         $last_key = array_keys($cf);
         $last_key = end($last_key);
@@ -172,11 +178,12 @@ class PakarController extends Controller
         foreach($cf as $key => $value) {
             if($key == 0){
                 if($last_key == $key){
-                    $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
+                    $cfGabungan = $cfGabungan + $value * (1 - $value);
                 }else{
                     $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
                 }
             }else{
+                
                 $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
             }            
         }
@@ -201,7 +208,7 @@ class PakarController extends Controller
     
         $penyakit = Disease::find($request->penyakit_target);
 
-        // dd($penyakit->getlistofcase());
+        // dd($request->all());
         
         foreach($penyakit->GetListOfCase() as $key => $item)
         {
@@ -214,15 +221,13 @@ class PakarController extends Controller
         // hitung nilai cf untuk menentukan tingkat kepercayaan
         $cf = [];
         $cfGabungan = 0;
-        $index = 0;
 
         foreach($request->gejala as $key => $item){
-            $md = 100 - $item['tk'];
-            $mb = 100 - $md;
+            $mb = $request->tp[$item['id']];
+            $md = 100 - $mb;
 
-            $cf[$index]['id'] = $item['id'];
-            $cf[$index]['cf'] = ($mb - $md)/100;
-            $index++;
+            $cf[$key]['id'] = $item['id'];
+            $cf[$key]['cf'] = ($mb - $md)/100;
         }
 
         $last_key = array_keys($cf);
@@ -245,7 +250,7 @@ class PakarController extends Controller
         $case = ChiCase::create([
             'user_id' => auth()->user()->id,
             'disease_id' => $request->penyakit_target,
-            'valid' => 1,
+            'valid' => 'valid',
             'pakar' => 1,
             'tingkat_kepercayaan' => $cfGabungan*100,
         ]);
@@ -254,12 +259,12 @@ class PakarController extends Controller
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'mb' => $gejala['tk'],
-                'md' => 100-$gejala['tk'],
+                'mb' => $request->tp[$item['id']],
+                'md' => 100 -  $request->tp[$item['id']],
             ]);
         }
 
-        return redirect()->route('kasusView');
+        return redirect()->route('penyakitView');
     }
 
     public function gejalaView() {

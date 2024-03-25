@@ -48,16 +48,16 @@ class ChiCase extends Model
         return $isSame;
     }
 
-    public function GetNK($id_symptoms)
+    public function GetNK($symptom)
     {
         $data = CaseForSymptom::where('chi_case_id', $this->id)->get()
-            ->where('symptom_id', $id_symptoms)->first();
-        
+            ->where('symptom_id', $symptom['id'])->first();
+
         if($data == null) {
             return 0;
         }
 
-        return $data->mb;
+        return $symptom['tp'] * $data->mb/100;
     }
 
     public function updateRelatedSymptom($symptom, $value)

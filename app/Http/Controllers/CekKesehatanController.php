@@ -49,20 +49,29 @@ class CekKesehatanController extends Controller
         $allResult = [];
         $finalResult = [];
 
+        // 3 gejala = 2, 5, 8
+
         foreach($case as $key => $value) {
             $nilai_atas = 0;
             $nilai_bawah = 0;
 
+            // dd($value->getAllRelatedSymptom());
+
             foreach($gejala as $item) {
-                $nilai_atas += $value->GetNK($item['id']);
+                $nilai_atas += $value->GetNK($item);
             }
 
-            foreach($gejala as $item){
-                $nilai_bawah += $item['tp'];
+            foreach($value->getAllRelatedSymptom() as $item){
+                // 0.9
+                $nilai_bawah += $item->mb/100;
             }
 
+            // dd($gejala, $nilai_atas, $nilai_bawah);
             $allResult[] = [
                 'penyakit' => $value->disease_id,
+                'related_symptom' => $value->getAllRelatedSymptom(),
+                'nb' => $nilai_bawah,
+                'na' => $nilai_atas,
                 'nilai' => $nilai_atas/$nilai_bawah
             ];
         }
@@ -70,13 +79,22 @@ class CekKesehatanController extends Controller
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {
             if($key == 0){
-                $finalResult = $item;
-            } else {
-                if($item['nilai'] > $finalResult['nilai']) {
-                    $finalResult = $item;
+                array_push($finalResult, $allResult[0]);
+                continue;
+            }
+
+            if($item['nilai'] >= $finalResult[0]['nilai']){
+                if(count($item['related_symptom']) < count($finalResult[0]['related_symptom'])){
+                    continue;
+                }else{
+                    array_pop($finalResult);    
+                    array_push($finalResult, $item);
                 }
             }
         }
+
+
+        dd($finalResult, $allResult);
 
         $case = ChiCase::create([
             'disease_id' => $finalResult['penyakit'],

@@ -26,7 +26,8 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->integer('tingkat_kepercayaan')->nullable(); // skala 0 - 100 (0% - 100%)
+            $table->integer('derajat_kepercayaan')->nullable(); // skala 0 - 100 (0% - 100%) final result for cf
+            $table->integer('kemiripan_kasus')->nullable(); // skala 0 - 100 (0% - 100%) final result for cbr
             $table->enum('valid', ['notChecked', 'notValid', 'valid'])->default('notChecked');
             $table->boolean('pakar')->nullable();
             $table->timestamps();

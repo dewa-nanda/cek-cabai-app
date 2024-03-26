@@ -18,7 +18,8 @@ class ChiCase extends Model
      protected $fillable = [
         'disease_id',
         'user_id',
-        'tingkat_kepercayaan',
+        'derajat_kepercayaan',
+        'kemiripan_kasus',
         'valid',
         'pakar',
     ];

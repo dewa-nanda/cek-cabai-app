@@ -86,11 +86,11 @@
                                     <div>
                                         <div class="flex justify-between">
                                             <h1 class="mb-2">Tingkat keparahan gejala terhadap penyakit</h1>
-                                            <p>{{$symptom->mb}}%</p>
+                                            <p>{{$symptom->tingkat_kerusakan}}%</p>
                                         </div>
 
                                         <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$symptom->mb}}%"></div>
+                                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$symptom->tingkat_kerusakan}}%"></div>
                                         </div>
                                     </div>
 

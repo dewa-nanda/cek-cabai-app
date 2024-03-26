@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/allKasus', 'allKasusView')->name('allKasusView');
             Route::get('/kasus/{id}', 'detailKasusView')->name('detailKasusView');
             Route::patch('/kasus/{id}', 'validasiKasus')->name('validasiKasus');
+            Route::patch('/kasus/{id}/updateDisease', 'kasusUpdateDisease')->name('kasusUpdateDisease');
             Route::get('/kasus/{id}/result', 'resultKasus')->name('resultKasus');
         });
     });

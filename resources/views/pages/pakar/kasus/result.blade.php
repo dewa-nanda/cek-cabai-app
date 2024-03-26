@@ -35,7 +35,7 @@
               
   
             <div style="background-color: #222831; min-width:50%" class="flex mx-auto rounded-xl min-h-96 gap-5">
-                <section class="p-3 flex flex-col justify-evenly">
+                <section class="p-3 flex flex-col justify-evenly" style="width: 40%">
                     <div style="border-bottom: 2px solid #76ABAE" class="flex flex-col p-2 -mb-12 rounded-xl">
                         <h1 class="text-xl">Indikasi Penyakit</h1>
                         <p class="text-3xl text-end font-bold">{{$case->getDisease()->name}}</p>
@@ -51,12 +51,9 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </section>
         
-                <section style="background-color: #31363F; border-left: 5px solid #76ABAE" class="rounded-xl p-3 flex flex-col justify-center gap-3">
+                <section style="background-color: #31363F; border-left: 5px solid #76ABAE; width:60%" class="rounded-xl p-3 flex flex-col justify-center gap-3">
                     <div style="border-bottom: 2px solid #76ABAE" class="flex flex-col gap-1 pb-1">
                         <h1 class="text-3xl">Hasil Tingkat Kepercayaan <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">
                           @if ($case->valid == 'notValid')
@@ -69,23 +66,107 @@
                         <p>Berikut merupakan hasil tingkat kepercayaan yang dihitung menggunakan metode certainty factor!</p>
                     </div>
 
-                    <div class="flex flex-col gap-4">
-                        <div>
-                          @if ($case->valid == 0)
-                            <p>Tingkat Kepercayaan <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Berdasarkan Pengetahuan Pakar</span> : Dibawah Threshold</p>  
-                          @else
-                            <p>Tingkat Kepercayaan <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Berdasarkan Pengetahuan Pakar</span> : {{$case->tingkat_kepercayaan}} %</p>  
-                          @endif
+                    @if ($case->valid == 'notValid')
+                        <div class="flex flex-col gap-4">
+                          <div>
+                              <p>Tingkat Kepercayaan <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Berdasarkan Pengetahuan Pakar</span> : < 75 (dibawah threshold)</p>  
+                          </div>
+
+                          <button data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal" class="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            Perbaiki Pengetahuan
+                          </button>
+
+                          <!-- Extra Large Modal -->
+                          <form method="POST" action="{{route('kasusUpdateDisease', $case->id)}}">
+                            @csrf
+                            @method('PATCH')
+                            <div id="extralarge-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                              <div class="relative w-full max-w-7xl max-h-full">
+                                  <!-- Modal content -->
+                                  <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                      <!-- Modal header -->
+                                      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                          <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                                              Perbaiki Pengetahuan
+                                          </h3>
+                                          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="extralarge-modal">
+                                              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                              </svg>
+                                              <span class="sr-only">Close modal</span>
+                                          </button>
+                                      </div>
+
+                                      <!-- Modal body -->
+                                      <div class="p-4 md:p-5 space-y-4">
+
+                                        <div id="accordion-open" data-accordion="open">
+                                          <h2 id="accordion-open-heading-1">
+                                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-open-body-1" aria-expanded="true" aria-controls="accordion-open-body-1">
+                                              <span class="flex items-center"><svg class="w-5 h-5 me-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg> Tingkat Kerusakan Gejala Terhadap Penyakit</span>
+                                              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                              </svg>
+                                            </button>
+                                          </h2>
+                                          <div id="accordion-open-body-1" class="hidden" aria-labelledby="accordion-open-heading-1">
+                                            <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                              @foreach($case->getAllRelatedSymptom() as $symptom)
+                                                <div class="flex flex-col gap-1">
+                                                  <div>
+                                                    <a href="#" class="flex-none bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">{{$symptom->getSymptom()->name}}</a>
+                                                  </div>
+                                                  
+                                                  <div>
+                                                    <div class="flex justify-between">
+                                                      <p class="text-black">Tingkat Kerusakan</p>
+                                                      <p class="text-black">{{$symptom->tingkat_kerusakan}}%</p>
+                                                    </div>
+                                                    <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
+                                                      <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: {{$symptom->tingkat_kerusakan}}%"></div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              @endforeach
+                                            </div>
+                                          </div>
+
+                                          <h2 id="accordion-open-heading-2">
+                                            <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
+                                              <span class="flex items-center"><svg class="w-5 h-5 me-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Tentukan Penyakit Yang Cocok Terhadap Kasus Ini</span>
+                                              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                              </svg>
+                                            </button>
+                                          </h2>
+                                          <div id="accordion-open-body-2" class="hidden" aria-labelledby="accordion-open-heading-2">
+                                            <div class="p-5 border border-b-2 border-gray-200 dark:border-gray-700">
+                                              <select id="countries" name="disease_target" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option selected>Pilih Penyakit Yang Cocok</option>
+                                                @foreach ($disease as $disease)
+                                                  <option value="{{$disease->id}}">{{$disease->name}}</option>
+                                                @endforeach
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                                                              
+                                      </div>
+
+                                      <!-- Modal footer -->
+                                      <div class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
+                                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit (perbaiki pengetahuan)</button>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>                        
+                      @else
+                        <div class="mt-2">
+                            <a href="{{route('detailKasusView', $case->id)}}"  class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit <i class="fa-solid fa-pen-to-square"></i></a>
                         </div>
-                        @if ($case->valid == 0)
-                            <div>
-                                <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit <i class="fa-solid fa-pen-to-square"></i></button>
-                            </div>
-                        @else
-                            <div>
-                                <a href="{{route('detailKasusView', $case->id)}}"  class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit <i class="fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                        @endif
+                      @endif
                     </div>
                 </section>
             </div>  

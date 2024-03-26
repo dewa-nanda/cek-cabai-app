@@ -57,7 +57,7 @@ class ChiCase extends Model
             return 0;
         }
 
-        return $symptom['tp'] * $data->mb/100;
+        return $symptom['tp'] * $data->tingkat_kerusakan/100;
     }
 
     public function updateRelatedSymptom($symptom, $value)
@@ -74,17 +74,14 @@ class ChiCase extends Model
 
     public function updateHasValid($tingkat_kepercayaan)
     {
-        $tingkat_kepercayaan = $tingkat_kepercayaan * 100;
-
+        $tingkat_kepercayaan*=100;
         if($tingkat_kepercayaan > 70) {
             $this->update([
                 'valid' => 'valid',
-                'tingkat_kepercayaan' => $tingkat_kepercayaan,
             ]);            
         }else{
             $this->update([
                 'valid' => 'notValid',
-                'tingkat_kepercayaan' => $tingkat_kepercayaan,
             ]);
         }
     }

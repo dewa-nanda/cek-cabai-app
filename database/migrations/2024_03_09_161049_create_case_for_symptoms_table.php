@@ -24,7 +24,10 @@ return new class extends Migration
                 ->constrained('symptoms')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
+            
+            // dipake untuk perhitungan CBR
+            $table->integer('tingkat_kerusakan')->nullable(); // skala 0 - 100 (0% - 100%) measure of damage
+            // dipake untuk perhitungan CF
             $table->integer('mb')->nullable(); // skala 0 - 100 (0% - 100%) measure of belife
             $table->integer('md')->nullable(); // skala 0 - 100 (0% - 100%) measure of disbelife
             $table->timestamps();

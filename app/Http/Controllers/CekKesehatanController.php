@@ -35,47 +35,47 @@ class CekKesehatanController extends Controller
         return view('pages.cekKesehatan.bobot', $data);
     }
 
+    // Function cek kesehatan (retrieve - Case Based Reasoning)
     public function cekKesehatanAction(Request $request){
         $gejala = [];
+
+        // ambil data id gejala dan bobot kerusakan dari tiap gejala untuk ditaruh di dalam array $gejala
         foreach($request->tp as $key => $item) {
             $data['id'] = $key;
             $data['tp'] = $item/100;
             array_push($gejala, $data);
         }
-
         
+        // ambil semua data kasus yang valid
         $case = ChiCase::where('valid', 'valid')->get();
 
         $allResult = [];
         $finalResult = [];
 
-        // 3 gejala = 2, 5, 8
-
+        // hitung menggunakan rumus CBR 
         foreach($case as $key => $value) {
             $nilai_atas = 0;
             $nilai_bawah = 0;
-
-            // dd($value->getAllRelatedSymptom());
-
+            
             foreach($gejala as $item) {
                 $nilai_atas += $value->GetNK($item);
             }
 
             foreach($value->getAllRelatedSymptom() as $item){
-                // 0.9
-                $nilai_bawah += $item->mb/100;
+                $nilai_bawah += $item->tingkat_kerusakan/100;
             }
 
-            // dd($gejala, $nilai_atas, $nilai_bawah);
+            // dd($nilai_atas/$nilai_bawah);
             $allResult[] = [
                 'penyakit' => $value->disease_id,
                 'related_symptom' => $value->getAllRelatedSymptom(),
-                'nb' => $nilai_bawah,
                 'na' => $nilai_atas,
+                'nb' => $nilai_bawah,
                 'nilai' => $nilai_atas/$nilai_bawah
             ];
         }
 
+        // dd($allResult);
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {
             if($key == 0){
@@ -83,22 +83,26 @@ class CekKesehatanController extends Controller
                 continue;
             }
 
-            if($item['nilai'] >= $finalResult[0]['nilai']){
+            if($item['nilai'] > $finalResult[0]['nilai']){
+                array_pop($finalResult);    
+                array_push($finalResult, $item);
+            }
+            
+            if($item['nilai'] == $finalResult[0]['nilai']){
                 if(count($item['related_symptom']) < count($finalResult[0]['related_symptom'])){
                     continue;
                 }else{
                     array_pop($finalResult);    
                     array_push($finalResult, $item);
+
                 }
             }
         }
 
 
-        dd($finalResult, $allResult);
-
         $case = ChiCase::create([
-            'disease_id' => $finalResult['penyakit'],
-            'tingkat_kepercayaan' => $finalResult['nilai'],
+            'disease_id' => $finalResult[0]['penyakit'],
+            'tingkat_kepercayaan' => $finalResult[0]['nilai']*100,
             'pakar' => 0,
         ]);
 
@@ -106,8 +110,7 @@ class CekKesehatanController extends Controller
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $item['id'],
-                'mb' => $item['tp']*100,
-                'md' => 100-($item['tp']*100),
+                'tingkat_kerusakan' => $item['tp']*100,
             ]);
         }
         

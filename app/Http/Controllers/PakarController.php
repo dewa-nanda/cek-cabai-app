@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class PakarController extends Controller
 {
-    //
+    // Page Dashboard Pakar
     public function dashboardPakar() {
         $nonValidCase = ChiCase::get()->where('valid', 'notChecked');
 
@@ -23,6 +23,7 @@ class PakarController extends Controller
         return view('pages.pakar.dashboard', $data);
     }
 
+    // Page List of Kasus
     public function kasusView() {
         $nonValidCase = ChiCase::get()->where('valid', 'notChecked');
 
@@ -33,6 +34,7 @@ class PakarController extends Controller
         return view('pages.pakar.kasus.index', $data);
     }
 
+    // Page Detail Kasus
     public function detailKasusView($id) {
         $case = ChiCase::find($id);
 
@@ -43,14 +45,15 @@ class PakarController extends Controller
         return view('pages.pakar.kasus.detail', $data);
     }
 
-    public function validasiKasus(Request $request) {
+    // function validasi kasus
+    public function validasiKasus(Request $request) { 
         $cf = [];
         $cfGabungan = 0;
         $index = 0;
 
         foreach($request->tp as $key => $case) {
-            $mb = $case;
-            $md = 100 - $mb;
+            $md = 100 - $case;
+            $mb = 100 - $md;
 
             $cf[$index]['id'] = $key;
             $cf[$index]['cf'] = ($mb - $md)/100;
@@ -94,14 +97,32 @@ class PakarController extends Controller
 
     public function resultKasus($id) {
         $case = ChiCase::find($id);
+        $disease = disease::get();
         $lengthGejala = count($case->getAllRelatedSymptom());
 
         $data = [
             'case' => $case,
             'lengthGejala' => $lengthGejala,
+            'disease' => $disease,
         ];
 
         return view('pages.pakar.kasus.result', $data);
+    }
+
+    // update target penyakit di suatu kasus
+    public function kasusUpdateDisease(Request $request) {
+        $id = request('id');
+        $case = ChiCase::find($id);
+
+        $target = $request->disease_target;
+
+        $case->update([
+            'disease_id' => $target,
+            'valid' => 'valid',
+            'pakar' => '1'
+        ]);
+
+        return redirect()->route('kasusView');
     }
 
     public function allKasusView() {
@@ -135,7 +156,7 @@ class PakarController extends Controller
     }
 
     // Fungsi menambahkan penyakit
-    public function addPenyakitAction(Request $request) {   
+    public function addPenyakitAction(Request $request) {           
         $disease = Disease::create([
             'name' => $request->nama_penyakit,
             'description' => $request->desc,
@@ -154,43 +175,11 @@ class PakarController extends Controller
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'mb' => $request['tp'][$gejala['id']],
-                'md' => 100-$request['tp'][$gejala['id']],
+                'tingkat_kerusakan' => $request['tp'][$gejala['id']],
             ]);
         }
 
         // rubah jadi mb md
-
-        $cf = [];
-        $cfGabungan = 0;
-        $cek = [];
-        foreach($request->gejala as $key => $gejala) {
-            $cek[] = $request['tp'][$gejala['id']];
-            $mb = $request['tp'][$gejala['id']];
-            $md = 100-$request['tp'][$gejala['id']];
-
-            $cf[$key] = ($mb - $md)/100;
-        } 
-
-        $last_key = array_keys($cf);
-        $last_key = end($last_key);
-
-        foreach($cf as $key => $value) {
-            if($key == 0){
-                if($last_key == $key){
-                    $cfGabungan = $cfGabungan + $value * (1 - $value);
-                }else{
-                    $cfGabungan = $value + $cf[$key + 1] * (1 - $value);
-                }
-            }else{
-                
-                $cfGabungan = $cfGabungan + $value * (1 - $cfGabungan);
-            }            
-        }
-
-        $case->tingkat_kepercayaan = $cfGabungan*100;
-        $case->save();
-
         return redirect()->route('penyakitView');
     }
 
@@ -208,42 +197,13 @@ class PakarController extends Controller
     
         $penyakit = Disease::find($request->penyakit_target);
 
-        // dd($request->all());
         
-        foreach($penyakit->GetListOfCase() as $key => $item)
+        foreach($penyakit->GetListOfCase(1) as $item)
         {
+            // dd($item);
             if($item->checkSimilarSymptom($request->gejala) == true)
             {
                 return redirect()->route('addKasusView')->with('error', 'Kasus yang sama sudah ada');
-            }
-        }
-
-        // hitung nilai cf untuk menentukan tingkat kepercayaan
-        $cf = [];
-        $cfGabungan = 0;
-
-        foreach($request->gejala as $key => $item){
-            $mb = $request->tp[$item['id']];
-            $md = 100 - $mb;
-
-            $cf[$key]['id'] = $item['id'];
-            $cf[$key]['cf'] = ($mb - $md)/100;
-        }
-
-        $last_key = array_keys($cf);
-        $last_key = end($last_key);
-
-        foreach($cf as $key => $value) {
-            if($key != $last_key) {
-                if($key == 0){
-                    $cfGabungan = $value['cf'] + $cf[$key + 1]['cf'] * (1 - $value['cf']);
-                }else{
-                    $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
-                }
-            }else{
-                if($key == 0){
-                    $cfGabungan = $value['cf'];
-                }
             }
         }
 
@@ -252,15 +212,15 @@ class PakarController extends Controller
             'disease_id' => $request->penyakit_target,
             'valid' => 'valid',
             'pakar' => 1,
-            'tingkat_kepercayaan' => $cfGabungan*100,
         ]);
+
+        // dd($request->all());
 
         foreach($request->gejala as $gejala) {
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'mb' => $request->tp[$item['id']],
-                'md' => 100 -  $request->tp[$item['id']],
+                'tingkat_kerusakan' => $request->tp[$gejala['id']],
             ]);
         }
 

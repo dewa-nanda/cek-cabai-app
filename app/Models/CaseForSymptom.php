@@ -20,7 +20,7 @@ class CaseForSymptom extends Model
         'symptom_id',
         'mb',
         'md',
-        'tk',
+        'tingkat_kerusakan',
     ];
 
     public function getSymptom()

@@ -132,9 +132,6 @@
                                                                                     Gejala
                                                                                 </th>
                                                                                 <th scope="col" class="px-6 py-3">
-                                                                                    Tingkat Kepercayaan
-                                                                                </th>
-                                                                                <th scope="col" class="px-6 py-3">
                                                                                     Keterangan
                                                                                 </th>
                                                                             </tr>
@@ -149,13 +146,6 @@
                                                                                         @foreach ($gejala->getAllRelatedSymptom() as $item)
                                                                                             <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$item->getSymptom()->name}}</a>
                                                                                         @endforeach
-                                                                                    </td>
-                                                                                    <td class="px-6 py-4">
-                                                                                        @if ($gejala->tingkat_kepercayaan != null)
-                                                                                            <p>{{$gejala->tingkat_kepercayaan}} %</p>
-                                                                                        @else
-                                                                                            <p>Undefined</p>
-                                                                                        @endif
                                                                                     </td>
                                                                                     <td class="px-6 py-4">
                                                                                         @if ($key == 0)

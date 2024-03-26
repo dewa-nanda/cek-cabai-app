@@ -37,14 +37,7 @@ class CekKesehatanController extends Controller
 
     // Function cek kesehatan (retrieve - Case Based Reasoning)
     public function cekKesehatanAction(Request $request){
-        $gejala = [];
-
-        // ambil data id gejala dan bobot kerusakan dari tiap gejala untuk ditaruh di dalam array $gejala
-        foreach($request->tp as $key => $item) {
-            $data['id'] = $key;
-            $data['tp'] = $item/100;
-            array_push($gejala, $data);
-        }
+        $gejala = $request->gejala;
         
         // ambil semua data kasus yang valid
         $case = ChiCase::where('valid', 'valid')->get();
@@ -75,7 +68,6 @@ class CekKesehatanController extends Controller
             ];
         }
 
-        // dd($allResult);
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {
             if($key == 0){
@@ -94,26 +86,34 @@ class CekKesehatanController extends Controller
                 }else{
                     array_pop($finalResult);    
                     array_push($finalResult, $item);
-
                 }
             }
         }
 
-
         $case = ChiCase::create([
             'disease_id' => $finalResult[0]['penyakit'],
-            'tingkat_kepercayaan' => $finalResult[0]['nilai']*100,
+            'kemiripan_kasus' => $finalResult[0]['nilai']*100,
             'pakar' => 0,
         ]);
 
-        foreach($gejala as $item) {
-            CaseForSymptom::create([
+        $data = [];
+        foreach($gejala as $key => $item) {
+            $data[$key] = CaseForSymptom::create([
                 'chi_case_id' => $case->id,
-                'symptom_id' => $item['id'],
-                'tingkat_kerusakan' => $item['tp']*100,
+                'symptom_id' => $item,
             ]);
         }
-        
+
+        foreach($data as $item) {
+            foreach($finalResult[0]['related_symptom'] as $value) {
+                if($item->symptom_id == $value->symptom_id){
+                    $item->update([
+                        'tingkat_kerusakan' => $value->tingkat_kerusakan,
+                    ]);
+                }
+            }
+        }
+
         return redirect()->route('resultCekKesehatanView', $case->id);
     }
 

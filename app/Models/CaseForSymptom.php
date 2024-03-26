@@ -27,4 +27,11 @@ class CaseForSymptom extends Model
     {
         return Symptom::find($this->symptom_id);
     }
+
+    public function updateTingkatKerusakan($value)
+    {
+        $this->update([
+            'tingkat_kerusakan' => $value,
+        ]);
+    }
 }

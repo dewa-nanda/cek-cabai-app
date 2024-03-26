@@ -54,7 +54,7 @@
                                 </div>
         
                                 <div class="basis-5/6">
-                                    <p class="text-end">Tingkat Kepercayaan (Berdasarkan Sistem) : <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">{{$case->tingkat_kepercayaan}} %</span></p>
+                                    <p class="text-end">Tingkat Kepercayaan (Berdasarkan Sistem) : <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">{{$case->kemiripan_kasus}} %</span></p>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,11 @@
                                     <div>
                                         <div class="flex justify-between">
                                             <h1 class="mb-2">Tingkat keparahan gejala terhadap penyakit</h1>
-                                            <p>{{$symptom->tingkat_kerusakan}}%</p>
+                                            @if($symptom->tingkat_kerusakan == null)
+                                                <p>{{$symptom->tingkat_kerusakan}}Belum Teridentifikasi (gejala baru dalam kasus ini)</p>
+                                            @else
+                                                <p>{{$symptom->tingkat_kerusakan}}%</p>
+                                            @endif
                                         </div>
 
                                         <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">

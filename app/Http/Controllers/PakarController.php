@@ -98,12 +98,23 @@ class PakarController extends Controller
     public function resultKasus($id) {
         $case = ChiCase::find($id);
         $disease = disease::get();
-        $lengthGejala = count($case->getAllRelatedSymptom());
+        $symptom = $case->getAllRelatedSymptom();
+        
+        $update_symptom = [];
+
+        
+        foreach ($symptom as $value) {
+            if($value->tingkat_kerusakan == null){
+                $update_symptom[] = $value;
+            }
+        }
+        // dd($case->getDisease(), $disease, $symptom, $update_symptom);
 
         $data = [
             'case' => $case,
-            'lengthGejala' => $lengthGejala,
+            'symptom' => $symptom,
             'disease' => $disease,
+            'updateSymptom' => $update_symptom,
         ];
 
         return view('pages.pakar.kasus.result', $data);
@@ -111,16 +122,39 @@ class PakarController extends Controller
 
     // update target penyakit di suatu kasus
     public function kasusUpdateDisease(Request $request) {
+        $gejala = [];
+        
+
+        foreach ($request->tp as $key => $value) {
+            $data = [
+                'id' => $key,
+                'tingkat_kerusakan' => $value
+            ];
+            
+            $gejala[] = $data;
+        }
+
+        foreach ($gejala as $item){
+            CaseForSymptom::find($item['id'])->updateTingkatKerusakan($item['tingkat_kerusakan']);
+        }
+
         $id = request('id');
         $case = ChiCase::find($id);
 
         $target = $request->disease_target;
 
-        $case->update([
-            'disease_id' => $target,
-            'valid' => 'valid',
-            'pakar' => '1'
-        ]);
+        if($target == null) {
+            $case->update([
+                'valid' => 'valid',
+                'pakar' => '1'
+            ]);
+        }else{
+            $case->update([
+                'disease_id' => $target,
+                'valid' => 'valid',
+                'pakar' => '1'
+            ]);
+        }
 
         return redirect()->route('kasusView');
     }
@@ -179,7 +213,6 @@ class PakarController extends Controller
             ]);
         }
 
-        // rubah jadi mb md
         return redirect()->route('penyakitView');
     }
 
@@ -196,11 +229,9 @@ class PakarController extends Controller
         // cek apakah sudah ada kasus yang sama atau belum
     
         $penyakit = Disease::find($request->penyakit_target);
-
         
         foreach($penyakit->GetListOfCase(1) as $item)
         {
-            // dd($item);
             if($item->checkSimilarSymptom($request->gejala) == true)
             {
                 return redirect()->route('addKasusView')->with('error', 'Kasus yang sama sudah ada');
@@ -213,8 +244,6 @@ class PakarController extends Controller
             'valid' => 'valid',
             'pakar' => 1,
         ]);
-
-        // dd($request->all());
 
         foreach($request->gejala as $gejala) {
             CaseForSymptom::create([

@@ -52,13 +52,13 @@ class ChiCase extends Model
     public function GetNK($symptom)
     {
         $data = CaseForSymptom::where('chi_case_id', $this->id)->get()
-            ->where('symptom_id', $symptom['id'])->first();
+            ->where('symptom_id', $symptom)->first();
 
         if($data == null) {
             return 0;
         }
 
-        return $symptom['tp'] * $data->tingkat_kerusakan/100;
+        return $data->tingkat_kerusakan/100;
     }
 
     public function updateRelatedSymptom($symptom, $value)

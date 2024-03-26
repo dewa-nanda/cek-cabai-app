@@ -33,9 +33,9 @@
                         </h2>
                     </div>
 
-                    <form class="mt-8 space-y-6" action="{{route("bobotGejala")}}" method="POST">
+                    <form class="mt-8 space-y-6" action="{{route("cekKesehatanAction")}}" method="POST">
                         @csrf
-                        @method("GET")
+                        @method("POST")
                         <div class="grid grid-cols-3 gap-6">
                             @foreach ($gejala as $key => $item)
                                 <div class="flex items-center">

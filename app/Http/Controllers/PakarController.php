@@ -104,7 +104,7 @@ class PakarController extends Controller
 
         
         foreach ($symptom as $value) {
-            if($value->tingkat_kerusakan == null){
+            if($value->bobot_kepercayaan == null){
                 $update_symptom[] = $value;
             }
         }
@@ -128,14 +128,14 @@ class PakarController extends Controller
         foreach ($request->tp as $key => $value) {
             $data = [
                 'id' => $key,
-                'tingkat_kerusakan' => $value
+                'bobot_kepercayaan' => $value
             ];
             
             $gejala[] = $data;
         }
 
         foreach ($gejala as $item){
-            CaseForSymptom::find($item['id'])->updateTingkatKerusakan($item['tingkat_kerusakan']);
+            CaseForSymptom::find($item['id'])->updateTingkatKerusakan($item['bobot_kepercayaan']);
         }
 
         $id = request('id');

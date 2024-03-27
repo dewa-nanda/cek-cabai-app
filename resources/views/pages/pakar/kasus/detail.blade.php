@@ -85,16 +85,20 @@
                                 <div id="input-gejala-tk-{{$symptom->getSymptom()->id}}" class="flex flex-col gap-3 hidden">
                                     <div>
                                         <div class="flex justify-between">
-                                            <h1 class="mb-2">Tingkat keparahan gejala terhadap penyakit</h1>
-                                            @if($symptom->tingkat_kerusakan == null)
-                                                <p>{{$symptom->tingkat_kerusakan}}Belum Teridentifikasi (gejala baru dalam kasus ini)</p>
+                                            <h1 class="mb-2">Bobot kepercayaan gejala terhadap penyakit <br>(berdasarkan kasus terdahulunya)</h1>
+                                            @if($symptom->bobot_kepercayaan == null)
+                                                <p class="text-end">Belum Teridentifikasi <br>(gejala baru dalam kasus ini)</p>
                                             @else
-                                                <p>{{$symptom->tingkat_kerusakan}}%</p>
+                                                <p>{{$symptom->bobot_kepercayaan}}%</p>
                                             @endif
                                         </div>
 
                                         <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$symptom->tingkat_kerusakan}}%"></div>
+                                            @if($symptom->bobot_kepercayaan == null)
+                                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                                            @else
+                                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$symptom->bobot_kepercayaan}}%"></div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -117,14 +121,14 @@
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="n-{{$symptom->id}}" type="radio" value="50" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <input id="n-{{$symptom->id}}" type="radio" value="40" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                     <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Berpengaruh</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="tp-{{$symptom->id}}" type="radio" value="30" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <input id="tp-{{$symptom->id}}" type="radio" value="20" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                     <label for="tp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Terlalu Berpengaruh</label>
                                                 </div>
                                             </li>

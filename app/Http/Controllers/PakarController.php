@@ -83,7 +83,7 @@ class PakarController extends Controller
                 }
             }else{
                 if($key == 0){
-                    $cfGabungan = $value['cf'];
+                $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
                 }
             }
         }

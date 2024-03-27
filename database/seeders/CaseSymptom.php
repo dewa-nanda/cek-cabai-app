@@ -16,105 +16,136 @@ class CaseSymptom extends Seeder
         //
         DB::table('case_for_symptoms')->insert(
            [ 
+            // Bobot kepercayaan diantara 25, 50, 75, 100
+            // 5 gejala
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 1,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 75,
             ],
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 3,
-                'tingkat_kerusakan' => 30,
+                'bobot_kepercayaan' => 25,
             ],
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 4,
-                'tingkat_kerusakan' => 50,
+                'bobot_kepercayaan' => 50,
             ],
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 5,
-                'tingkat_kerusakan' => 30,
+                'bobot_kepercayaan' => 25,
             ],
             [
                 'chi_case_id' => 1,
                 'symptom_id' => 6,
-                'tingkat_kerusakan' => 50,
+                'bobot_kepercayaan' => 50,
             ],
+            // 5 gejala
             [
                 'chi_case_id' => 2,
                 'symptom_id' => 3,
-                'tingkat_kerusakan' => 30,
+                'bobot_kepercayaan' => 75,
             ],
             [
                 'chi_case_id' => 2,
                 'symptom_id' => 4,
-                'tingkat_kerusakan' => 30,
+                'bobot_kepercayaan' => 25,
             ],
             [
                 'chi_case_id' => 2,
                 'symptom_id' => 5,
-                'tingkat_kerusakan' => 30,
+                'bobot_kepercayaan' => 50,
             ],
             [
                 'chi_case_id' => 2,
                 'symptom_id' => 6,
-                'tingkat_kerusakan' => 50,
+                'bobot_kepercayaan' => 50,
             ],
             [
-                'chi_case_id' => 3,
+                'chi_case_id' => 2,
                 'symptom_id' => 2,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 75,
             ],
+            // 5 gejala
             [
                 'chi_case_id' => 3,
                 'symptom_id' => 3,
-                'tingkat_kerusakan' => 90,
+                'bobot_kepercayaan' => 75,
             ],
             [
                 'chi_case_id' => 3,
                 'symptom_id' => 4,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 50,
             ],
             [
                 'chi_case_id' => 3,
                 'symptom_id' => 5,
-                'tingkat_kerusakan' => 90,
+                'bobot_kepercayaan' => 25,
             ],
             [
                 'chi_case_id' => 3,
                 'symptom_id' => 6,
-                'tingkat_kerusakan' => 90,
+                'bobot_kepercayaan' => 25,
             ],
             [
                 'chi_case_id' => 3,
                 'symptom_id' => 7,
-                'tingkat_kerusakan' => 50,
+                'bobot_kepercayaan' => 50,
             ],
+            // 5 gejala
             [
                 'chi_case_id' => 4,
                 'symptom_id' => 9,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 75,
             ],
             [
                 'chi_case_id' => 4,
                 'symptom_id' => 10,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 75,
             ],
             [
                 'chi_case_id' => 4,
                 'symptom_id' => 12,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 50,
             ],
             [
-                'chi_case_id' => 5,
+                'chi_case_id' => 4,
                 'symptom_id' => 11,
-                'tingkat_kerusakan' => 70,
+                'bobot_kepercayaan' => 25,
+            ],
+            [
+                'chi_case_id' => 4,
+                'symptom_id' => 15,
+                'bobot_kepercayaan' => 25,
+            ],
+            // 5 gejala
+            [
+                'chi_case_id' => 5,
+                'symptom_id' => 17,
+                'bobot_kepercayaan' => 75,
             ],
             [
                 'chi_case_id' => 5,
-                'symptom_id' => 15,
-                'tingkat_kerusakan' => 50,
+                'symptom_id' => 14,
+                'bobot_kepercayaan' => 25,
+            ],
+            [
+                'chi_case_id' => 5,
+                'symptom_id' => 13,
+                'bobot_kepercayaan' => 50,
+            ],
+            [
+                'chi_case_id' => 5,
+                'symptom_id' => 16,
+                'bobot_kepercayaan' => 25,
+            ],
+            [
+                'chi_case_id' => 5,
+                'symptom_id' => 10,
+                'bobot_kepercayaan' => 50,
             ],
         ]);
     }

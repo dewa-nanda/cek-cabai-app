@@ -20,7 +20,7 @@ class CaseForSymptom extends Model
         'symptom_id',
         'mb',
         'md',
-        'tingkat_kerusakan',
+        'bobot_kepercayaan',
     ];
 
     public function getSymptom()
@@ -31,7 +31,7 @@ class CaseForSymptom extends Model
     public function updateTingkatKerusakan($value)
     {
         $this->update([
-            'tingkat_kerusakan' => $value,
+            'bobot_kepercayaan' => $value,
         ]);
     }
 }

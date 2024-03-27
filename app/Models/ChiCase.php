@@ -58,7 +58,7 @@ class ChiCase extends Model
             return 0;
         }
 
-        return $data->tingkat_kerusakan/100;
+        return $data->bobot_kepercayaan/100;
     }
 
     public function updateRelatedSymptom($symptom, $value)

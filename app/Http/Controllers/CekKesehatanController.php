@@ -45,6 +45,8 @@ class CekKesehatanController extends Controller
         $allResult = [];
         $finalResult = [];
 
+        // dd($gejala, $case);
+        
         // hitung menggunakan rumus CBR 
         foreach($case as $key => $value) {
             $nilai_atas = 0;
@@ -55,10 +57,11 @@ class CekKesehatanController extends Controller
             }
 
             foreach($value->getAllRelatedSymptom() as $item){
-                $nilai_bawah += $item->tingkat_kerusakan/100;
+                $nilai_bawah += $item->bobot_kepercayaan/100;
             }
 
             // dd($nilai_atas/$nilai_bawah);
+
             $allResult[] = [
                 'penyakit' => $value->disease_id,
                 'related_symptom' => $value->getAllRelatedSymptom(),
@@ -108,7 +111,7 @@ class CekKesehatanController extends Controller
             foreach($finalResult[0]['related_symptom'] as $value) {
                 if($item->symptom_id == $value->symptom_id){
                     $item->update([
-                        'tingkat_kerusakan' => $value->tingkat_kerusakan,
+                        'bobot_kepercayaan' => $value->bobot_kepercayaan,
                     ]);
                 }
             }

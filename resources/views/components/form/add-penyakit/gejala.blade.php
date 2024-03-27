@@ -5,33 +5,33 @@
     </div>
 
     <div id="tk-{{$id}}" class="hidden">
-        <h3 class="font-semibold text-white mb-2">Tentukan tingkat keparahan gejala</h3>
+        <h3 class="font-semibold text-white mb-2">Tentukan tingkat keyakinan gejala terhadap penyakit tanaman cabai</h3>
         <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center ps-3">
                     <input id="sp-{{$id}}" type="radio" value="100" name="tp[{{$id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="sp-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Parah</label>
+                    <label for="sp-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Yakin</label>
                 </div>
             </li>
 
             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center ps-3">
                     <input id="p-{{$id}}" type="radio" value="75" name="tp[{{$id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="p-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Parah</label>
+                    <label for="p-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yakin</label>
                 </div>
             </li>
 
             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                 <div class="flex items-center ps-3">
                     <input id="n-{{$id}}" type="radio" value="50" name="tp[{{$id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="n-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Parah</label>
+                    <label for="n-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Yakin</label>
                 </div>
             </li>
 
             <li class="w-full dark:border-gray-600">
                 <div class="flex items-center ps-3">
-                    <input id="tp-{{$id}}" type="radio" value="30" name="tp[{{$id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="tp-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Terlalu Parah</label>
+                    <input id="tp-{{$id}}" type="radio" value="25" name="tp[{{$id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="tp-{{$id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Terlalu Yakin</label>
                 </div>
             </li>
         </ul>

@@ -190,7 +190,7 @@ class PakarController extends Controller
     }
 
     // Fungsi menambahkan penyakit
-    public function addPenyakitAction(Request $request) {           
+    public function addPenyakitAction(Request $request) {              
         $disease = Disease::create([
             'name' => $request->nama_penyakit,
             'description' => $request->desc,
@@ -209,7 +209,7 @@ class PakarController extends Controller
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'tingkat_kerusakan' => $request['tp'][$gejala['id']],
+                'bobot_kepercayaan' => $request['tp'][$gejala['id']],
             ]);
         }
 
@@ -227,7 +227,6 @@ class PakarController extends Controller
 
     public function addKasus(Request $request) {
         // cek apakah sudah ada kasus yang sama atau belum
-    
         $penyakit = Disease::find($request->penyakit_target);
         
         foreach($penyakit->GetListOfCase(1) as $item)
@@ -249,7 +248,7 @@ class PakarController extends Controller
             CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $gejala['id'],
-                'tingkat_kerusakan' => $request->tp[$gejala['id']],
+                'bobot_kepercayaan' => $request->tp[$gejala['id']],
             ]);
         }
 

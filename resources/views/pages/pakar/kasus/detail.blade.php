@@ -54,7 +54,7 @@
                                 </div>
         
                                 <div class="basis-5/6">
-                                    <p class="text-end">Tingkat Kepercayaan (Berdasarkan Sistem) : <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">{{$case->tingkat_kepercayaan}} %</span></p>
+                                    <p class="text-end">Tingkat Kepercayaan (Berdasarkan Sistem) : <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-xl dark:bg-gray-700 dark:text-purple-400 border border-purple-400">{{$case->kemiripan_kasus}} %</span></p>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
     
                     </section>
             
-                    <section style="background-color: #31363F; border-left: 5px solid #76ABAE" class="rounded-xl p-3 flex flex-col justify-center gap-3">
+                    <section style="background-color: #31363F; border-left: 5px solid #76ABAE" class="rounded-xl p-5 flex flex-col justify-center gap-3">
                         <div style="border-bottom: 2px solid #76ABAE" class="flex flex-col gap-1 pb-1">
                             <h1 class="text-3xl">Revisi - Tingkat Kepercayaan Terhadap Seluruh Gejala</h1>
                             <p>Isikan tingkat kepercayaan pakar terhadap kasus pada tanaman cabai disamping, supaya dapat mengetahui apakah penyakit ini cocok dimasukan kedalam database atau tidak</p>
@@ -80,15 +80,66 @@
                                 @endforeach
                             </select>
     
+                            
                             @foreach($case->getAllRelatedSymptom() as $key => $symptom)
-                                <div id="input-gejala-tk-{{$symptom->getSymptom()->id}}" class="flex gap-3 hidden">
-                                    <div class="flex flex-col gap-2 basis-6/12">
-                                        <label for="tingkat_keyakinan_{{$key}}">Tingkat Keyakinan</label>
-                                        <input type="number" name="case[{{$key}}][mb]" id="tingkat_keyakinan_{{$key}}" style="border: 3px solid #76ABAE; color:#31363F;" class="w-full rounded-xl border-2 p-2" placeholder="Tingkat Keyakinan">
+                                <div id="input-gejala-tk-{{$symptom->getSymptom()->id}}" class="flex flex-col gap-3 hidden">
+                                    <div>
+                                        <div class="flex justify-between">
+                                            <h1 class="mb-2">Bobot kepercayaan gejala terhadap penyakit <br>(berdasarkan kasus terdahulunya)</h1>
+                                            @if($symptom->bobot_kepercayaan == null)
+                                                <p class="text-end">Belum Teridentifikasi <br>(gejala baru dalam kasus ini)</p>
+                                            @else
+                                                <p>{{$symptom->bobot_kepercayaan}}%</p>
+                                            @endif
+                                        </div>
+
+                                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                                            @if($symptom->bobot_kepercayaan == null)
+                                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                                            @else
+                                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$symptom->bobot_kepercayaan}}%"></div>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col gap-2 basis-6/12">
-                                        <label for="tingkat_ketidakyakinan_{{$key}}">Tingkat Ketidakyakinan</label>
-                                        <input type="number" name="case[{{$key}}][md]" id="tingkat_ketidakyakinan_{{$key}}" style="border: 3px solid #76ABAE; color:#31363F;" class="w-full rounded-xl border-2 p-2" placeholder="Tingkat Ketidakyakinan">
+
+                                    <div>
+                                        <h3 class="dark:text-white mb-2">Tentukan tingkat keyakinan gejala ini berpengaruh terhadap penyakit <span class="font-bold">{{$case->getDisease()->name}}</span></h3>
+                                        <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div class="flex items-center ps-3">
+                                                    <input id="sp-{{$symptom->id}}" type="radio" value="90" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="sp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Berpengaruh</label>
+                                                </div>
+                                            </li>
+
+                                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div class="flex items-center ps-3">
+                                                    <input id="p-{{$symptom->id}}" type="radio" value="70" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="p-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Berpengaruh</label>
+                                                </div>
+                                            </li>
+
+                                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div class="flex items-center ps-3">
+                                                    <input id="n-{{$symptom->id}}" type="radio" value="40" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Berpengaruh</label>
+                                                </div>
+                                            </li>
+
+                                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                                <div class="flex items-center ps-3">
+                                                    <input id="tp-{{$symptom->id}}" type="radio" value="20" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="tp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Terlalu Berpengaruh</label>
+                                                </div>
+                                            </li>
+
+                                            <li class="w-full dark:border-gray-600">
+                                                <div class="flex items-center ps-3">
+                                                    <input id="stp-{{$symptom->id}}" type="radio" value="0" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="stp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Berpengaruh</label>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             @endforeach

@@ -9,7 +9,7 @@
         <div class="border-4 border-slate-200 rounded-lg flex flex-col gap-3 p-8 bg-slate-50">
             <div class="flex gap-3 mb-2">
                 <h1 class="text-3xl font-bold">Penyakit {{$penyakit->name}}</h1>
-                <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Tingkat Kepercayaan : {{$case->tingkat_kepercayaan}} %</span>
+                <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Tingkat Kepercayaan : {{$case->kemiripan_kasus}} %</span>
             </div>
 
             <div class="flex flex-wrap gap-3 pb-4 mb-1 border-b-4">

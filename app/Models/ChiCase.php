@@ -18,8 +18,10 @@ class ChiCase extends Model
      protected $fillable = [
         'disease_id',
         'user_id',
-        'tingkat_kepercayaan',
+        'derajat_kepercayaan',
+        'kemiripan_kasus',
         'valid',
+        'pakar',
     ];
 
     public function getAllRelatedSymptom()
@@ -29,41 +31,58 @@ class ChiCase extends Model
         return $data;
     }
 
-    public function GetNK($id_symptoms)
+    public function checkSimilarSymptom($symptom)
     {
-        $data = CaseForSymptom::where('chi_case_id', $this->id)
-            ->where('symptom_id', $id_symptoms)
-            ->first();
+        $gejala = CaseForSymptom::where('chi_case_id', $this->id)->get();
+        $isSame = false;
+
+        foreach($gejala as $item){
+            foreach($symptom as $value){
+                if($item->symptom_id == $value['id']){
+                    $isSame = true;
+                }else{
+                    $isSame = false;
+                }
+            }
+        }
+
+        return $isSame;
+    }
+
+    public function GetNK($symptom)
+    {
+        $data = CaseForSymptom::where('chi_case_id', $this->id)->get()
+            ->where('symptom_id', $symptom)->first();
 
         if($data == null) {
             return 0;
         }
 
-        return $data->tk; ;
+        return $data->bobot_kepercayaan/100;
     }
 
     public function updateRelatedSymptom($symptom, $value)
     {
-        $symptom->update([
-            'mb' => $value['mb'],
-            'md' => $value['md'],
-            'tk' => $value['mb'],
-        ]);
+        if($symptom->id == $value['id'])
+        {
+            $symptom->update([
+                'mb' => $value['mb'],
+                'md' => $value['md'],
+            ]);
+        }
+
     }
 
     public function updateHasValid($tingkat_kepercayaan)
     {
-        $tingkat_kepercayaan = $tingkat_kepercayaan * 100;
-
+        $tingkat_kepercayaan*=100;
         if($tingkat_kepercayaan > 70) {
             $this->update([
-                'valid' => 1,
-                'tingkat_kepercayaan' => $tingkat_kepercayaan,
+                'valid' => 'valid',
             ]);            
         }else{
             $this->update([
-                'valid' => 0,
-                'tingkat_kepercayaan' => $tingkat_kepercayaan,
+                'valid' => 'notValid',
             ]);
         }
     }

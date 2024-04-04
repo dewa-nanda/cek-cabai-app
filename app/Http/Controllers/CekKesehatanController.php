@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CekKesehatanController extends Controller
 {
-    //
+    // page untuk memberikan list gejala pada tanaman cabai milik petani
     public function indexView(){
         $data = [
             'gejala' => Symptom::get(),
@@ -20,48 +20,53 @@ class CekKesehatanController extends Controller
         return view('pages.cekKesehatan.index', $data);
     }
 
+    // page untuk menentukan bobot kerusakan dari tiap gejala yang diinputkan oleh petani
+    public function bobotGejala(Request $request){
+        $gejala = [];
+
+        foreach($request->gejala as $item) {
+            $gejala[] = Symptom::find($item);
+        }
+
+        $data = [
+            'gejala' => $gejala,
+        ];
+
+        return view('pages.cekKesehatan.bobot', $data);
+    }
+
+    // Function cek kesehatan (retrieve - Case Based Reasoning)
     public function cekKesehatanAction(Request $request){
-        $penyakit = Disease::get();
-        $case = ChiCase::where('valid', 1)->get();
+        $gejala = $request->gejala;
+        
+        // ambil semua data kasus yang valid
+        $case = ChiCase::where('valid', 'valid')->get();
 
         $allResult = [];
         $finalResult = [];
+
+        // dd($gejala, $case);
         
-        foreach ($penyakit as $key => $value) {
-            $nilai_atas = 0;
-            $nilai_bawah = 0;
-
-            foreach($request->gejala as $item) {
-                $nilai_atas += $value->GetNK($item);
-            }
-
-            foreach($value->GetListOfSymptoms() as $item) {
-                $nilai_bawah += $item->tingkat_kepercayaan;
-            }
-
-            $allResult[$key] = [
-                'penyakit' => $value->id,
-                'gejala' => $request->gejala,
-                'nilai' => $nilai_atas/$nilai_bawah
-            ];
-        }
-
-
+        // hitung menggunakan rumus CBR 
         foreach($case as $key => $value) {
             $nilai_atas = 0;
             $nilai_bawah = 0;
-
-            foreach($request->gejala as $item) {
+            
+            foreach($gejala as $item) {
                 $nilai_atas += $value->GetNK($item);
             }
 
             foreach($value->getAllRelatedSymptom() as $item){
-                $nilai_bawah += $item->tk;
+                $nilai_bawah += $item->bobot_kepercayaan/100;
             }
+
+            // dd($nilai_atas/$nilai_bawah);
 
             $allResult[] = [
                 'penyakit' => $value->disease_id,
-                'gejala' => $request->gejala,
+                'related_symptom' => $value->getAllRelatedSymptom(),
+                'na' => $nilai_atas,
+                'nb' => $nilai_bawah,
                 'nilai' => $nilai_atas/$nilai_bawah
             ];
         }
@@ -69,24 +74,47 @@ class CekKesehatanController extends Controller
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {
             if($key == 0){
-                $finalResult = $item;
-            } else {
-                if($item['nilai'] > $finalResult['nilai']) {
-                    $finalResult = $item;
+                array_push($finalResult, $allResult[0]);
+                continue;
+            }
+
+            if($item['nilai'] > $finalResult[0]['nilai']){
+                array_pop($finalResult);    
+                array_push($finalResult, $item);
+            }
+            
+            if($item['nilai'] == $finalResult[0]['nilai']){
+                if(count($item['related_symptom']) < count($finalResult[0]['related_symptom'])){
+                    continue;
+                }else{
+                    array_pop($finalResult);    
+                    array_push($finalResult, $item);
                 }
             }
         }
 
         $case = ChiCase::create([
-            'disease_id' => $finalResult['penyakit'],
-            'tingkat_kepercayaan' => $finalResult['nilai']*100,
+            'disease_id' => $finalResult[0]['penyakit'],
+            'kemiripan_kasus' => $finalResult[0]['nilai']*100,
+            'pakar' => 0,
         ]);
 
-        foreach($finalResult['gejala'] as $item) {
-            CaseForSymptom::create([
+        $data = [];
+        foreach($gejala as $key => $item) {
+            $data[$key] = CaseForSymptom::create([
                 'chi_case_id' => $case->id,
                 'symptom_id' => $item,
             ]);
+        }
+
+        foreach($data as $item) {
+            foreach($finalResult[0]['related_symptom'] as $value) {
+                if($item->symptom_id == $value->symptom_id){
+                    $item->update([
+                        'bobot_kepercayaan' => $value->bobot_kepercayaan,
+                    ]);
+                }
+            }
         }
 
         return redirect()->route('resultCekKesehatanView', $case->id);

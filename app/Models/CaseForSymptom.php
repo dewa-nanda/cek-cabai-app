@@ -20,11 +20,18 @@ class CaseForSymptom extends Model
         'symptom_id',
         'mb',
         'md',
-        'tk',
+        'bobot_kepercayaan',
     ];
 
     public function getSymptom()
     {
         return Symptom::find($this->symptom_id);
+    }
+
+    public function updateTingkatKerusakan($value)
+    {
+        $this->update([
+            'bobot_kepercayaan' => $value,
+        ]);
     }
 }

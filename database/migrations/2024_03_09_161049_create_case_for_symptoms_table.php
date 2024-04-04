@@ -24,10 +24,12 @@ return new class extends Migration
                 ->constrained('symptoms')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
+            
+            // dipake untuk perhitungan CBR
+            $table->integer('bobot_kepercayaan')->nullable(); // skala 0 - 100 (0% - 100%) bobot kepercayaan pakar terhadap gejala kepada suatu kasus
+            // dipake untuk perhitungan CF
             $table->integer('mb')->nullable(); // skala 0 - 100 (0% - 100%) measure of belife
             $table->integer('md')->nullable(); // skala 0 - 100 (0% - 100%) measure of disbelife
-            $table->integer('tk')->nullable(); // skala 0 - 100 (0% - 100%) tingkat kepercayaan
             $table->timestamps();
         });
     }

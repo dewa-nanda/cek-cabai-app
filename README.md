@@ -1,66 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a target="_blank"><img src="storage/app/public/image/main/logo.png" width="400" alt="Cek Cabai App Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<!-- <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a> -->
 </p>
 
-## About Laravel
+## Pendahuluan
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<font size="5">Cek Cabai App, </font> adalah aplikasi yang dirancang untuk mendukung petani dalam mendiagnosis penyakit tanaman cabai yang mereka hadapi. Aplikasi ini memungkinkan petani untuk mengidentifikasi penyakit tanaman cabai secara akurat berdasarkan gejala yang diamati pada tanaman mereka. Dengan informasi yang diberikan oleh aplikasi, petani dapat mengambil langkah-langkah yang tepat untuk mengelola dan mengendalikan penyakit, sehingga meningkatkan hasil panen dan meminimalkan kerugian.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<!-- ## Cara Menggunakan Cek Cabai App
 
-## Learning Laravel
+Dalam apliaksi Cek Cabai App terdapat 3 role utama diantaranya adalah ( Admin, Pakar, dan Petani )
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Admin
+Merupakan role yang diberikan untuk 
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- CRUD semua data user
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Pakar Tanaman Cabai
+Meruakan role yang diberikan terhadap orang yang memiliki pengetahuan lebih terhadap tanaman cabai yang juga sudah terjamin dan terpilih untuk dapat memegang role tersebut. <br><br>
 
-## Laravel Sponsors
+Pakar disini akan bertugas sebagai orang yang akan melakukan kontrol terhadap berbagai pengetahuan yang tersedia didalam aplikasi mulai dari :
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Jenis Gejala,
+- Jenis Penyakit besertakan cara penanganan,
+- Menentukan suatu penyakit dapat disebabkan oleh gejala apa saja,
+- Melakukan revisi pengetahuan berdasarkan kasus baru yang diberikan oleh para petani.
 
-### Premium Partners
+Pakar tanaman cabai akan diberikan hak akses untuk dapat melakukan berbagai hal seperti:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- CRUD Gejala Tanaman Cabai
+- CRUD Penyakit Tanaman Cabai
+- CRUD Kasus Tanaman Cabai
 
-## Contributing
+### Petani Tanaman Cabai -->
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Cara Kerja Aplikasi
 
-## Code of Conduct
+Aplikasi ini merupakan sistem pendukung keputusan klinis yang dikembangkan dengan menerapkan konsep dari metode Case Based Reasoning (CBR), yang dipadukan dengan Certainty Factor (CF).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### Case Based Reasoning
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<a href="https://www.researchgate.net/figure/Case-based-reasoning-lifecycle_fig1_27466341"><img src="storage/app/public/image/main/Case-based-reasoning-lifecycle.png" width="400" alt="Proses Case Based Reasoning"></a>
 
-## License
+Case Based Reasoning memiliki 4 tahapan penting yaitu (Retrieve, Reuse, Revise, Retain) :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Retrieve
+Merupakan tahapan di mana kasus baru akan diberikan ke dalam basis data, dengan proses sebagai berikut:
+
+- Petani melakukan input gejala yang mereka alami.
+- Aplikasi melakukan perhitungan untuk mencari tingkat kemiripan gejala yang dialami petani dengan kasus-kasus terdahulu.
+
+#### Reuse
+Merupakan tahapan di mana sistem akan mengambil data yang memiliki tingkat kemiripan tertinggi, dengan proses sebagai berikut:
+
+- Sistem menentukan kasus terdahulu mana yang paling mirip dengan kasus terbaru.
+- Sistem mengambil data kasus yang memiliki tingkat kepercayaan tertinggi untuk diberikan kepada petani sebagai referensi diagnosis penyakit tanaman cabai beserta cara penanganannya.
+- Sistem akan menyimpan data kasus yang memiliki tingkat kepercayaan tertinggi sebagai tambahan untuk mendukung basis pengetahuan.
+
+#### Revise
+Merupakan tahapan di mana kasus-kasus yang baru saja diberikan oleh petani akan dilakukan pengecekan oleh pakar, untuk mengetahui apakah hasil diagnosis dari aplikasi tersebut sudah benar atau belum, dengan proses sebagai berikut:
+
+- Pakar akan memberikan tingkat keyakinan terhadap tiap gejala di kasus yang dipilih.
+- Sistem akan melakukan perhitungan, berdasarkan pernyataan pakar, apakah kasus tersebut valid untuk langsung dimasukkan ke dalam basis pengetahuan atau tidak.
+- Jika hasil dari sistem "VALID", maka pakar hanya perlu menambahkan bobot kepercayaan terhadap gejala yang belum teridentifikasi bobot kepercayaannya.
+- Jika hasil dari sistem "Tidak Valid", maka pakar perlu menentukan berdasarkan gejala-gejala yang diterima pada kasus tersebut merupakan diagnosis penyakit tanaman cabai apa.
+- Pakar juga perlu menambahkan bobot kepercayaan terhadap gejala yang belum teridentifikasi bobot kepercayaannya.
+
+#### Retain
+Merupakan tahapan di mana kasus yang telah diperbaiki oleh pakar akan disimpan ke dalam basis data, dan akan dijadikan tambahan basis pengetahuan untuk menangani kasus-kasus yang akan datang.
+
+---
+
+### Certainty Factor
+
+Metode ini digunakan untuk menghitung tingkat keyakinan seorang pakar terhadap kasus baru yang muncul, berdasarkan pengetahuan pakar tentang pengaruh suatu gejala terhadap suatu penyakit.

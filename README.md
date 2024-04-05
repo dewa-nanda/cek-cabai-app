@@ -9,7 +9,7 @@
 
 ## Pendahuluan - ( Aplikasi masih dalam tahap pengembangan )
 
-<font size="5">Cek Cabai App, </font> adalah aplikasi yang dirancang untuk mendukung petani dalam mendiagnosis penyakit tanaman cabai yang mereka hadapi. Aplikasi ini memungkinkan petani untuk mengidentifikasi penyakit tanaman cabai secara akurat berdasarkan gejala yang diamati pada tanaman mereka. Dengan informasi yang diberikan oleh aplikasi, petani dapat mengambil langkah-langkah yang tepat untuk mengelola dan mengendalikan penyakit, sehingga meningkatkan hasil panen dan meminimalkan kerugian.
+Cek Cabai App, adalah aplikasi yang dirancang untuk mendukung petani dalam mendiagnosis penyakit tanaman cabai yang mereka hadapi. Aplikasi ini memungkinkan petani untuk mengidentifikasi penyakit tanaman cabai secara akurat berdasarkan gejala yang diamati pada tanaman mereka. Dengan informasi yang diberikan oleh aplikasi, petani dapat mengambil langkah-langkah yang tepat untuk mengelola dan mengendalikan penyakit, sehingga meningkatkan hasil panen dan meminimalkan kerugian.
 
 
 <!-- ## Cara Menggunakan Cek Cabai App

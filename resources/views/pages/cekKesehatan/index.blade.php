@@ -36,10 +36,11 @@
                     <form class="mt-8 space-y-6" action="{{route("cekKesehatanAction")}}" method="POST">
                         @csrf
                         @method("POST")
-                        <div class="grid grid-cols-3 gap-6">
+
+                        <div class="flex flex-col gap-6">
 
                             <!-- Modal toggle -->
-                            <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="width-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-max" type="button">
                                 Tambah Gejala
                             </button>
                         
@@ -80,11 +81,11 @@
                             </div> 
                             
 
-                            <div id="gejala-user">
+                            <div id="gejala-user" class="flex flex-wrap gap-3">
                             </div>
                         </div>                      
                         
-                        <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                        <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-75">Submit</button>
                     </form>
                 </div>
             </div>
@@ -137,8 +138,6 @@
             checkboxes.forEach((checkbox) => {
                 checkbox.checked = false;
             });
-
-            console.log(gejala);
         });    
 
     });

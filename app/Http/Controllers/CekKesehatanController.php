@@ -71,6 +71,7 @@ class CekKesehatanController extends Controller
             ];
         }
 
+        // dd($allResult);
         // cari nilai tertinggi
         foreach($allResult as $key => $item) {
             if($key == 0){

@@ -90,12 +90,16 @@ class PakarController extends Controller
 
         // chicase valid kalo threshold > 70%
 
+        // dd($cfGabungan);
+        
         $case->updateHasValid($cfGabungan);
 
         return redirect()->route('resultKasus', $case->id);
     }
 
     public function resultKasus($id) {
+        // dd($id);
+
         $case = ChiCase::find($id);
         $disease = disease::get();
         $symptom = $case->getAllRelatedSymptom();
@@ -122,6 +126,9 @@ class PakarController extends Controller
 
     // update target penyakit di suatu kasus
     public function kasusUpdateDisease(Request $request) {
+
+        // dd($request->all());
+
         $gejala = [];
         
 

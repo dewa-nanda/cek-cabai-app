@@ -126,8 +126,13 @@
                                                         <p class="text-black">Belum teridentifikasi</p>
                                                       @endif
                                                     </div>
+
                                                     <div class="w-full h-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
-                                                      <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: {{$symptom->bobot_kepercayaan}}%"></div>
+                                                      @if($symptom->bobot_kepercayaan != 0)
+                                                        <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: {{$symptom->bobot_kepercayaan}}%"></div>
+                                                      @else
+                                                        <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500" style="width: 0%"></div>
+                                                      @endif
                                                     </div>
                                                   </div>
                                                 </div>

@@ -80,12 +80,13 @@
                                 </div>
                             </div> 
                             
-
                             <div id="gejala-user" class="flex flex-wrap gap-3">
                             </div>
                         </div>                      
-                        
-                        <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-75">Submit</button>
+
+                        <div class="flex flex-col border-t-4 pt-2">
+                            <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-75">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disease;
+use App\Models\Symptom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,11 +31,23 @@ class IndexController extends Controller
 
     public function penyakitTanamanCabaiView()
     {
-        return view('pages.list.penyakit');
+        $penyakit = Disease::get();
+
+        $data = [
+            'penyakit' => $penyakit,
+        ];
+
+        return view('pages.list.penyakit', $data);
     }
 
     public function gejalaTanamanCabaiView()
     {
-        return view('pages.list.gejala');
+        $gejala = Symptom::get();
+        
+        $data = [
+            'gejala' => $gejala,
+        ];
+
+        return view('pages.list.gejala', $data);
     }
 }

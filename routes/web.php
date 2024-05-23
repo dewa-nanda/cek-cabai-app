@@ -24,6 +24,7 @@ Route::controller(IndexController::class)->group(function() {
     Route::get('/Penyakit-hama-tanaman-cabai', 'penyakitTanamanCabaiView')->name('penyakitTanamanCabaiView');
     Route::get('/Penyakit-hama-tanaman-cabai/{id}', 'detailPenyakitTanamanCabaiView')->name('detailPenyakitTanamanCabaiView');
     Route::get('/gejala-tanaman-cabai', 'gejalaTanamanCabaiView')->name('gejalaTanamanCabaiView');
+    Route::get('/gejala-tanaman-cabai/{id}', 'detailGejalaTanamanCabaiView')->name('detailGejalaTanamanCabaiView');
 });
 
 Route::controller(CekKesehatanController::class)->group(function() {

@@ -50,8 +50,8 @@ class IndexController extends Controller
 
         return view('pages.detail.penyakit', $data);
     }
-
-    public function gejalaTanamanCabaiView($id)
+    
+    public function gejalaTanamanCabaiView()
     {
         $gejala = Symptom::get();
         
@@ -60,5 +60,16 @@ class IndexController extends Controller
         ];
 
         return view('pages.list.gejala', $data);
+    }
+
+    public function detailGejalaTanamanCabaiView($id)
+    {
+        $gejala = Symptom::find($id);
+    
+        $data = [
+            'gejala' => $gejala,
+        ];
+    
+        return view('pages.detail.gejala', $data);
     }
 }

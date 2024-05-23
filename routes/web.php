@@ -70,8 +70,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/penyakit', 'penyakitView')->name('penyakitView');
             Route::get('/addPenyakit', 'addPenyakitView')->name('addPenyakitView');
             Route::post('/addPenyakit', 'addPenyakitAction')->name('addPenyakitAction');
-            Route::get('/addKasus', 'addKasusView')->name('addKasusView');
-            Route::post('/addKasus', 'addKasus')->name('addKasus');
+            
 
             // CRUD Gejala
             Route::get('/gejala', 'gejalaView')->name('gejalaView');
@@ -81,6 +80,8 @@ Route::middleware('auth')->group(function(){
             // RU Kasus
             Route::get('/kasus', 'kasusView')->name('kasusView');
             Route::get('/allKasus', 'allKasusView')->name('allKasusView');
+            Route::get('/addKasus', 'addKasusView')->name('addKasusView');
+            Route::post('/addKasus', 'addKasus')->name('addKasus');
             Route::get('/kasus/{id}', 'detailKasusView')->name('detailKasusView');
             Route::patch('/kasus/{id}', 'validasiKasus')->name('validasiKasus');
             Route::patch('/kasus/{id}/updateDisease', 'kasusUpdateDisease')->name('kasusUpdateDisease');

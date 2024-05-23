@@ -41,6 +41,9 @@
                                 Diagnosis
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 presentase
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -50,6 +53,36 @@
                     </thead>
 
                     <tbody>
+                        @foreach ($notCheckedCase as $item)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    @if ($item->user_id == null)
+                                        User {{$item->id}}
+                                    @endif
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{date_format($item->created_at, "Y/m/d")}}
+                                </td>
+                                <td class="px-6 py-4 flex flex-wrap gap-2">
+                                    @foreach($item->getAllRelatedSymptom() as $symptom)
+                                        <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">{{$symptom->getSymptom()->name}}</a>
+                                    @endforeach
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{$item->getDisease()->name}}
+                                </td>
+                                <td class="px-6 py-4">
+                                    Belum Divalidasi
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{$item->kemiripan_kasus}} %
+                                </td>
+                                <td>
+                                    <a href="{{route('detailKasusView', $item->id)}}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tangani</a>
+                                </td>
+                            </tr>
+                        @endforeach
+
                         @foreach ($nonValidCase as $item)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -69,10 +102,13 @@
                                     {{$item->getDisease()->name}}
                                 </td>
                                 <td class="px-6 py-4">
+                                    Belum Diperbaiki
+                                </td>
+                                <td class="px-6 py-4">
                                     {{$item->kemiripan_kasus}} %
                                 </td>
                                 <td>
-                                    <a href="{{route('detailKasusView', $item->id)}}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tangani</a>
+                                    <a href="{{route('resultKasus', $item->id)}}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tangani</a>
                                 </td>
                             </tr>
                         @endforeach

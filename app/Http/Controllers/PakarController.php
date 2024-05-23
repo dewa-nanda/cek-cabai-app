@@ -14,10 +14,12 @@ class PakarController extends Controller
 {
     // Page Dashboard Pakar
     public function dashboardPakar() {
-        $nonValidCase = ChiCase::get()->where('valid', 'notChecked');
+        $nonCheckedCase = ChiCase::get()->where('valid', 'notChecked');
+        $nonValidCase = ChiCase::get()->where('valid', 'notValid');
 
         $data = [
             'nonValidCase' => $nonValidCase,
+            'nonCheckedCase' => $nonCheckedCase,
         ];
 
         return view('pages.pakar.dashboard', $data);
@@ -25,10 +27,12 @@ class PakarController extends Controller
 
     // Page List of Kasus
     public function kasusView() {
-        $nonValidCase = ChiCase::get()->where('valid', 'notChecked');
+        $nonValidCase = ChiCase::get()->where('valid', 'notValid');
+        $notCheckedCase = ChiCase::get()->where('valid', 'notChecked');
 
         $data = [
             'nonValidCase' => $nonValidCase,
+            'notCheckedCase' => $notCheckedCase,
         ];
 
         return view('pages.pakar.kasus.index', $data);
@@ -226,7 +230,7 @@ class PakarController extends Controller
             'listPenyakit' => Disease::get()
         ];
 
-        return view('pages.pakar.penyakit.addCase', $data);
+        return view('pages.pakar.kasus.addCase', $data);
     }
 
     public function addKasus(Request $request) {

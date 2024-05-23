@@ -37,8 +37,6 @@
                     <i class="fa-brands fa-x-twitter text-2xl"></i>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection

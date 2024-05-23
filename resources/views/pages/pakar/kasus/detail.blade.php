@@ -108,35 +108,35 @@
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
                                                     <input id="sp-{{$symptom->id}}" type="radio" value="100" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="sp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Berpengaruh</label>
+                                                    <label for="sp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Yakin</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
                                                     <input id="p-{{$symptom->id}}" type="radio" value="75" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="p-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Berpengaruh</label>
+                                                    <label for="p-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yakin</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
                                                     <input id="n-{{$symptom->id}}" type="radio" value="50" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Berpengaruh</label>
+                                                    <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Netral</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
                                                     <input id="tp-{{$symptom->id}}" type="radio" value="25" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="tp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Terlalu Berpengaruh</label>
+                                                    <label for="tp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Yakin</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
                                                     <input id="stp-{{$symptom->id}}" type="radio" value="0" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="stp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Berpengaruh</label>
+                                                    <label for="stp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Yakin</label>
                                                 </div>
                                             </li>
                                         </ul>

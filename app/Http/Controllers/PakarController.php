@@ -88,10 +88,7 @@ class PakarController extends Controller
             }
         }
 
-        // chicase valid kalo threshold > 70%
-
-        // dd($cfGabungan);
-        
+        // chicase valid kalo threshold > 70%        
         $case->updateHasValid($cfGabungan);
 
         return redirect()->route('resultKasus', $case->id);

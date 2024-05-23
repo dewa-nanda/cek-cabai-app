@@ -40,7 +40,18 @@ class IndexController extends Controller
         return view('pages.list.penyakit', $data);
     }
 
-    public function gejalaTanamanCabaiView()
+    public function detailPenyakitTanamanCabaiView($id)
+    {
+        $penyakit = Disease::find($id);
+
+        $data = [
+            'penyakit' => $penyakit,
+        ];
+
+        return view('pages.detail.penyakit', $data);
+    }
+
+    public function gejalaTanamanCabaiView($id)
     {
         $gejala = Symptom::get();
         

@@ -172,21 +172,14 @@
                                                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                             <div class="flex items-center ps-3">
                                                                 <input id="n-{{$symptom->id}}" type="radio" value="50" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                                <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Berpengaruh</label>
-                                                            </div>
-                                                        </li>
-            
-                                                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                                            <div class="flex items-center ps-3">
-                                                                <input id="tp-{{$symptom->id}}" type="radio" value="30" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                                <label for="tp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Terlalu Berpengaruh</label>
+                                                                <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Netral</label>
                                                             </div>
                                                         </li>
             
                                                         <li class="w-full dark:border-gray-600">
                                                             <div class="flex items-center ps-3">
                                                                 <input id="stp-{{$symptom->id}}" type="radio" value="0" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                                <label for="stp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Berpengaruh</label>
+                                                                <label for="stp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Berpengaruh</label>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -227,7 +220,7 @@
                             </div>
                           </form>
                         </div>                        
-                      @else
+                    @else
                         <div class="flex">
                             <a href="{{route('detailKasusView', $case->id)}}"  class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit <i class="fa-solid fa-pen-to-square"></i></a>
                             <button data-modal-target="extralarge-modal" data-modal-toggle="extralarge-modal" class="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 mb-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -333,7 +326,7 @@
                             </form>                           
                             
                         </div>
-                      @endif
+                    @endif
                     </div>
                 </section>
             </div>  

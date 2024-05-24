@@ -132,9 +132,6 @@
                                                                                 <th scope="col" class="px-6 py-3">
                                                                                     Keterangan
                                                                                 </th>
-                                                                                <th scope="col" class="px-6 py-3">
-                                                                                    Action
-                                                                                </th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -155,12 +152,6 @@
                                                                                             Base Knowledge
                                                                                         @else
                                                                                             Support Knowledge
-                                                                                        @endif
-                                                                                    </td>
-
-                                                                                    <td class="px-6 py-4">
-                                                                                        @if ($case->pakar == 1)
-                                                                                        <a href="{{route('addKasusView')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
                                                                                         @endif
                                                                                     </td>
                                                                                 </tr>

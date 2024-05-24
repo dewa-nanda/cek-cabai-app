@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/kasus', 'kasusView')->name('kasusView');
             Route::get('/allKasus', 'allKasusView')->name('allKasusView');
             Route::get('/addKasus', 'addKasusView')->name('addKasusView');
+            Route::get('/editKasusView/{id}', 'editKasusView')->name('editKasusView');
             Route::post('/addKasus', 'addKasus')->name('addKasus');
             Route::get('/kasus/{id}', 'detailKasusView')->name('detailKasusView');
             Route::patch('/kasus/{id}', 'validasiKasus')->name('validasiKasus');

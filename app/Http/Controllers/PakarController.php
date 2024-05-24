@@ -204,6 +204,16 @@ class PakarController extends Controller
             return redirect()->route('kasusView');
         }
 
+        // Page Edit Kasus
+        public function editKasusView($id) {
+            $case = ChiCase::find($id);
+
+            $data = [
+                'case' => $case
+            ];
+            return view('pages.pakar.kasus.editCase', $data);
+        }
+
         public function allKasusView() {
             $allCase = ChiCase::get();
             $validCase = $allCase->where('valid', '==', 'valid');

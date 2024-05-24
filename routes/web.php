@@ -68,14 +68,19 @@ Route::middleware('auth')->group(function(){
         Route::prefix('pakar')->controller(PakarController::class)->group(function() {
             // Dashboard pakar
             Route::get('/', 'dashboardPakar')->name('dashboardPakar');
+
             // CRUD Penyakit
             Route::get('/penyakit', 'penyakitView')->name('penyakitView');
             Route::get('/addPenyakit', 'addPenyakitView')->name('addPenyakitView');
+            Route::get('/editPenyakit/{id}', 'editPenyakitView')->name('editPenyakitView');
+            Route::patch('/editPenyakit/{id}', 'editPenyakitAction')->name('editPenyakitAction');
             Route::post('/addPenyakit', 'addPenyakitAction')->name('addPenyakitAction');
 
             // CRUD Gejala
             Route::get('/gejala', 'gejalaView')->name('gejalaView');
             Route::get('/addGejala', 'addGejalaView')->name('addGejalaView');
+            Route::get('/editGejala/{id}', 'editGejalaView')->name('editGejalaView');
+            Route::patch('/editGejala/{id}', 'editGejalaAction')->name('editGejalaAction');
             Route::post('/addGejala', 'addGejalaAction')->name('addGejalaAction');
 
             // RU Kasus

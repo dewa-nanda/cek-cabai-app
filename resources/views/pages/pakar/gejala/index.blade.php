@@ -19,7 +19,7 @@
         </div>
     </section>
     
-    <div class="container mx-auto my-5" id="list">
+    <div class="container mx-auto my-5 py-2" id="list">
         <div class="">
             <a href="{{route('addGejalaView')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Gejala</a>
             
@@ -47,11 +47,11 @@
                                 </th>
 
                                 <th class="px-6 py-4 text-left max-w-80">
-                                    <p class="line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est odit laborum perspiciatis consequatur architecto illum? Soluta, iste! Nisi facere animi saepe vel nobis dolorem temporibus, eaque nam ab. Repellat, quaerat!</p>
+                                    <p class="line-clamp-3">{{$item->description}}</p>
                                 </th>
 
                                 <th class="px-6 py-4 text-left flex gap-3 ">
-                                    <a href="{{route('detailKasusView', $item->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-regular fa-pen-to-square text-2xl"></i></a>
+                                    <a href="{{route('editGejalaView', $item->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-regular fa-pen-to-square text-2xl"></i></a>
                                     <a href="{{route('detailKasusView', $item->id)}}" class="font-medium text-red-600 dark:text-red-500 hover:underline"><i class="fa-solid fa-trash-can text-2xl"></i></a>
                                 </th>
                             </tr>

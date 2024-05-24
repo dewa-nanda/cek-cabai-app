@@ -75,29 +75,29 @@
     
                             <select id="input-gejala-option"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected id="input-gejala-option-default">Pilih Gejala</option>
-                                @foreach($case->getAllRelatedSymptom() as $symptom)
-                                    <option id="input-gejala-option-{{{$symptom->getSymptom()->id}}}" value="{{{$symptom->getSymptom()->id}}}">{{$symptom->getSymptom()->name}}</option>   
+                                @foreach($listGejala as $singleGejala)
+                                    {{-- <option id="input-gejala-option-{{{$symptom->getSymptom()->id}}}" value="{{{$symptom->getSymptom()->id}}}">{{$singleGejala->name}}</option>    --}}
+                                    <option id="input-gejala-option-{{{$singleGejala->getSymptom()->id}}}" value="{{{$singleGejala->getSymptom()->id}}}">{{$singleGejala->getSymptom()->name}}</option>   
                                 @endforeach
                             </select>
     
-                            
-                            @foreach($case->getAllRelatedSymptom() as $key => $symptom)
-                                <div id="input-gejala-tk-{{$symptom->getSymptom()->id}}" class="flex flex-col gap-3 hidden">
+                            @foreach($listGejala as $key => $singleGejala)
+                                <div id="input-gejala-tk-{{$singleGejala->getSymptom()->id}}" class="flex flex-col gap-3 hidden">
                                     <div>
                                         <div class="flex justify-between">
                                             <h1 class="mb-2">Bobot kepercayaan gejala terhadap penyakit <br>(berdasarkan kasus terdahulunya)</h1>
-                                            @if($symptom->bobot_kepercayaan == null)
+                                            @if($singleGejala->bobot_kepercayaan == null)
                                                 <p class="text-end">Belum Teridentifikasi <br>(gejala baru dalam kasus ini)</p>
                                             @else
-                                                <p>{{$symptom->bobot_kepercayaan}}%</p>
+                                                <p>{{$singleGejala->bobot_kepercayaan}}%</p>
                                             @endif
                                         </div>
 
                                         <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                            @if($symptom->bobot_kepercayaan == null)
+                                            @if($singleGejala->bobot_kepercayaan == null)
                                                 <div class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
                                             @else
-                                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$symptom->bobot_kepercayaan}}%"></div>
+                                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$singleGejala->bobot_kepercayaan}}%"></div>
                                             @endif
                                         </div>
                                     </div>
@@ -107,36 +107,36 @@
                                         <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="sp-{{$symptom->id}}" type="radio" value="100" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="sp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Yakin</label>
+                                                    <input id="sp-{{$singleGejala->id}}" type="radio" value="100" name="tp[{{$singleGejala->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="sp-{{$singleGejala->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sangat Yakin</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="p-{{$symptom->id}}" type="radio" value="75" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="p-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yakin</label>
+                                                    <input id="p-{{$singleGejala->id}}" type="radio" value="75" name="tp[{{$singleGejala->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="p-{{$singleGejala->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yakin</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="n-{{$symptom->id}}" type="radio" value="50" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="n-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Netral</label>
+                                                    <input id="n-{{$singleGejala->id}}" type="radio" value="50" name="tp[{{$singleGejala->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="n-{{$singleGejala->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Netral</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="tp-{{$symptom->id}}" type="radio" value="25" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="tp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Yakin</label>
+                                                    <input id="tp-{{$singleGejala->id}}" type="radio" value="25" name="tp[{{$singleGejala->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="tp-{{$singleGejala->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cukup Yakin</label>
                                                 </div>
                                             </li>
 
                                             <li class="w-full dark:border-gray-600">
                                                 <div class="flex items-center ps-3">
-                                                    <input id="stp-{{$symptom->id}}" type="radio" value="0" name="tp[{{$symptom->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                    <label for="stp-{{$symptom->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Yakin</label>
+                                                    <input id="stp-{{$singleGejala->id}}" type="radio" value="0" name="tp[{{$singleGejala->id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                    <label for="stp-{{$singleGejala->id}}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tidak Yakin</label>
                                                 </div>
                                             </li>
                                         </ul>

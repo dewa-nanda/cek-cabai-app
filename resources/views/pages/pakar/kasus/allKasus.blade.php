@@ -22,7 +22,7 @@
         </div>
     </section>
     
-    <div class="flex justify-center my-5" id="list">
+    <div class="flex justify-center py-5" id="list">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg basis-3/4">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -42,6 +42,10 @@
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Type
+                            </th>
+
+                            <th scope="col" class="px-6 py-3">
+                                Action
                             </th>
                         </tr>
                     </thead>
@@ -74,6 +78,14 @@
                                         Base Knowladge
                                     @else
                                         Suppot Knowledge
+                                    @endif
+                                </td>
+
+                                <td class="px-6 py-4">
+                                    @if($item->pakar == 1)
+                                        <a href="" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
+                                    @else
+                                    <a href="" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
                                     @endif
                                 </td>
                             </tr>

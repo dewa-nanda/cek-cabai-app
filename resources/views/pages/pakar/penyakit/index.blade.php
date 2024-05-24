@@ -90,8 +90,7 @@
                                                             </h2>
                                                             <div id="accordion-flush-body-desc-{{$item->id}}" class="hidden" aria-labelledby="accordion-flush-heading-desc-{{$item->id}}">
                                                               <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                                                                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-                                                                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                                                <p class="mb-2 text-gray-500 dark:text-gray-400">{{$item->description}}</p>
                                                               </div>
                                                             </div>
 
@@ -105,8 +104,7 @@
                                                             </h2>
                                                             <div id="accordion-flush-body-cp-{{$item->id}}" class="hidden" aria-labelledby="accordion-flush-heading-cp-{{$item->id}}">
                                                               <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                                                                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-                                                                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                                                <p class="mb-2 text-gray-500 dark:text-gray-400">{{$item->cara_penanganan}}</p>
                                                               </div>
                                                             </div>
 

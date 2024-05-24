@@ -169,11 +169,12 @@ class PakarController extends Controller
 
     public function allKasusView() {
         $allCase = ChiCase::get();
-        $nonValidCase = $allCase->where('valid', '!=', null);
+        $validCase = $allCase->where('valid', '==', 'valid');
+
+        // dd($validCase);
 
         $data = [
-            'allCase' => $allCase,
-            'nonValidCase' => $nonValidCase,
+            'validCase' => $validCase,
         ];
 
         return view('pages.pakar.kasus.allKasus', $data);

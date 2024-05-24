@@ -5,7 +5,7 @@
         <div style="background-color: #222831; color: #EEEEEE; width: 70%" class="flex rounded-xl">
             <div class="basis-3/6 flex flex-col justify-center h-full px-4 gap-1">
                 <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-                    <span class="font-medium">Info</span> Jika penyakit sudah pernah diinputkan, maka cukup inputkan gejala baru dilink berikut ini <a href="#" class="font-bold underline ">Tambah Gejala</a>
+                    <span class="font-medium">Info</span> Jika penyakit sudah pernah diinputkan, maka cukup inputkan kasus baru dilink berikut ini <a href="#" class="font-bold underline ">Tambah Kasus</a>
                 </div>
 
                 <div>

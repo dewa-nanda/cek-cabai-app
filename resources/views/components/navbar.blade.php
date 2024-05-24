@@ -59,7 +59,7 @@
           @endif
         </li>
 
-        @if (Auth::user())
+        @if (Auth::user()->type == 'Petani')
           <li>
             @if (request()->segment(count(request()->segments())) == 'history')
               <a href="{{route('historyScanView')}}" class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500">History</a>

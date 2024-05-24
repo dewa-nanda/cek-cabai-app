@@ -99,8 +99,6 @@ class PakarController extends Controller
     }
 
     public function resultKasus($id) {
-        // dd($id);
-
         $case = ChiCase::find($id);
         $disease = disease::get();
         $symptom = $case->getAllRelatedSymptom();
@@ -113,7 +111,6 @@ class PakarController extends Controller
                 $update_symptom[] = $value;
             }
         }
-        // dd($case->getDisease(), $disease, $symptom, $update_symptom);
 
         $data = [
             'case' => $case,
@@ -121,15 +118,12 @@ class PakarController extends Controller
             'disease' => $disease,
             'updateSymptom' => $update_symptom,
         ];
-
+      
         return view('pages.pakar.kasus.result', $data);
     }
 
     // update target penyakit di suatu kasus
     public function kasusUpdateDisease(Request $request) {
-
-        // dd($request->all());
-
         $gejala = [];
         
 
@@ -154,13 +148,11 @@ class PakarController extends Controller
         if($target == null) {
             $case->update([
                 'valid' => 'valid',
-                'pakar' => '1'
             ]);
         }else{
             $case->update([
                 'disease_id' => $target,
                 'valid' => 'valid',
-                'pakar' => '1'
             ]);
         }
 
@@ -238,7 +230,7 @@ class PakarController extends Controller
         // cek apakah sudah ada kasus yang sama atau belum
         $penyakit = Disease::find($request->penyakit_target);
         
-        foreach($penyakit->GetListOfCase(1) as $item)
+        foreach($penyakit->GetListOfValidCase(1) as $item)
         {
             if($item->checkSimilarSymptom($request->gejala) == true)
             {

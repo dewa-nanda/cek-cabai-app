@@ -14,9 +14,6 @@ class IndexController extends Controller
     {
         if(Auth::check()){
             switch(Auth::user()->type){
-                case 'pasien':
-                    return redirect()->intended(route('dashboard'));
-                    break;
                 case 'pakar':
                     return redirect()->intended(route('dashboardPakar'));
                     break;

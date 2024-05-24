@@ -57,9 +57,11 @@ Route::middleware('auth')->group(function(){
     });    
     
     // method for pasien
-    Route::middleware('type:pasien')->group(function() {
-        Route::prefix('pasien')->controller(PatientController::class)->group(function() {});
-    });
+    // Route::middleware('type:pasien')->group(function() {
+    //     Route::prefix('pasien')->controller(PatientController::class)->group(function() {
+
+    //     });
+    // });
 
     // method for pakar
     Route::middleware('type:pakar')->group(function() {

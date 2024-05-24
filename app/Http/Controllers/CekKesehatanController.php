@@ -8,6 +8,7 @@ use App\Models\Disease;
 use App\Models\DiseaseForSymptoms;
 use App\Models\Symptom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CekKesehatanController extends Controller
 {
@@ -37,6 +38,11 @@ class CekKesehatanController extends Controller
 
     // Function cek kesehatan (retrieve - Case Based Reasoning)
     public function cekKesehatanAction(Request $request){
+        $id_user = null;
+        if(Auth::check()){
+            $id_user = Auth::user()->id;
+        }
+
         $gejala = $request->gejala;
         
         // ambil semua data kasus yang valid
@@ -95,6 +101,7 @@ class CekKesehatanController extends Controller
         }
 
         $case = ChiCase::create([
+            'user_id' => $id_user,
             'disease_id' => $finalResult[0]['penyakit'],
             'kemiripan_kasus' => $finalResult[0]['nilai']*100,
             'pakar' => 0,

@@ -42,12 +42,12 @@
                     <tbody>
                         @foreach ($listGejala as $item)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white max-w-24">
-                                    {{$item->name}}
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 wrap dark:text-white max-w-24">
+                                    <p class="line-clamp-3">{{$item->name}}</p>
                                 </th>
 
                                 <th class="px-6 py-4 text-left max-w-80">
-                                    <p class="line-clamp-3">{{$item->description}}</p>
+                                    <p class="line-clamp-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est odit laborum perspiciatis consequatur architecto illum? Soluta, iste! Nisi facere animi saepe vel nobis dolorem temporibus, eaque nam ab. Repellat, quaerat!</p>
                                 </th>
 
                                 <th class="px-6 py-4 text-left flex gap-3 ">

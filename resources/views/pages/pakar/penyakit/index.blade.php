@@ -132,24 +132,33 @@
                                                                                 <th scope="col" class="px-6 py-3">
                                                                                     Keterangan
                                                                                 </th>
+                                                                                <th scope="col" class="px-6 py-3">
+                                                                                    Action
+                                                                                </th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            @foreach ($item->GetListOfCase(1) as $key => $gejala)
+                                                                            @foreach ($item->GetListOfCase(1) as $key => $case)
                                                                                 <tr>
                                                                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                                                         {{$key+1}}
                                                                                     </td>
                                                                                     <td class="px-6 py-4 flex flex-wrap gap-3">
-                                                                                        @foreach ($gejala->getAllRelatedSymptom() as $item)
+                                                                                        @foreach ($case->getAllRelatedSymptom() as $item)
                                                                                             <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$item->getSymptom()->name}}</a>
                                                                                         @endforeach
                                                                                     </td>
+                                                                                    {{-- {{dd($case)}} --}}
                                                                                     <td class="px-6 py-4">
-                                                                                        @if ($key == 0)
+                                                                                        @if ($case->pakar == 1)
                                                                                             Base Knowledge
                                                                                         @else
                                                                                             Support Knowledge
+                                                                                        @endif
+                                                                                    </td>
+                                                                                    <td class="px-6 py-4">
+                                                                                        @if ($case->pakar == 1)
+                                                                                        <a href="{{route('addKasusView')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
                                                                                         @endif
                                                                                     </td>
                                                                                 </tr>

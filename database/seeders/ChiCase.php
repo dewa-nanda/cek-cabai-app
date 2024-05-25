@@ -40,6 +40,36 @@ class ChiCase extends Seeder
                 'valid' => 'valid',
                 'pakar' => 1,
             ],
+            [
+                'disease_id' => 6,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ],
+            [
+                'disease_id' => 7,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ],
+            [
+                'disease_id' => 8,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ],
+            [
+                'disease_id' => 9,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ],
+            [
+                'disease_id' => 10,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ],
+            [
+                'disease_id' => 11,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ],
         ]);
     }
 }

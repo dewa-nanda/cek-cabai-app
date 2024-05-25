@@ -40,7 +40,7 @@
 
             <div class="border-2 p-3 rounded-lg flex flex-col gap-2">
                 <h2 class="font-bold text-xl">Description</h2>
-                <p class="indent-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam odit consequuntur similique voluptatibus eaque culpa placeat temporibus reprehenderit nisi aliquam? Suscipit fuga pariatur optio iure? Aspernatur harum veniam ipsa quod!</p>
+                <p class="indent-6 text-justify">{{$gejala->description}}</p>
             </div>
 
             {{-- <div id="accordion-collapse" data-accordion="collapse" class="border-2 p-3 rounded-lg flex flex-col gap-1">

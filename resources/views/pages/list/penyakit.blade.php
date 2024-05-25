@@ -14,7 +14,7 @@
     <div class="mx-auto max-w-screen-xl">
         <div class="grid justify-items-center xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-5 p-5">
             @foreach ($penyakit as $item)
-                <x-card title="{{$item->name}}" routeName="detailPenyakitTanamanCabaiView" target="{{$item->id}}" desc="lorem ipsum sol dul amet"/>
+                <x-card title="{{$item->name}}" routeName="detailPenyakitTanamanCabaiView" target="{{$item->id}}" desc="{{$item->description}}"/>
             @endforeach
         </div>
     </div>

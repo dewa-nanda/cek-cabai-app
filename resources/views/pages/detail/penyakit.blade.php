@@ -40,12 +40,12 @@
 
             <div class="border-2 p-3 rounded-lg flex flex-col gap-2">
                 <h2 class="font-bold text-xl">Description</h2>
-                <p class="indent-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam odit consequuntur similique voluptatibus eaque culpa placeat temporibus reprehenderit nisi aliquam? Suscipit fuga pariatur optio iure? Aspernatur harum veniam ipsa quod!{{$penyakit->description}}</p>
+                <p class="indent-6">{{$penyakit->description}}</p>
             </div>
 
             <div class="border-2 p-3 rounded-lg flex flex-col gap-1">
                 <h2 class="font-bold text-xl">Cara Penanganan</h2>
-                <p class="indent-6">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas qui voluptate repellendus, quam saepe consequuntur ducimus vero aliquid odio eos doloribus quae illum delectus explicabo quas alias ullam debitis ipsa!{{$penyakit->cara_penanganan}}</p>
+                <p class="indent-6">{{$penyakit->cara_penanganan}}</p>
             </div>
 
             {{-- <div id="accordion-collapse" data-accordion="collapse" class="border-2 p-3 rounded-lg flex flex-col gap-1">

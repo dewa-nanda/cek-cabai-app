@@ -22,6 +22,7 @@ class ChiCase extends Model
         'kemiripan_kasus',
         'valid',
         'pakar',
+        'repaired',
     ];
 
     public function getAllRelatedSymptom()
@@ -75,6 +76,15 @@ class ChiCase extends Model
 
     public function updateHasValid($tingkat_kepercayaan)
     {
+        $gejalaUpdate = false;
+
+        foreach($this->getAllRelatedSymptom() as $item){
+            if($item->bobot_kepercayaan == null){
+                $gejalaUpdate = true;
+                break;
+            }
+        }
+
         $tingkat_kepercayaan*=100;
         if($tingkat_kepercayaan >= 70) {
             $this->update([
@@ -85,6 +95,16 @@ class ChiCase extends Model
             $this->update([
                 'derajat_kepercayaan' => $tingkat_kepercayaan,
                 'valid' => 'notValid',
+            ]);
+        }
+
+        if($gejalaUpdate == true){
+            $this->update([
+                'repaired'=>true,
+            ]);
+        }else{
+            $this->update([
+                'repaired'=>false,
             ]);
         }
     }

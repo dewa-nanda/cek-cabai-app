@@ -28,11 +28,11 @@ class PakarController extends Controller
     // Kasus
         // Page List of Kasus
         public function kasusView() {
-            $nonValidCase = ChiCase::get()->where('valid', 'notValid');
+            $repairedCase = ChiCase::get()->where('repaired', true);
             $notCheckedCase = ChiCase::get()->where('valid', 'notChecked');
 
             $data = [
-                'nonValidCase' => $nonValidCase,
+                'repairedCase' => $repairedCase,
                 'notCheckedCase' => $notCheckedCase,
             ];
 
@@ -190,16 +190,27 @@ class PakarController extends Controller
             }
 
 
-            if($target == null) {
+            if($target != null) {
                 $case->update([
-                    'valid' => 'valid',
+                    'disease_id' => $target,
+                    'repaired' => false,
                 ]);
             }else{
                 $case->update([
-                    'disease_id' => $target,
-                    'valid' => 'valid',
+                    'repaired' => false,
                 ]);
             }
+
+            // if($target == null) {
+            //     $case->update([
+            //         'valid' => 'valid',
+            //     ]);
+            // }else{
+            //     $case->update([
+            //         'disease_id' => $target,
+            //         'valid' => 'valid',
+            //     ]);
+            // }
 
             return redirect()->route('kasusView');
         }

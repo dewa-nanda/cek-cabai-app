@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('derajat_kepercayaan')->nullable(); // skala 0 - 100 (0% - 100%) final result for cf
             $table->integer('kemiripan_kasus')->nullable(); // skala 0 - 100 (0% - 100%) final result for cbr
             $table->enum('valid', ['notChecked', 'notValid', 'valid'])->default('notChecked');
+            $table->boolean('repaired')->nullable();
             $table->boolean('pakar')->nullable();
             $table->timestamps();
         });

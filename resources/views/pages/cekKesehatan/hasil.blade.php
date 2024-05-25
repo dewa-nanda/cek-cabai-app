@@ -34,7 +34,7 @@
             <img src="{{asset('storage/image/main/result_picture.png')}}" class="h-auto w-auto"/>
         </div>
 
-        <div class="border-4 border-slate-200 rounded-lg flex flex-col gap-3 p-8 bg-slate-50">
+        <div class="border-4 border-slate-200 rounded-lg flex flex-col gap-3 p-8 my-8 bg-slate-50">
             <div class="flex gap-3 mb-2">
                 <h1 class="text-3xl font-bold">Penyakit {{$penyakit->name}}</h1>
                 {{-- <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Tingkat Kepercayaan : {{$case->kemiripan_kasus}} %</span> --}}
@@ -48,12 +48,12 @@
 
             <div class="border-2 p-3 rounded-lg flex flex-col gap-2">
                 <h2 class="font-bold text-xl">Description</h2>
-                <p class="indent-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque velit quaerat, molestiae dolorum officia ab optio excepturi placeat quo ipsum cum, repellendus laudantium magnam, ipsam laboriosam culpa nesciunt accusantium laborum.</p>
+                <p class="indent-6">{{$penyakit->description}}</p>
             </div>
 
             <div class="border-2 p-3 rounded-lg flex flex-col gap-1">
                 <h2 class="font-bold text-xl">Cara Penanganan</h2>
-                <p class="indent-6">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque quae, nostrum earum animi magnam facilis nihil, possimus tempore fuga numquam maxime, non vel labore exercitationem perspiciatis. Laudantium hic aliquid dolore.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque quae, nostrum earum animi magnam facilis nihil, possimus tempore fuga numquam maxime, non vel labore exercitationem perspiciatis. Laudantium hic aliquid dolore.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque quae, nostrum earum animi magnam facilis nihil, possimus tempore fuga numquam maxime, non vel labore exercitationem perspiciatis. Laudantium hic aliquid dolore.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque quae, nostrum earum animi magnam facilis nihil, possimus tempore fuga numquam maxime, non vel labore exercitationem perspiciatis. Laudantium hic aliquid dolore.</p>
+                <p class="indent-6">{{$penyakit->cara_penanganan}}</p>
             </div>
             
             <div class="border-2 p-3 rounded-lg flex flex-col gap-1">

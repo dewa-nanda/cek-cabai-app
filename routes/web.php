@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CekKesehatanController;
 use App\Http\Controllers\Controller;
@@ -52,18 +53,15 @@ Route::middleware('auth')->group(function(){
         Route::get('/profile', 'profileView')->name('profileView');
     });
 
-    // history scan user
-    Route::controller(PatientController::class)->group(function() {
-        Route::get('/history', 'historyScanView')->name('historyScanView');
-        // Routing detail history (buat page baru)
-    });    
-    
     // method for pasien
-    // Route::middleware('type:pasien')->group(function() {
-    //     Route::prefix('pasien')->controller(PatientController::class)->group(function() {
-
-    //     });
-    // });
+    Route::middleware('type:pasien')->group(function() {
+        Route::prefix('pasien')->controller(PatientController::class)->group(function() {
+            // history scan user
+            Route::controller(PatientController::class)->group(function() {
+                Route::get('/history', 'historyScanView')->name('historyScanView');
+            });    
+        });
+    });
 
     // method for pakar
     Route::middleware('type:pakar')->group(function() {
@@ -100,9 +98,19 @@ Route::middleware('auth')->group(function(){
 
     // method for admin
     Route::middleware('type:admin')->group(function() {
-        Route::prefix('admin')->controller(PatientController::class)->group(function() {
+        Route::prefix('admin')->controller(AdminController::class)->group(function() {
             // Dashboard admin
-            // CRUD User
+            Route::get('/', 'dashboardAdmin')->name('dashboardAdmin');
+            // List user pakar
+            Route::get('/listPakar', 'listUserPakar')->name('dataUserPakarView');
+            // add pakar view
+            Route::get('/addPakar', 'addPakarView')->name('addPakarView');
+            // add pakar action
+            Route::post('/addPakar', 'addPakarAction')->name('addPakarAction');
+            // edit pakar view
+            Route::get('/editPakar/{id}', 'editPakarView')->name('editPakarView');
+            // edit pakar action
+            Route::patch('/editPakar/{id}', 'editPakarAction')->name('editPakarAction');
         });
     });
 });

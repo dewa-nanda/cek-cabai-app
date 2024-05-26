@@ -38,6 +38,10 @@ class CekKesehatanController extends Controller
 
     // Function cek kesehatan (retrieve - Case Based Reasoning)
     public function cekKesehatanAction(Request $request){
+        if($request->gejala == null) {
+            return redirect()->route('cekKesehatanView')->with('error', 'Harap masukan, setidaknya satu gejala!');
+        }
+
         $id_user = null;
         if(Auth::check()){
             $id_user = Auth::user()->id;
@@ -136,6 +140,8 @@ class CekKesehatanController extends Controller
             'penyakit' => Disease::find($case->disease_id),
             'gejala' => $case->getAllRelatedSymptom(),
         ];
+
+        // dd($case);
 
         return view('pages.cekKesehatan.hasil', $data);
     }

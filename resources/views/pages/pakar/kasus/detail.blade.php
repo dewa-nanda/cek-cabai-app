@@ -4,6 +4,12 @@
     <div style="color: #EEEEEE" class="container mx-auto flex flex-row items-center min-h-screen">
         <div>
             <!-- Breadcrumb -->
+            @if (session('error'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-200 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">{{ session('error') }}</span>
+                </div>
+            @endif
+
             <nav class="ms-2 mb-2 flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                   <li class="inline-flex items-center">

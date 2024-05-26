@@ -13,7 +13,7 @@
         <div class="mx-auto max-w-screen-xl">
             <div class="grid justify-items-center xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 gap-5 p-5">
                 @foreach ($listHistoryCase as $key => $item)
-                    <x-card title="{{$item->getDisease()->name}}" routeName="resultCekKesehatanView" target="{{$item->id}}" desc="Kasus ke-{{$key+1}}"/>
+                    <x-card title="{{$item->getDisease()->name}}" routeName="resultCekKesehatanView" target="{{$item->id}}" desc="Kasus ke-{{$key+1}}" addOnContent="{{$item->valid}}"/>
                 @endforeach
             </div>
             

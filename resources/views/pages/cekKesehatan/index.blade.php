@@ -4,6 +4,12 @@
     <section class="bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div class="py-8 px-4 mx-auto min-h-screen lg:py-16 grid lg:grid-cols-1 lg:content-center gap-4">
             
+
+            @if (session('error'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">{{ session('error') }}</span>
+                </div>
+            @endif
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">

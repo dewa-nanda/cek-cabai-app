@@ -85,12 +85,12 @@ class ChiCase extends Model
             }
         }
 
-        $tingkat_kepercayaan*=100;
-        if($tingkat_kepercayaan >= 70) {
+        // $tingkat_kepercayaan*=100;
+        if($tingkat_kepercayaan*100 >= 70) {
             $this->update([
                 'derajat_kepercayaan' => $tingkat_kepercayaan,
                 'valid' => 'valid',
-            ]);            
+                ]);            
         }else{
             $this->update([
                 'derajat_kepercayaan' => $tingkat_kepercayaan,

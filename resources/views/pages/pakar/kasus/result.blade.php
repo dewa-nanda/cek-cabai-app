@@ -1,8 +1,15 @@
 @extends('components.index')
 
 @section('content')
+
+
     <div style="color: #EEEEEE" class="container mx-auto flex flex-row items-center min-h-screen">
         <div class="mx-auto">
+            @if (session('success'))
+              <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+                  <span class="font-medium">{{ session('success') }}</span>
+              </div>
+            @endif
             <!-- Breadcrumb -->
             <nav class="ms-2 mb-2 flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">

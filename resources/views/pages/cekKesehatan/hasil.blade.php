@@ -37,7 +37,17 @@
         <div class="border-4 border-slate-200 rounded-lg flex flex-col gap-3 p-8 my-8 bg-slate-50">
             <div class="flex gap-3 mb-2">
                 <h1 class="text-3xl font-bold">Penyakit {{$penyakit->name}}</h1>
-                {{-- <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Tingkat Kepercayaan : {{$case->kemiripan_kasus}} %</span> --}}
+                {{-- @if($case->valid == 'valid')
+                    <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Valid</span>
+                @else
+                    <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Tidak Valid</span>
+                @endif
+
+                @if($case->repaired == 0)
+                    <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Belum diperbaiki !</span>
+                @else
+                    <span class="self-center bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-purple-400 border border-purple-400">Sudah diperbaiki !</span>
+                @endif --}}
             </div>
 
             <div class="flex flex-wrap gap-3 pb-4 mb-1 border-b-4">

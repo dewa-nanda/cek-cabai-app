@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -52,7 +53,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Password atau email salah.',
         ])->onlyInput('email');
     }
 
@@ -72,6 +73,32 @@ class AuthController extends Controller
         }
 
         return view('pages.auth.register');
+    }
+
+    public function registerAction(Request $request) {
+        // "username" => "dewananda124@gmail.com"
+        // "email" => "sdfsd@gmail.com"
+        // "npHp" => "2342342"
+        // "password" => "fsdfsd"
+        // "confirm-password" => "sdfsd"
+
+        // Validator::make($request->all(), [
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'email', 'unique:users'],
+        //     'password' => ['required', 'min:8', 'confirmed'],
+        //     'type' => ['required', 'string']
+        // ])->validate();
+
+        // dd($request->all());
+        User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'noHp' => $request->npHp,
+            'type' => 'pasien'
+        ]);
+
+        return redirect()->route('loginView')->with('success', 'Buat akun berhasil, silahkan login.');
     }
 
     public function forgotPassView() {

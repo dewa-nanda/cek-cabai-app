@@ -16,6 +16,7 @@ class Card extends Component
         public string $desc = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et, impedit ipsam sequi obcaecati totam laborum cumque, reprehenderit magnam animi labore alias architecto qui perferendis, assumenda officiis accusantium! Odio, laudantium?",
         public string $routeName = "",
         public string $target = "",
+        public string $addOnContent = 'null',
     ) {}
 
     /**

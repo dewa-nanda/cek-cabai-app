@@ -14,12 +14,12 @@ class PakarController extends Controller
 {
     // Page Dashboard Pakar
         public function dashboardPakar() {
-            $nonCheckedCase = ChiCase::get()->where('valid', 'notChecked');
-            $nonValidCase = ChiCase::get()->where('valid', 'notValid');
+            $repairedCase = ChiCase::get()->where('repaired', true);
+            $notCheckedCase = ChiCase::get()->where('valid', 'notChecked');
 
             $data = [
-                'nonValidCase' => $nonValidCase,
-                'nonCheckedCase' => $nonCheckedCase,
+                'repairedCase' => $repairedCase,
+                'notCheckedCase' => $notCheckedCase,
             ];
 
             return view('pages.pakar.dashboard', $data);
@@ -54,7 +54,12 @@ class PakarController extends Controller
 
         // function validasi kasus
         public function validasiKasus(Request $request) { 
-            // dd($request->all());
+            $case = ChiCase::find(request()->segment(count(request()->segments())));
+            $langthSymptom = count($case->getAllRelatedSymptom());
+            
+            if(count($request->tp) != $langthSymptom || $request->tp == null) {
+                return redirect()->back()->with('error', 'Harap isi tingkat keyakinan untuk tiap gejala!');
+            }
 
             $cf = [];
             $cfGabungan = 0;
@@ -65,7 +70,7 @@ class PakarController extends Controller
                 $mb = 100 - $md;
 
                 $cf[$index]['id'] = $key;
-                $cf[$index]['cf'] = ($mb - $md)/100;
+                $cf[$index]['cf'] = $mb/100-$md/100;
                 $cf[$index]['mb'] = $mb;
                 $cf[$index]['md'] = $md;
                 $index++;
@@ -78,29 +83,28 @@ class PakarController extends Controller
                 ]);
             }
 
-            $case = ChiCase::find(request()->segment(count(request()->segments())));
-
             $last_key = array_keys($cf);
             $last_key = end($last_key);
 
             foreach($cf as $key => $value) {
                 if($key != $last_key) {
                     if($key == 0){
-                        $cfGabungan = $value['cf'] + $cf[$key + 1]['cf'] * (1 - $value['cf']);
+                        $cfGabungan = $value['cf'] + $cf[$key + 1]['cf'] * (1.0 - $value['cf']);
                     }else{
                         $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
                     }
-                }else{
+                }else{  
                     if($key == 0){
-                    $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
+                        $cfGabungan = $cfGabungan + $value['cf'] * (1 - $cfGabungan);
                     }
                 }
             }
 
             // chicase valid kalo threshold > 70%        
+            $case = ChiCase::find(request()->segment(count(request()->segments())));
             $case->updateHasValid($cfGabungan);
 
-            return redirect()->route('resultKasus', $case->id);
+            return redirect()->route('resultKasus', $case->id)->with('success', 'Kasus berhasil divalidasi!');
         }
 
         public function resultKasus($id) {
@@ -124,7 +128,7 @@ class PakarController extends Controller
                 'updateSymptom' => $update_symptom,
             ];
         
-            return view('pages.pakar.kasus.result', $data);
+            return view('pages.pakar.kasus.result', $data)->with('success', 'Kasus berhasil divalidasi!');
         }
 
         public function addKasusView() {
@@ -163,7 +167,7 @@ class PakarController extends Controller
                 ]);
             }
     
-            return redirect()->route('penyakitView');
+            return redirect()->route('penyakitView')->with('success', 'Kasus berhasil ditambahkan!');
         }
 
         // update target penyakit di suatu kasus
@@ -201,18 +205,7 @@ class PakarController extends Controller
                 ]);
             }
 
-            // if($target == null) {
-            //     $case->update([
-            //         'valid' => 'valid',
-            //     ]);
-            // }else{
-            //     $case->update([
-            //         'disease_id' => $target,
-            //         'valid' => 'valid',
-            //     ]);
-            // }
-
-            return redirect()->route('kasusView');
+            return redirect()->route('kasusView')->with('success', 'Kasus berhasil diupdate!');
         }
 
         // Page Edit Kasus
@@ -282,7 +275,7 @@ class PakarController extends Controller
                 ]);
             }
 
-            return redirect()->route('penyakitView');
+            return redirect()->route('penyakitView')->with('success', 'Penyakit berhasil ditambahkan!');
         }
 
         // Page edit penyakit
@@ -305,17 +298,17 @@ class PakarController extends Controller
                 'cara_penanganan' => $request->caraPenanganan,
             ]);
 
-            return redirect()->route('penyakitView');
+            return redirect()->route('penyakitView')->with('success', 'Penyakit berhasil diupdate!');
         }
 
     // Gejala
         // Tampilan list of gejala
         public function gejalaView() {
-        $data = [
-            'listGejala' => Symptom::get()
-        ];
+            $data = [
+                'listGejala' => Symptom::get()
+            ];
 
-        return view('pages.pakar.gejala.index', $data);
+            return view('pages.pakar.gejala.index', $data);
         }
 
         // Tampilan tambah gejala
@@ -330,7 +323,7 @@ class PakarController extends Controller
                 'description' => $request->desc,
             ]);
 
-            return redirect()->route('gejalaView');
+            return redirect()->route('gejalaView')->with('success', 'Gejala berhasil ditambahkan!');
         }
 
         // Tampilan edit gejala
@@ -354,6 +347,6 @@ class PakarController extends Controller
                 'description' => $request->desc,
             ]);
 
-            return redirect()->route('gejalaView');
+            return redirect()->route('gejalaView')->with('success', 'Gejala berhasil diupdate!');
         }
 }

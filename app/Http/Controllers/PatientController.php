@@ -15,6 +15,7 @@ class PatientController extends Controller
             'listHistoryCase' => $listHistoryCase
         ];
 
+        // dd($listHistoryCase);
         return view('pages.history.scan', $data);
     }
 }

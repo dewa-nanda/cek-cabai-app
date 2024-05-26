@@ -40,6 +40,8 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('/logoutAction', 'logoutAction')->name('logoutAction');
 
     Route::get('/register', 'registerView')->name('registerView');
+    Route::post('/register', 'registerAction')->name('registerAction');
+
     Route::get('/forgotPassword', 'forgotPassView')->name('forgotPassView');
     
 });

@@ -3,9 +3,14 @@
 @section('content')
 <div class="min-h-screen" style="background-color: #F3F8FF">
 
-    <section class="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black p-2">   
+    <section class="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black p-2">  
+        @if (session('success'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium">{{ session('success') }}</span>
+            </div>
+        @endif
+
         <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-20">
-    
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">List Gejala Tanaman Cabai</h1>
             <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Berikut merupakan list dari gejala tanaman cabai yang diambil di UPT BP4 Wilayah VIII Prambanan</p>
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">

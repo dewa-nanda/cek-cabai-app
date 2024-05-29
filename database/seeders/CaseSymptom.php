@@ -35,11 +35,6 @@ class CaseSymptom extends Seeder
                 ],
                 [
                     'chi_case_id' => 1,
-                    'symptom_id' => 5,
-                    'bobot_kepercayaan' => 25,
-                ],
-                [
-                    'chi_case_id' => 1,
                     'symptom_id' => 6,
                     'bobot_kepercayaan' => 25,
                 ],
@@ -61,11 +56,6 @@ class CaseSymptom extends Seeder
                 ],
                 [
                     'chi_case_id' => 2,
-                    'symptom_id' => 5,
-                    'bobot_kepercayaan' => 25,
-                ],
-                [
-                    'chi_case_id' => 2,
                     'symptom_id' => 6,
                     'bobot_kepercayaan' => 50,
                 ],
@@ -83,16 +73,6 @@ class CaseSymptom extends Seeder
                 [
                     'chi_case_id' => 3,
                     'symptom_id' => 4,
-                    'bobot_kepercayaan' => 25,
-                ],
-                [
-                    'chi_case_id' => 3,
-                    'symptom_id' => 5,
-                    'bobot_kepercayaan' => 25,
-                ],
-                [
-                    'chi_case_id' => 3,
-                    'symptom_id' => 6,
                     'bobot_kepercayaan' => 25,
                 ],
                 [

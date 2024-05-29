@@ -52,7 +52,7 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white max-w-24">
                                     {{$item->name}}
                                 </th>
-
+                                
                                 <th class="px-6 py-4 text-left flex flex-wrap gap-2">
                                     @foreach ($item->GetListOfSymptoms() as $gejala)
                                         <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$gejala->getSymptom()->name}}</a>
@@ -64,7 +64,7 @@
                                         <button data-modal-target="large-modal-{{$item->id}}" data-modal-toggle="large-modal-{{$item->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button">
                                             <i class="fa-regular fa-eye text-2xl"></i>
                                         </button>
-
+                                        
                                         <!-- Extra Large Modal -->
                                         <div id="large-modal-{{$item->id}}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                             <div class="relative w-full max-w-7xl max-h-full">
@@ -147,8 +147,8 @@
                                                                                     </td>
 
                                                                                     <td class="px-6 py-4 flex flex-wrap gap-3">
-                                                                                        @foreach ($case->getAllRelatedSymptom() as $item)
-                                                                                            <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$item->getSymptom()->name}}</a>
+                                                                                        @foreach ($case->getAllRelatedSymptom() as $singleCase)
+                                                                                            <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$singleCase->getSymptom()->name}}</a>
                                                                                         @endforeach
                                                                                     </td>
                                                                                     
@@ -168,15 +168,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <!-- Modal footer -->
                                                     <div class="flex items-center p-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                        <a href="{{route("editPenyakitView", $case->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
+                                                        <a href="{{route("editPenyakitView", $item->id)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
                                         <a href="{{route('detailKasusView', $item->id)}}" class="font-medium text-red-600 dark:text-red-500 hover:underline"><i class="fa-solid fa-trash-can text-2xl"></i></a>
                                     </div>
                                 </th>

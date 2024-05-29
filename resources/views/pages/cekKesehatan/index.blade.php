@@ -10,6 +10,7 @@
                     <span class="font-medium">{{ session('error') }}</span>
                 </div>
             @endif
+
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
@@ -96,6 +97,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </section>
 @endsection

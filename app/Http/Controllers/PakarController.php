@@ -57,7 +57,11 @@ class PakarController extends Controller
             $case = ChiCase::find(request()->segment(count(request()->segments())));
             $langthSymptom = count($case->getAllRelatedSymptom());
             
-            if(count($request->tp) != $langthSymptom || $request->tp == null) {
+            // dd();
+
+            if($request->tp == null) {
+                return redirect()->back()->with('error', 'Harap isi tingkat keyakinan untuk tiap gejala!');
+            }elseif(count($request->tp) != $langthSymptom){
                 return redirect()->back()->with('error', 'Harap isi tingkat keyakinan untuk tiap gejala!');
             }
 

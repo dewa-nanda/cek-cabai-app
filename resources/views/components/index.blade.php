@@ -10,6 +10,7 @@
         
         <script src="https://kit.fontawesome.com/64bcad5a74.js" crossorigin="anonymous"></script>
 
+
         {{-- <script src="{{ asset('build/assets/app-V4zzhV-c.js') }}"></script>  --}}
         {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-iNwj6xnB.css') }}" /> --}}
         @include('sweetalert::alert')

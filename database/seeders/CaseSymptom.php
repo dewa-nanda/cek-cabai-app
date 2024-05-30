@@ -77,6 +77,11 @@ class CaseSymptom extends Seeder
                 ],
                 [
                     'chi_case_id' => 3,
+                    'symptom_id' => 6,
+                    'bobot_kepercayaan' => 25,
+                ],
+                [
+                    'chi_case_id' => 3,
                     'symptom_id' => 7,
                     'bobot_kepercayaan' => 50,
                 ],
@@ -111,7 +116,7 @@ class CaseSymptom extends Seeder
                 [
                     'chi_case_id' => 6,
                     'symptom_id' => 5,
-                    'bobot_kepercayaan' => 50,
+                    'bobot_kepercayaan' => 75,
                 ],
             // Busuk Buah/ Patek
                 [

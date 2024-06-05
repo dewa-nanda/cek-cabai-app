@@ -26,7 +26,7 @@ class PakarController extends Controller
         }
 
     // Kasus
-        // Page List of Kasus
+        // Page untuk menampilkan list kasus
         public function kasusView() {
             $repairedCase = ChiCase::get()->where('repaired', true);
             $notCheckedCase = ChiCase::get()->where('valid', 'notChecked');
@@ -39,7 +39,7 @@ class PakarController extends Controller
             return view('pages.pakar.kasus.index', $data);
         }
 
-        // Page Detail Kasus
+        // Page untuk menampilkan Detail Kasus yang ingin divalidasi
         public function detailKasusView($id) {
             $case = ChiCase::find($id);
             $symptom = $case->getAllRelatedSymptom();
@@ -52,13 +52,12 @@ class PakarController extends Controller
             return view('pages.pakar.kasus.detail', $data);
         }
 
-        // function validasi kasus
+        // function validasi kasus (revise - Menghitung nilai CF)
         public function validasiKasus(Request $request) { 
             $case = ChiCase::find(request()->segment(count(request()->segments())));
             $langthSymptom = count($case->getAllRelatedSymptom());
             
-            // dd();
-
+            // Validator untuk mengecek apakah user sudah mengisikan form secara lengkap atau belum
             if($request->tp == null) {
                 return redirect()->back()->with('error', 'Harap isi tingkat keyakinan untuk tiap gejala!');
             }elseif(count($request->tp) != $langthSymptom){
@@ -69,17 +68,21 @@ class PakarController extends Controller
             $cfGabungan = 0;
             $index = 0;
 
+            // Mengambil data inputan yang sudah diisi oleh user
             foreach($request->tp as $key => $case) {
+                // nilai mb dan md
                 $md = 100 - $case;
                 $mb = 100 - $md;
 
                 $cf[$index]['id'] = $key;
+                // menghitung nilai cf (mb-md)
                 $cf[$index]['cf'] = $mb/100-$md/100;
                 $cf[$index]['mb'] = $mb;
                 $cf[$index]['md'] = $md;
                 $index++;
             }
 
+            // memperbarui data di DB bahwa kasus sudah diberikan nilai mb & md
             foreach($cf as $value) {
                 CaseForSymptom::find($value['id'])->update([
                     'mb' => $value['mb'],
@@ -90,6 +93,7 @@ class PakarController extends Controller
             $last_key = array_keys($cf);
             $last_key = end($last_key);
 
+            // menghitung nilai cf Gabngungan, berdasarkan nilai cf yang sudah didapatkan
             foreach($cf as $key => $value) {
                 if($key != $last_key) {
                     if($key == 0){
@@ -106,11 +110,13 @@ class PakarController extends Controller
 
             // chicase valid kalo threshold > 70%        
             $case = ChiCase::find(request()->segment(count(request()->segments())));
+            // melakukan update kasus pada database
             $case->updateHasValid($cfGabungan);
 
             return redirect()->route('resultKasus', $case->id)->with('success', 'Kasus berhasil divalidasi!');
         }
 
+        // page untuk melakukan update kasus yang sudah selesai di validasi (retain - Memperbarui data kasus sesuai pengetahuan pakar - menjadi support knowladge)
         public function resultKasus($id) {
             $case = ChiCase::find($id);
             $disease = disease::get();
@@ -135,46 +141,7 @@ class PakarController extends Controller
             return view('pages.pakar.kasus.result', $data)->with('success', 'Kasus berhasil divalidasi!');
         }
 
-        public function addKasusView() {
-            $data = [
-                'listGejala' => Symptom::get(),
-                'listPenyakit' => Disease::get()
-            ];
-
-            return view('pages.pakar.kasus.addCase', $data);
-        }
-
-        public function addKasus(Request $request) {
-            // cek apakah sudah ada kasus yang sama atau belum
-            $penyakit = Disease::find($request->penyakit_target);
-            
-            foreach($penyakit->GetListOfValidCase(1) as $item)
-            {
-                if($item->checkSimilarSymptom($request->gejala) == true)
-                {
-                    return redirect()->route('addKasusView')->with('error', 'Kasus yang sama sudah ada');
-                }
-            }
-    
-            $case = ChiCase::create([
-                'user_id' => auth()->user()->id,
-                'disease_id' => $request->penyakit_target,
-                'valid' => 'valid',
-                'pakar' => 1,
-            ]);
-    
-            foreach($request->gejala as $gejala) {
-                CaseForSymptom::create([
-                    'chi_case_id' => $case->id,
-                    'symptom_id' => $gejala['id'],
-                    'bobot_kepercayaan' => $request->tp[$gejala['id']],
-                ]);
-            }
-    
-            return redirect()->route('penyakitView')->with('success', 'Kasus berhasil ditambahkan!');
-        }
-
-        // update target penyakit di suatu kasus
+        // Function untuk melakukan update kasus yang sudah selesai di validasi (retain - Memperbarui data kasus sesuai pengetahuan pakar - menjadi support knowladge)
         public function kasusUpdateDisease(Request $request) {
             $gejala = [];
             $id = request('id');
@@ -211,6 +178,48 @@ class PakarController extends Controller
 
             return redirect()->route('kasusView')->with('success', 'Kasus berhasil diupdate!');
         }
+
+        // Page untuk menambah kasus baru sebagai base knowladge (data yang diinputkan sendiri oleh pakar)
+        public function addKasusView() {
+            $data = [
+                'listGejala' => Symptom::get(),
+                'listPenyakit' => Disease::get()
+            ];
+
+            return view('pages.pakar.kasus.addCase', $data);
+        }
+
+        // function untuk menambah kasus baru sebagai base knowladge
+        public function addKasus(Request $request) {
+            // cek apakah sudah ada kasus yang sama atau belum
+            $penyakit = Disease::find($request->penyakit_target);
+            
+            foreach($penyakit->GetListOfValidCase(1) as $item)
+            {
+                if($item->checkSimilarSymptom($request->gejala) == true)
+                {
+                    return redirect()->route('addKasusView')->with('error', 'Kasus yang sama sudah ada');
+                }
+            }
+    
+            $case = ChiCase::create([
+                'user_id' => auth()->user()->id,
+                'disease_id' => $request->penyakit_target,
+                'valid' => 'valid',
+                'pakar' => 1,
+            ]);
+    
+            foreach($request->gejala as $gejala) {
+                CaseForSymptom::create([
+                    'chi_case_id' => $case->id,
+                    'symptom_id' => $gejala['id'],
+                    'bobot_kepercayaan' => $request->tp[$gejala['id']],
+                ]);
+            }
+    
+            return redirect()->route('penyakitView')->with('success', 'Kasus berhasil ditambahkan!');
+        }
+
 
         // Page Edit Kasus
         public function editKasusView($id) {

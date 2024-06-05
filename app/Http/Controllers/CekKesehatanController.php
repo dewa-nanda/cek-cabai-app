@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CekKesehatanController extends Controller
 {
-    // page untuk memberikan list gejala pada tanaman cabai milik petani
+    // page untuk melakukan cek kesehatan tanaman cabai (input gejala / case baru - case based reasoning)
     public function indexView(){
         $listGejalaValid = [];
 
@@ -27,21 +27,6 @@ class CekKesehatanController extends Controller
         ];
         
         return view('pages.cekKesehatan.index', $data);
-    }
-
-    // page untuk menentukan bobot kerusakan dari tiap gejala yang diinputkan oleh petani
-    public function bobotGejala(Request $request){
-        $gejala = [];
-
-        foreach($request->gejala as $item) {
-            $gejala[] = Symptom::find($item);
-        }
-
-        $data = [
-            'gejala' => $gejala,
-        ];
-
-        return view('pages.cekKesehatan.bobot', $data);
     }
 
     // Function cek kesehatan (retrieve - Case Based Reasoning)
@@ -139,6 +124,7 @@ class CekKesehatanController extends Controller
         return redirect()->route('resultCekKesehatanView', $case->id);
     }
 
+    // Page untuk menampilkan hasil cek kesehatan (reuse - Case Based Reasoning)
     public function resultCekKesehatanView($id){
         $case = ChiCase::find($id);
 

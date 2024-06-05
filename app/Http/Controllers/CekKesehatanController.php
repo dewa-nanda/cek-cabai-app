@@ -14,10 +14,18 @@ class CekKesehatanController extends Controller
 {
     // page untuk memberikan list gejala pada tanaman cabai milik petani
     public function indexView(){
-        $data = [
-            'gejala' => Symptom::get(),
-        ];
+        $listGejalaValid = [];
 
+        foreach(Symptom::get() as $item) {
+            if($item->validSymptom()){
+                $listGejalaValid[] = $item;
+            }
+        }
+
+        $data = [
+            'gejala' => $listGejalaValid,
+        ];
+        
         return view('pages.cekKesehatan.index', $data);
     }
 

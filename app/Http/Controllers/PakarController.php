@@ -305,6 +305,23 @@ class PakarController extends Controller
             return redirect()->route('penyakitView')->with('success', 'Penyakit berhasil diupdate!');
         }
 
+        // Function delete penyakit
+        public function deletePenyakit($id){
+            $penyakit = Disease::find($id);
+            $listCase = $penyakit->GetListOfCase();
+
+            foreach($listCase as $case) {
+                $listSymptom = $case->getAllRelatedSymptom();
+                foreach($listSymptom as $symptom) {
+                    $symptom->delete();
+                }
+                $case->delete();
+            }
+
+            $penyakit->delete();
+
+            return redirect()->route('penyakitView')->with('success', 'Penyakit berhasil dihapus!');
+        }
     // Gejala
         // Tampilan list of gejala
         public function gejalaView() {
@@ -352,5 +369,23 @@ class PakarController extends Controller
             ]);
 
             return redirect()->route('gejalaView')->with('success', 'Gejala berhasil diupdate!');
+        }
+
+        // function delete gejala
+        public function deleteGejalaAction($id){
+            $gejala = Symptom::find($id);
+            $listCase = $gejala->GetListOfCase();
+
+            foreach($listCase as $case) {
+                $listSymptom = $case->getAllRelatedSymptom();
+                foreach($listSymptom as $symptom) {
+                    $symptom->delete();
+                }
+                $case->delete();
+            }
+
+            $gejala->delete();
+
+            return redirect()->route('gejalaView')->with('success', 'Gejala berhasil dihapus!');
         }
 }

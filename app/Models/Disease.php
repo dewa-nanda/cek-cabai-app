@@ -21,13 +21,21 @@ class Disease extends Model
         'cara_penanganan',
     ];
 
+    // mengambil list gejala pada kasus pertama yang terkait dengan penyakit
     public function GetListOfSymptoms()
     {
-        $getAllSymptoms = ChiCase::where('disease_id', $this->id)->first()->getAllRelatedSymptom();
+        // $getAllSymptoms = ChiCase::where('disease_id', $this->id)->first()->getAllRelatedSymptom();
+        $getAllSymptoms = ChiCase::where('disease_id', $this->id);
+        if($getAllSymptoms->first() != null){
+            $getAllSymptoms = ChiCase::where('disease_id', $this->id)->first()->getAllRelatedSymptom();
+        }else{
+            $getAllSymptoms = [];
+        }
 
         return $getAllSymptoms;
     }
 
+    // mengambil list kasus yang terkait dengan penyakit
     public function GetListOfCase()
     {
         $getAllCase = ChiCase::where('disease_id', $this->id)

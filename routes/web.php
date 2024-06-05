@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/editPenyakit/{id}', 'editPenyakitView')->name('editPenyakitView');
             Route::patch('/editPenyakit/{id}', 'editPenyakitAction')->name('editPenyakitAction');
             Route::post('/addPenyakit', 'addPenyakitAction')->name('addPenyakitAction');
+            Route::delete('/deletePenyakit/{id}', 'deletePenyakit')->name('deletePenyakitAction');
 
             // CRUD Gejala
             Route::get('/gejala', 'gejalaView')->name('gejalaView');
@@ -82,6 +83,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/editGejala/{id}', 'editGejalaView')->name('editGejalaView');
             Route::patch('/editGejala/{id}', 'editGejalaAction')->name('editGejalaAction');
             Route::post('/addGejala', 'addGejalaAction')->name('addGejalaAction');
+            Route::delete('/deleteGejala/{id}', 'deleteGejalaAction')->name('deleteGejalaAction');
 
             // RU Kasus
             Route::get('/kasus', 'kasusView')->name('kasusView');

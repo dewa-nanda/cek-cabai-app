@@ -124,7 +124,6 @@ class PakarController extends Controller
             
             $update_symptom = [];
 
-            
             foreach ($symptom as $value) {
                 if($value->bobot_kepercayaan == null){
                     $update_symptom[] = $value;
@@ -224,10 +223,24 @@ class PakarController extends Controller
         // Page Edit Kasus
         public function editKasusView($id) {
             $case = ChiCase::find($id);
+            $disease = disease::get();
+            $symptom = $case->getAllRelatedSymptom();
+            
+            $update_symptom = [];
+
+            foreach ($symptom as $value) {
+                if($value->bobot_kepercayaan == null){
+                    $update_symptom[] = $value;
+                }
+            }
 
             $data = [
-                'case' => $case
+                'case' => $case,
+                'symptom' => $symptom,
+                'disease' => $disease,
+                'updateSymptom' => $update_symptom,
             ];
+        
             return view('pages.pakar.kasus.editCase', $data);
         }
 

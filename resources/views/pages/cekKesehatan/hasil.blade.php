@@ -41,7 +41,9 @@
 
             <div class="flex flex-wrap gap-3 pb-4 mb-1 border-b-4">
                 @foreach ($gejala as $value => $item)
-                    <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-blue-900 dark:text-blue-300">{{$item->getSymptom()->name}}</span>
+                    <a href="{{route('detailGejalaTanamanCabaiView', $item->symptom_id)}}">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-blue-900 dark:text-blue-300">{{$item->getSymptom()->name}}</span>
+                    </a>
                 @endforeach
             </div>
 

@@ -80,9 +80,9 @@
                                 </th>
                                 
                                 <th class="px-6 py-4 text-left flex flex-wrap gap-2">
-                                    @if($item->GetListOfSymptoms() != null)
-                                        @foreach ($item->GetListOfSymptoms() as $gejala)
-                                            <a href="{{route('gejalaView')}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$gejala->getSymptom()->name}}</a>
+                                    @if($item->GetFirstValidSymptoms() != null)
+                                        @foreach ($item->GetFirstValidSymptoms() as $gejala)
+                                            <a href="{{route('detailGejalaTanamanCabaiView', $gejala->symptom_id)}}" class="bg-gray-200 dark:bg-gray-700 dark:text-gray-400 px-2 py-1 rounded-full text-xs">{{$gejala->getSymptom()->name}}</a>
                                         @endforeach
                                     @else
                                         <span class="text-gray-500 dark:text-gray-400">Perlu menambahkan knowladge base terlebih dahulu!</span>
@@ -115,6 +115,7 @@
                                                     <!-- Modal body -->
                                                     <div class="p-4 md:p-5 space-y-4">  
                                                         <div id="accordion-flush-{{$item->id}}" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                                            {{-- deskripsi --}}
                                                             <h2 id="accordion-flush-heading-desc-{{$item->id}}">
                                                               <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-desc-{{$item->id}}" aria-expanded="true" aria-controls="accordion-flush-body-desc-{{$item->id}}">
                                                                 <span>Deskripsi</span>
@@ -128,7 +129,7 @@
                                                                 <p class="mb-2 text-gray-500 dark:text-gray-400">{{$item->description}}</p>
                                                               </div>
                                                             </div>
-
+                                                            {{-- cara penanganan --}}
                                                             <h2 id="accordion-flush-heading-cp-{{$item->id}}">
                                                               <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-cp-{{$item->id}}" aria-expanded="true" aria-controls="accordion-flush-body-cp-{{$item->id}}">
                                                                 <span>Cara Penanganan</span>
@@ -142,7 +143,7 @@
                                                                 <p class="mb-2 text-gray-500 dark:text-gray-400">{{$item->cara_penanganan}}</p>
                                                               </div>
                                                             </div>
-
+                                                            {{-- list kasus --}}
                                                             <h2 id="accordion-flush-heading-kp-{{$item->id}}">
                                                               <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-kp-{{$item->id}}" aria-expanded="true" aria-controls="accordion-flush-body-kp-{{$item->id}}">
                                                                 <span>List kasus dari pakar</span>
@@ -167,6 +168,9 @@
                                                                                 <th scope="col" class="px-6 py-3">
                                                                                     Keterangan
                                                                                 </th>
+                                                                                <th scope="col" class="px-6 py-3">
+                                                                                    Action
+                                                                                </th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -188,6 +192,11 @@
                                                                                         @else
                                                                                             Support Knowledge
                                                                                         @endif
+                                                                                    </td>
+                                                                                    <td class="px-6 py-4">
+                                                                                        <a href="{{route('editKasusView', $case->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                                                                            edit <i class="fa-regular fa-pen-to-square"></i>
+                                                                                        </a>
                                                                                     </td>
                                                                                 </tr>
                                                                             @endforeach

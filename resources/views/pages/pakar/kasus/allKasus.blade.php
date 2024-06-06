@@ -63,7 +63,7 @@
                                 
                                 <td class="px-6 py-4 flex flex-wrap gap-2">
                                     @foreach($item->getAllRelatedSymptom() as $symptom)
-                                        <a href="#" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">{{$symptom->getSymptom()->name}}</a>
+                                        <a href="{{route('detailGejalaTanamanCabaiView', $symptom->symptom_id)}}" class="bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center">{{$symptom->getSymptom()->name}}</a>
                                     @endforeach
                                 </td>
                                 

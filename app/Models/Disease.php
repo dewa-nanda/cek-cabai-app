@@ -22,10 +22,11 @@ class Disease extends Model
     ];
 
     // mengambil list gejala pada kasus pertama yang terkait dengan penyakit
-    public function GetListOfSymptoms()
+    public function GetFirstValidSymptoms()
     {
         // $getAllSymptoms = ChiCase::where('disease_id', $this->id)->first()->getAllRelatedSymptom();
         $getAllSymptoms = ChiCase::where('disease_id', $this->id);
+        $getAllSymptoms = $getAllSymptoms->where('pakar', 1);
         if($getAllSymptoms->first() != null){
             $getAllSymptoms = ChiCase::where('disease_id', $this->id)->first()->getAllRelatedSymptom();
         }else{
@@ -39,6 +40,7 @@ class Disease extends Model
     public function GetListOfCase()
     {
         $getAllCase = ChiCase::where('disease_id', $this->id)
+                    ->where('valid', 'valid')
                     ->get();
 
         return $getAllCase;

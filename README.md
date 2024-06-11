@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a> -->
 </p>
 
-## Pendahuluan - ( Aplikasi masih dalam tahap pengembangan )
+## Pendahuluan
 
 Cek Cabai App, adalah aplikasi yang dirancang untuk mendukung petani dalam mendiagnosis penyakit tanaman cabai yang mereka hadapi. Aplikasi ini memungkinkan petani untuk mengidentifikasi penyakit tanaman cabai secara akurat berdasarkan gejala yang diamati pada tanaman mereka. Dengan informasi yang diberikan oleh aplikasi, petani dapat mengambil langkah-langkah yang tepat untuk mengelola dan mengendalikan penyakit, sehingga meningkatkan hasil panen dan meminimalkan kerugian.
 
